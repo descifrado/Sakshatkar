@@ -16,6 +16,7 @@ import javafx.stage.Stage;
 import mainApp.App;
 import request.LoginRequest;
 import request.Response;
+import tools.FileReciever;
 import tools.HashGenerator;
 
 import java.io.IOException;
@@ -70,6 +71,12 @@ public class Controller_Login {
                         response = (Response)App.oisTracker.readObject();
                         App.user = (User)response.getResponseObject();
                         if(response.getResponseCode().equals(ResponseCode.SUCCESS)){
+                            String cwd=System.getProperty("user.dir");
+                            String folder=cwd+"/profilephotos/";
+                            System.out.println("Recieving PP");
+                            FileReciever fileReciever=new FileReciever();
+                            fileReciever.readFile(fileReciever.createSocketChannel(App.getServerSocketChannel()), App.user.getUserUID(),folder);
+                            System.out.println("File Recieved");
                             Platform.runLater(new Runnable() {
                                 @Override
                                 public void run() {

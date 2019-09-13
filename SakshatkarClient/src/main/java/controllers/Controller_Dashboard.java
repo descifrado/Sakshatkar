@@ -3,16 +3,21 @@ package controllers;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextField;
 import javafx.application.Platform;
+import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 import mainApp.App;
 import tools.FileReciever;
 
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
+import java.io.File;
 import java.io.IOException;
 
 public class Controller_Dashboard {
@@ -22,7 +27,7 @@ public class Controller_Dashboard {
     public ImageView profilephoto;
     public JFXTextField firstname,lastname,email,phone,company;
     public JFXButton logout;
-    public void initialize() {
+    public void initialize() throws IOException {
         firstname.setText(App.user.getFirstName());
         lastname.setText(App.user.getLastName());
         email.setText(App.user.getEmail());
@@ -31,8 +36,14 @@ public class Controller_Dashboard {
         company.setText(App.user.getCompany());
         String cwd=System.getProperty("user.dir");
         String folder=cwd+"/profilephotos/";
-        FileReciever fileReciever=new FileReciever();
-        fileReciever.readFile(fileReciever.createSocketChannel(App.getServerSocketChannel()),folder, App.user.getUserUID());
+//        System.out.println("Recieving PP");
+//        FileReciever fileReciever=new FileReciever();
+//        fileReciever.readFile(fileReciever.createSocketChannel(App.getServerSocketChannel()), App.user.getUserUID(),folder);
+//        System.out.println("File Recieved");
+        BufferedImage bufferedImage;
+        bufferedImage = ImageIO.read(new File(folder+"/"+App.user.getUserUID()));
+        Image image = SwingFXUtils.toFXImage(bufferedImage, null);
+        this.profilephoto.setImage(image);
     }
     public void onlogoutclicked(ActionEvent actionEvent) {
         try{
