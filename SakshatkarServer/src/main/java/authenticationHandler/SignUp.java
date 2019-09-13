@@ -41,7 +41,7 @@ public class SignUp implements Serializable
             stmt.setString(4,this.email);
             stmt.setString(5,this.phone);
             stmt.setString(6,this.company);
-            stmt.setString(7,this.ppURL);
+            stmt.setString(7,"none");
             stmt.executeUpdate();
 
             stmt = Main.connection.prepareStatement(passwordQuery);
