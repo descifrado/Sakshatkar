@@ -75,5 +75,15 @@
             </font>
         </JFXTextField>
       <ImageView fx:id="profilephoto" fitHeight="150.0" fitWidth="200.0" layoutX="599.0" layoutY="309.0" pickOnBounds="true" preserveRatio="true" />
+      <Label fx:id="labelPath111" layoutX="26.0" layoutY="670.0" prefHeight="34.0" prefWidth="109.0" text="Company" textFill="#58ccd0">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Label>
+      <JFXTextField fx:id="company" alignment="CENTER" editable="false" focusColor="#6880b2" labelFloat="true" layoutX="219.0" layoutY="671.0" prefHeight="33.0" prefWidth="274.0" style="-fx-prompt-text-fill: WHITE; -fx-text-inner-color: WHITE;" unFocusColor="#5e788a">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </JFXTextField>
     </children>
 </AnchorPane>

@@ -39,7 +39,7 @@ public class Controller_SignUp {
     public JFXTextField email;
     public JFXButton login, browse;
     public JFXButton back;
-    public JFXTextField firstname;
+    public JFXTextField firstname, company;
     public JFXTextField lastname;
     public Label status;
     public JFXTextField contact;
@@ -54,6 +54,7 @@ public class Controller_SignUp {
         user.setPhone(contact.getText());
         user.setUserUID(UIDGenerator.generateuid());
         user.setPpURL(ppURL);
+        user.setCompany(company.getText());
         try{
             if(App.sockerTracker == null){
                 App.sockerTracker = new Socket(App.serverIP, App.portNo);
