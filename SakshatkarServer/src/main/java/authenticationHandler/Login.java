@@ -33,6 +33,8 @@ public class Login {
             user.setLastName(rs.getString(3));
             user.setEmail(rs.getString(4));
             user.setPhone(rs.getString(5));
+            user.setCompany(rs.getString(6));
+            user.setPpURL(rs.getString(7));
             return new Response((UIDGenerator.generateuid()),user, ResponseCode.SUCCESS);
 
         }catch (SQLException e){
