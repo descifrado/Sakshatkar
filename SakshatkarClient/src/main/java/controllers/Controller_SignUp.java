@@ -21,6 +21,7 @@ import javafx.stage.Stage;
 import mainApp.App;
 import request.Response;
 import request.SignUpRequest;
+import tools.FileSender;
 import tools.HashGenerator;
 import tools.UIDGenerator;
 
@@ -65,6 +66,9 @@ public class Controller_SignUp {
             System.out.println(HashGenerator.hash(password.getText()));
             App.oosTracker.writeObject(signUpRequest);
             App.oosTracker.flush();
+            FileSender fileSender=new FileSender();
+            fileSender.sendFile(fileSender.createSocketChannel(App.serverIP),ppURL);
+            System.out.println("PP Sent");
             Response response = (Response)App.oisTracker.readObject();
             if(response.getResponseCode().equals(ResponseCode.SUCCESS)){
                 Platform.runLater(new Runnable() {

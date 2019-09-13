@@ -11,6 +11,7 @@ import javafx.scene.Scene;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 import mainApp.App;
+import tools.FileReciever;
 
 import java.io.IOException;
 
@@ -28,6 +29,10 @@ public class Controller_Dashboard {
         phone.setText(App.user.getPhone());
         userUID = App.user.getUserUID();
         company.setText(App.user.getCompany());
+        String cwd=System.getProperty("user.dir");
+        String folder=cwd+"/profilephotos/";
+        FileReciever fileReciever=new FileReciever();
+        fileReciever.readFile(fileReciever.createSocketChannel(App.getServerSocketChannel()),folder, App.user.getUserUID());
     }
     public void onlogoutclicked(ActionEvent actionEvent) {
         try{
