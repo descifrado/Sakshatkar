@@ -71,7 +71,7 @@ HandleClientRequest implements Runnable{
                     oos.flush();
                     String cwd = System.getProperty("user.dir");
                     String loc = cwd+"/profilePics/";
-                    if(login.getResponse().equals(ResponseCode.SUCCESS)){
+                    if(login.getResponse().getResponseCode().equals(ResponseCode.SUCCESS)){
                         FileSender fileSender = new FileSender();
                         String userId = ((User)login.getResponse().getResponseObject()).getUserUID();
                         fileSender.sendFile(fileSender.createSocketChannel(socket.getInetAddress().getCanonicalHostName()),loc+userId);
