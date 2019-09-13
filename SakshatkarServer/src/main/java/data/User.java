@@ -4,7 +4,30 @@ import java.io.Serializable;
 
 public class User implements Serializable,Cloneable
 {
-    private String firstName, lastName, email, phone, userUID;
+    private String firstName;
+    private String lastName;
+    private String email;
+    private String phone;
+    private String userUID;
+    private String ppURL;
+
+    public String getPpURL() {
+        return ppURL;
+    }
+
+    public void setPpURL(String ppURL) {
+        this.ppURL = ppURL;
+    }
+
+    public String getCompany() {
+        return company;
+    }
+
+    public void setCompany(String company) {
+        this.company = company;
+    }
+
+    private String company;
 
     public String getFirstName() {
         return firstName;
