@@ -16,7 +16,7 @@
                 <Font size="40.0" />
             </font>
         </Label>
-        <Label layoutX="401.0" layoutY="1.0" prefHeight="91.0" prefWidth="502.0" text="Distribution" textAlignment="RIGHT" textFill="#da1313">
+        <Label layoutX="439.0" prefHeight="91.0" prefWidth="502.0" text="Sakshatkar" textAlignment="RIGHT" textFill="#da1313">
             <font>
                 <Font name="System Bold" size="70.0" />
             </font>

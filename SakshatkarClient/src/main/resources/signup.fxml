@@ -74,7 +74,7 @@
                 <Image url="@mainApp/download.png" />
             </image>
         </ImageView>
-        <Label layoutX="284.0" layoutY="28.0" prefHeight="128.0" prefWidth="482.0" text="Distribution" textAlignment="RIGHT" textFill="#da1313">
+        <Label layoutX="311.0" layoutY="14.0" prefHeight="128.0" prefWidth="482.0" text="Sakshatkar" textAlignment="RIGHT" textFill="#da1313">
             <font>
                 <Font name="System Bold" size="70.0" />
             </font>

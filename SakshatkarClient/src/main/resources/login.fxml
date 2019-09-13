@@ -40,7 +40,7 @@
                 <Bloom />
             </effect>
         </JFXButton>
-        <Label layoutX="302.0" layoutY="205.0" prefHeight="128.0" prefWidth="478.0" text="Distribution" textAlignment="RIGHT" textFill="#da1313">
+        <Label layoutX="302.0" layoutY="205.0" prefHeight="128.0" prefWidth="478.0" text="Sakshatkar" textAlignment="RIGHT" textFill="#da1313">
             <font>
                 <Font name="System Bold" size="70.0" />
             </font>
