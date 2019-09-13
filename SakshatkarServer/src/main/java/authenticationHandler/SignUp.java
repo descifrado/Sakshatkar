@@ -15,6 +15,7 @@ public class SignUp implements Serializable
     private String userUID, password;
     private String email, phone;
     private String fname, lname;
+    private String company,ppURL;
 
     public SignUp(SignUpRequest request) throws CloneNotSupportedException {
         this.fname=request.getUser().getFirstName();
@@ -23,11 +24,13 @@ public class SignUp implements Serializable
         this.email=request.getUser().getEmail();
         this.password=request.getPassword();
         this.userUID=request.getUser().getUserUID();
+        this.company = request.getUser().getCompany();
+        this.ppURL = request.getUser().getPpURL();
     }
 
     public Response insert()
     {
-        String q="INSERT INTO User VALUES (?,?,?,?,?);";
+        String q="INSERT INTO User VALUES (?,?,?,?,?,?,?);";
         String passwordQuery = "INSERT INTO Password VALUES (?,?)";
         try
         {
@@ -37,6 +40,8 @@ public class SignUp implements Serializable
             stmt.setString(3,this.lname);
             stmt.setString(4,this.email);
             stmt.setString(5,this.phone);
+            stmt.setString(6,this.company);
+            stmt.setString(7,this.ppURL);
             stmt.executeUpdate();
 
             stmt = Main.connection.prepareStatement(passwordQuery);
