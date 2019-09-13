@@ -34,7 +34,7 @@
             </effect>
         </JFXButton>
         <Label layoutX="14.0" layoutY="790.0" prefHeight="16.0" prefWidth="144.0" text="NobodyDoesItBetter" textFill="#58ccd0" />
-        <JFXPasswordField fx:id="password" focusColor="#6880b2" labelFloat="true" layoutX="398.0" layoutY="484.0" prefHeight="33.0" prefWidth="317.0" promptText="Password" style="-fx-prompt-text-fill: WHITE; -fx-text-inner-color: WHITE;" unFocusColor="#5e788a">
+        <JFXPasswordField fx:id="password" focusColor="#6880b2" labelFloat="true" layoutX="409.0" layoutY="560.0" prefHeight="33.0" prefWidth="317.0" promptText="Password" style="-fx-prompt-text-fill: WHITE; -fx-text-inner-color: WHITE;" unFocusColor="#5e788a">
             <font>
                 <Font size="18.0" />
             </font>
@@ -79,7 +79,7 @@
                 <Font name="System Bold" size="70.0" />
             </font>
         </Label>
-        <ImageView fitHeight="44.0" fitWidth="47.0" layoutX="339.0" layoutY="479.0">
+        <ImageView fitHeight="44.0" fitWidth="47.0" layoutX="339.0" layoutY="554.0">
             <image>
                 <Image url="@mainApp/images.jpeg" />
             </image>
@@ -98,5 +98,15 @@
             <Bloom />
          </effect>
       </JFXButton>
+      <ImageView fitHeight="44.0" fitWidth="47.0" layoutX="339.0" layoutY="479.0">
+         <image>
+            <Image url="@mainApp/download.png" />
+         </image>
+      </ImageView>
+      <JFXPasswordField fx:id="company" focusColor="#6880b2" labelFloat="true" layoutX="409.0" layoutY="485.0" prefHeight="33.0" prefWidth="317.0" promptText="Company" style="-fx-prompt-text-fill: WHITE; -fx-text-inner-color: WHITE;" unFocusColor="#5e788a">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </JFXPasswordField>
     </children>
 </AnchorPane>

@@ -1,7 +1,6 @@
 package controllers;
 
 import com.jfoenix.controls.JFXButton;
-import com.jfoenix.controls.JFXListView;
 import com.jfoenix.controls.JFXTextField;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
@@ -20,7 +19,7 @@ public class Controller_Dashboard {
     private String userUID;
     @FXML
     public ImageView profilephoto;
-    public JFXTextField firstname,lastname,email,phone;
+    public JFXTextField firstname,lastname,email,phone,company;
     public JFXButton logout;
     public void initialize() {
         firstname.setText(App.user.getFirstName());
@@ -28,7 +27,7 @@ public class Controller_Dashboard {
         email.setText(App.user.getEmail());
         phone.setText(App.user.getPhone());
         userUID = App.user.getUserUID();
-        
+        company.setText(App.user.getCompany());
     }
     public void onlogoutclicked(ActionEvent actionEvent) {
         try{
