@@ -66,7 +66,6 @@ public class Controller_Login {
                         App.oisTracker = new ObjectInputStream(App.sockerTracker.getInputStream());
                         App.oosTracker.writeObject(loginRequest);
                         App.oosTracker.flush();
-//                        System.out.println(App.sockerTracker.getInetAddress().getCanonicalHostName());
                         Response response;
                         response = (Response)App.oisTracker.readObject();
                         App.user = (User)response.getResponseObject();
