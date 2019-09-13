@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXPasswordField?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import java.net.URL?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.effect.Bloom?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane fx:id="pane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="826.0" prefWidth="1081.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.Controller_Login">
+    <children>
+        <JFXTextField fx:id="email" focusColor="#6880b2" labelFloat="true" layoutX="420.0" layoutY="400.0" prefHeight="33.0" prefWidth="317.0" promptText="Email-Id" style="-fx-prompt-text-fill: WHITE; -fx-text-inner-color: WHITE;" unFocusColor="#5e788a">
+            <font>
+                <Font size="18.0" />
+            </font>
+        </JFXTextField>
+        <Label layoutX="737.0" layoutY="41.0" prefHeight="26.0" prefWidth="160.0" text="Not A Member?" textFill="#33bfc6">
+            <font>
+                <Font name="System Bold" size="15.0" />
+            </font>
+        </Label>
+        <JFXButton fx:id="signup" layoutX="908.0" layoutY="41.0" onAction="#onsignupclicked" prefHeight="26.0" prefWidth="121.0" style="-fx-background-color: white;" text="Sign Up" textFill="#33bfc6">
+            <font>
+                <Font size="17.0" />
+            </font>
+            <effect>
+                <Bloom />
+            </effect>
+        </JFXButton>
+        <JFXButton layoutX="491.0" layoutY="599.0" prefHeight="33.0" prefWidth="106.0" text="Log In" />
+        <JFXButton fx:id="login" layoutX="484.0" layoutY="592.0" onAction="#onloginclicked" prefHeight="26.0" prefWidth="121.0" style="-fx-background-color: white;" text="Log In" textFill="#33bfc6">
+            <font>
+                <Font size="17.0" />
+            </font>
+            <effect>
+                <Bloom />
+            </effect>
+        </JFXButton>
+        <Label layoutX="302.0" layoutY="205.0" prefHeight="128.0" prefWidth="478.0" text="Distribution" textAlignment="RIGHT" textFill="#da1313">
+            <font>
+                <Font name="System Bold" size="70.0" />
+            </font>
+        </Label>
+        <Label layoutX="14.0" layoutY="790.0" prefHeight="16.0" prefWidth="144.0" text="NobodyDoesItBetter" textFill="#58ccd0" />
+        <JFXPasswordField fx:id="password" focusColor="#6880b2" labelFloat="true" layoutX="420.0" layoutY="477.0" prefHeight="33.0" prefWidth="317.0" promptText="Password" style="-fx-prompt-text-fill: WHITE; -fx-text-inner-color: WHITE;" unFocusColor="#5e788a">
+            <font>
+                <Font size="18.0" />
+            </font>
+        </JFXPasswordField>
+        <Label fx:id="status" alignment="CENTER" layoutX="437.0" layoutY="540.0" prefHeight="26.0" prefWidth="208.0" textFill="#c61111">
+            <font>
+                <Font size="15.0" />
+            </font>
+        </Label>
+        <ImageView fitHeight="44.0" fitWidth="47.0" layoutX="348.0" layoutY="400.0">
+            <image>
+                <Image url="@mainApp/download.png" />
+            </image>
+        </ImageView>
+        <ImageView fitHeight="44.0" fitWidth="47.0" layoutX="348.0" layoutY="469.0">
+            <image>
+                <Image url="@mainApp/images.jpeg" />
+            </image>
+        </ImageView>
+        <JFXButton fx:id="login1" layoutX="484.0" layoutY="674.0" onAction="#onexitclicked" prefHeight="26.0" prefWidth="121.0" style="-fx-background-color: white;" text="Exit" textFill="#33bfc6">
+            <font>
+                <Font size="17.0" />
+            </font>
+            <effect>
+                <Bloom />
+            </effect>
+        </JFXButton>
+    </children>
+    <stylesheets>
+        <URL value="@mainApp/backgroundsmall.css" />
+        <URL value="@mainApp/backgroundsmall.css" />
+    </stylesheets>
+</AnchorPane>
