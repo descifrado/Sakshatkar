@@ -7,11 +7,15 @@ import com.jfoenix.controls.JFXTextField;
 import constants.ResponseCode;
 import data.User;
 import javafx.application.Platform;
+import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import mainApp.App;
@@ -20,6 +24,8 @@ import request.SignUpRequest;
 import tools.HashGenerator;
 import tools.UIDGenerator;
 
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -28,6 +34,8 @@ import java.net.Socket;
 
 public class Controller_SignUp {
 
+    @FXML
+    public ImageView profilephoto;
     public JFXTextField email;
     public JFXButton login, browse;
     public JFXButton back;
@@ -96,7 +104,7 @@ public class Controller_SignUp {
         });
     }
 
-    public void onbrowseclicked(ActionEvent actionEvent) {
+    public void onbrowseclicked(ActionEvent actionEvent) throws IOException {
         Stage stage = (Stage) browse.getScene().getWindow();
         FileChooser fileChooser=new FileChooser();
         File file=fileChooser.showOpenDialog(stage);
@@ -104,5 +112,9 @@ public class Controller_SignUp {
         {
             ppURL=file.getAbsolutePath();
         }
+        BufferedImage bufferedImage;
+        bufferedImage = ImageIO.read(new File(this.ppURL));
+        Image image = SwingFXUtils.toFXImage(bufferedImage, null);
+        this.profilephoto.setImage(image);
     }
 }
