@@ -19,7 +19,7 @@ public class Login {
     public Response getResponse() {
         User user ;
 
-        String query = "SELECT * FROM User INNER JOIN Password ON User.userUID = Password.userUID WHERE User.emailID=\"" +
+        String query = "SELECT * FROM User INNER JOIN Password ON User.userUID = Password.userUID WHERE User.email=\"" +
                 loginRequest.getEmailId() + "\" AND Password.password = \"" + loginRequest.getPassword()+"\"";
         try {
             PreparedStatement preparedStatement = Main.connection.prepareStatement(query);
