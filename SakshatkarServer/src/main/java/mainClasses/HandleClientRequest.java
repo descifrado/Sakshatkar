@@ -128,7 +128,7 @@ HandleClientRequest implements Runnable{
                     onlineUserHandler.makeUserOffline();
                 }
 
-                )
+
             }catch (Exception e){
                 e.printStackTrace();
             }

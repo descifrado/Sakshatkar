@@ -19,7 +19,8 @@ public class FriendListHandler {
     }
     public Response getResponse(){
         String query = "SELECT Friend.friendUID , User.firstName,User.lastName,User.email,User.phone,User.Company," +
-                " User.profilePicture FROM Friend INNER JOIN User ON Friend.friendUID = User.UserUID";
+                " User.profilePicture FROM Friend INNER JOIN User ON Friend.friendUID = User.UserUID WHERE Friend.userUID = \"" +
+                friendListRequest.getUserUID() + "\"";
         System.out.println(query);
         try {
             PreparedStatement preparedStatement = Main.connection.prepareStatement(query);
