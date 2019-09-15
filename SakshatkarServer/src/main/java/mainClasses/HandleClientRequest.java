@@ -13,6 +13,7 @@ import request.*;
 import searchHandler.SearchHandler;
 import statusHandler.OnlineStatusHandler;
 import statusHandler.OnlineUserHandler;
+import tools.UIDGenerator;
 
 import java.io.EOFException;
 import java.io.IOException;
@@ -101,6 +102,16 @@ HandleClientRequest implements Runnable{
                     OnlineUserListHandler onlineUserListHandler = new OnlineUserListHandler((OnlineUserRequest)request);
                     oos.writeObject(onlineUserListHandler.getResponse());
                     oos.flush();
+                }else if(request.getRequestCode().equals(RequestCode.PROFILEPHOTO_REQUEST)){
+                    ProfilePhotoRequest pp = (ProfilePhotoRequest)request;
+                    oos.writeObject(new Response(UIDGenerator.generateuid(),null,ResponseCode.SUCCESS));
+                    String userId = pp.getUserUID();
+                    String cwd = System.getProperty("user.dir");
+                    String loc = cwd+"/profilePics/";
+                    FileSender fileSender = new FileSender();
+                    fileSender.sendFile(fileSender.createSocketChannel(socket.getInetAddress().getCanonicalHostName()),loc+userId);
+                    System.out.println("Sending Profile Pic..!!");
+
                 }
             }catch (Exception e){
                 e.printStackTrace();
