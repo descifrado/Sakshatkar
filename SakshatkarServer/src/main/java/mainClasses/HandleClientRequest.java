@@ -9,6 +9,7 @@ import data.User;
 import filehandler.FileReciever;
 import filehandler.FileSender;
 import request.*;
+import searchHandler.SearchHandler;
 import statusHandler.OnlineStatusHandler;
 import statusHandler.OnlineUserHandler;
 
@@ -89,6 +90,11 @@ HandleClientRequest implements Runnable{
                     StatusChangeRequest statusChangeRequest= (StatusChangeRequest) request;
                     OnlineStatusHandler onlineStatusHandler=new OnlineStatusHandler(statusChangeRequest.getUserUID());
                     oos.writeObject(onlineStatusHandler.changeOnlineStatus(statusChangeRequest.getStatus()));
+                    oos.flush();
+                }else if(request.getRequestCode().equals(RequestCode.USERSEARCH_REQUEST)){
+                    SearchHandler searchHandler = new SearchHandler((UserSearchRequest)request);
+                    Response response = searchHandler.getResponse();
+                    oos.writeObject(response);
                     oos.flush();
                 }
             }catch (Exception e){
