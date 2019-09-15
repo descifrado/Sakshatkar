@@ -42,6 +42,7 @@ public class Controller_Profile {
         phone.setText(user.getPhone());
         company.setText(user.getCompany());
         ProfilePhotoRequest profilePhotoRequest=new ProfilePhotoRequest(user.getUserUID());
+        System.out.println(user.getUserUID());
         try{
             App.sockerTracker = new Socket(App.serverIP,App.portNo);
             App.oosTracker = new ObjectOutputStream(App.sockerTracker.getOutputStream());
@@ -58,7 +59,7 @@ public class Controller_Profile {
                 fileReciever.readFile(fileReciever.createSocketChannel(App.getServerSocketChannel()), user.getUserUID(),folder);
                 System.out.println("File Recieved");
                 BufferedImage bufferedImage;
-                bufferedImage = ImageIO.read(new File(folder+"/"+App.user.getUserUID()));
+                bufferedImage = ImageIO.read(new File(folder+"/"+ user.getUserUID()));
                 Image image = SwingFXUtils.toFXImage(bufferedImage, null);
                 profilephoto.setImage(image);
             }
