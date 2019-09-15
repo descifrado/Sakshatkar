@@ -71,7 +71,7 @@ public class Controller_Dashboard {
             response = (Response)App.oisTracker.readObject();
             if(response.getResponseCode().equals(ResponseCode.SUCCESS)){
                 Alert alert = new Alert(Alert.AlertType.INFORMATION, "Log Out Successfully");
-                alert.showAndWait()
+                alert.showAndWait();
             }
             else
             {
