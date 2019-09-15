@@ -85,6 +85,11 @@ HandleClientRequest implements Runnable{
                         fileSender.sendFile(fileSender.createSocketChannel(socket.getInetAddress().getCanonicalHostName()),loc+userId);
                         System.out.println("Sending Profile Pic..!!");
                     }
+                }else if(request.getRequestCode().equals(RequestCode.STATUS_CHANGE_REQUEST)){
+                    StatusChangeRequest statusChangeRequest= (StatusChangeRequest) request;
+                    OnlineStatusHandler onlineStatusHandler=new OnlineStatusHandler(statusChangeRequest.getUserUID());
+                    oos.writeObject(onlineStatusHandler.changeOnlineStatus(statusChangeRequest.getStatus()));
+                    oos.flush();
                 }
             }catch (Exception e){
                 e.printStackTrace();

@@ -6,8 +6,9 @@ public enum RequestCode {
     SIGNUP_REQUEST,
     USERSEARCH_REQUEST,
     ONLINEUSER_REQUEST,
-    FILEDOWNLOADCOMPLETE_REQUEST;
-
+    FILEDOWNLOADCOMPLETE_REQUEST,
+    STATUS_CHANGE_REQUEST,
+    ;
     RequestCode(){
         this.toString();
     }
