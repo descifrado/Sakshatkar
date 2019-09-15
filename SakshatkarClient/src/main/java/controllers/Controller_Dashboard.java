@@ -12,15 +12,13 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import mainApp.App;
-import request.FriendListRequest;
-import request.OnlineUserRequest;
-import request.Response;
-import request.UserSearchRequest;
+import request.*;
 import tools.FileReciever;
 
 import javax.imageio.ImageIO;
@@ -62,6 +60,29 @@ public class Controller_Dashboard {
         this.profilephoto.setImage(image);
     }
     public void onlogoutclicked(ActionEvent actionEvent) {
+        LogoutRequest logoutRequest=new LogoutRequest(App.user.getUserUID());
+        try{
+            App.sockerTracker = new Socket(App.serverIP,App.portNo);
+            App.oosTracker = new ObjectOutputStream(App.sockerTracker.getOutputStream());
+            App.oisTracker = new ObjectInputStream(App.sockerTracker.getInputStream());
+            App.oosTracker.writeObject(logoutRequest);
+            App.oosTracker.flush();
+            Response response;
+            response = (Response)App.oisTracker.readObject();
+            if(response.getResponseCode().equals(ResponseCode.SUCCESS)){
+                Alert alert = new Alert(Alert.AlertType.INFORMATION, "Log Out Successfully");
+                alert.showAndWait()
+            }
+            else
+            {
+                System.out.println("Error");
+            }
+
+        }
+        catch (IOException | ClassNotFoundException e){
+            e.printStackTrace();
+            System.out.println(e.getMessage());
+        }
         try{
             App.sockerTracker.close();
         }catch (IOException e){
