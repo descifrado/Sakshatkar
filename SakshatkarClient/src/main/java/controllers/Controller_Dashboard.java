@@ -86,7 +86,7 @@ public class Controller_Dashboard {
     }
 
     public void onsearchclicked(ActionEvent actionEvent) {
-        onlineuserslist.getItems().removeAll();
+        onlineuserslist.getItems().clear();
         UserSearchRequest userSearchRequest=new UserSearchRequest(namesearch.getText());
         try{
             App.sockerTracker = new Socket(App.serverIP,App.portNo);
@@ -123,7 +123,7 @@ public class Controller_Dashboard {
     }
 
     public void ononlineclicked(ActionEvent actionEvent) {
-        onlineuserslist.getItems().removeAll();
+        onlineuserslist.getItems().clear();
         OnlineUserRequest onlineUserRequest=new OnlineUserRequest();
         try{
             App.sockerTracker = new Socket(App.serverIP,App.portNo);

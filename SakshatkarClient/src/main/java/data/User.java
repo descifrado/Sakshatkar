@@ -75,8 +75,8 @@ public class User implements Serializable,Cloneable
 
     @Override
     public boolean equals(Object obj) {
-        obj=(User)obj;
-        return this.getUserUID().equals(((User) obj).getUserUID());
+        User user=(User)obj;
+        return this.getUserUID().equals(user.getUserUID());
     }
 
     @Override
