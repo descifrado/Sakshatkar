@@ -12,8 +12,12 @@ public class ProfilePhotoRequest extends Request implements Serializable
     {
         this.userUID=userUID;
     }
+    public String getUserUID()
+    {
+        return userUID;
+    }
     @Override
     public RequestCode getRequestCode() {
-        return null;
+        return RequestCode.PROFILEPHOTO_REQUEST;
     }
 }
