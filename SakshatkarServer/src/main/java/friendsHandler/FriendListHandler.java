@@ -1,4 +1,4 @@
-package searchHandler;
+package friendsHandler;
 
 import constants.ResponseCode;
 import data.User;

@@ -8,9 +8,10 @@ import constants.ResponseCode;
 import data.User;
 import filehandler.FileReciever;
 import filehandler.FileSender;
+import friendsHandler.FriendAddHandler;
 import onlineUserHandler.OnlineUserListHandler;
 import request.*;
-import searchHandler.FriendListHandler;
+import friendsHandler.FriendListHandler;
 import searchHandler.SearchHandler;
 import statusHandler.OnlineStatusHandler;
 import statusHandler.OnlineUserHandler;
@@ -117,7 +118,17 @@ HandleClientRequest implements Runnable{
                     FriendListHandler friendListHandler = new FriendListHandler((FriendListRequest)request);
                     oos.writeObject(friendListHandler.getResponse());
                     oos.flush();
+                }else if(request.getRequestCode().equals(RequestCode.ADDFRIEND_REQUEST)){
+                    FriendAddHandler friendAddHandler = new FriendAddHandler((AddFriendRequest)request);
+                    oos.writeObject(friendAddHandler.getResponse());
+                    oos.flush();
+                }else if(request.getRequestCode().equals(RequestCode.LOGOUT_REQUEST)){
+                    String userUID = ((LogoutRequest)request).getUserUID();
+                    onlineUserHandler = new OnlineUserHandler(userUID);
+                    onlineUserHandler.makeUserOffline();
                 }
+
+                )
             }catch (Exception e){
                 e.printStackTrace();
             }
