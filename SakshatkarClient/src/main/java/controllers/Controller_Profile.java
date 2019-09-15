@@ -3,11 +3,16 @@ package controllers;
 import com.jfoenix.controls.JFXTextField;
 import constants.ResponseCode;
 import data.User;
+import javafx.application.Platform;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.stage.Stage;
 import mainApp.App;
 import request.ProfilePhotoRequest;
 import request.Response;
@@ -85,5 +90,23 @@ public class Controller_Profile {
     }
 
     public void onaddfriendclicked(ActionEvent actionEvent) {
+    }
+
+    public void onbackclicked(ActionEvent actionEvent) {
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                Stage primaryStage = (Stage) firstname.getScene().getWindow();
+                Parent root = null;
+                try {
+
+                    root = FXMLLoader.load(getClass().getResource("/dashboard.fxml"));
+                }catch(IOException e){
+                    e.printStackTrace();
+                }
+                primaryStage.setScene(new Scene(root, 1303, 961));
+
+            }
+        });
     }
 }

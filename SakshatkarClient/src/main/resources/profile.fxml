@@ -109,5 +109,13 @@
             <Bloom />
          </effect>
       </JFXButton>
+      <JFXButton fx:id="back" layoutX="864.0" layoutY="746.0" onAction="#onbackclicked" prefHeight="33.0" prefWidth="155.0" style="-fx-background-color: white;" text="Back" textFill="#33bfc6">
+         <font>
+            <Font size="18.0" />
+         </font>
+         <effect>
+            <Bloom />
+         </effect>
+      </JFXButton>
     </children>
 </AnchorPane>

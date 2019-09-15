@@ -179,4 +179,8 @@ public class Controller_Dashboard {
             userprofile=(User)users.get(idx);
         }
     }
+
+    public void onfriendsclicked(ActionEvent actionEvent) {
+
+    }
 }
