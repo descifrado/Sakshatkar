@@ -21,7 +21,7 @@ public class SearchHandler {
             // set this.userName = userSearchRequest.getUserName();
     }
     public Response getResponse(){
-        String query = "SELECT * FROM User WHERE LOWER(name) LIKE \"" + userName.toLowerCase() +"\"";
+        String query = "SELECT * FROM User WHERE LOWER(firstName) LIKE \"" + userName.toLowerCase() +"\"";
         System.out.println(query);
         ArrayList<User> users = new ArrayList<User>();
         try {

@@ -54,11 +54,11 @@ HandleClientRequest implements Runnable{
                     request = (Request)object;
                 }catch (EOFException e){
                     System.out.println("Client Disconnected..!!");
-                    onlineUserHandler.makeUserOffline();
+//                    onlineUserHandler.makeUserOffline();
                     return;
                 }catch (SocketException e){
                     System.out.println("Client Disconnected..!!");
-                    onlineUserHandler.makeUserOffline();
+//                    onlineUserHandler.makeUserOffline();
                     return;
                 }
 

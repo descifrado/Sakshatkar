@@ -19,11 +19,12 @@ public class OnlineUserListHandler {
         this.onlineUserRequest = onlineUserRequest;
     }
     public Response getResponse(){
-        String query = "SELECT OnlineUser.userUID, User.userUID,User.firstName,User.lastName,User.email,User.phone,User.Company," +
+        String query = "SELECT OnlineUser.userUID , User.firstName,User.lastName,User.email,User.phone,User.Company," +
                 " User.profilePicture FROM OnlineUser INNER JOIN User ON OnlineUser.userUID = User.UserUID";
+        System.out.println(query);
         try {
             PreparedStatement preparedStatement = Main.connection.prepareStatement(query);
-            ResultSet resultSet = preparedStatement.getResultSet();
+            ResultSet resultSet = preparedStatement.executeQuery();
             ArrayList<User> users = new ArrayList<User>();
             while (resultSet.next()){
                 User user = new User();
