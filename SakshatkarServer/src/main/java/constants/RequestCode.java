@@ -7,7 +7,8 @@ public enum RequestCode {
     USERSEARCH_REQUEST,
     ONLINEUSER_REQUEST,
     STATUS_CHANGE_REQUEST,
-    PROFILEPHOTO_REQUEST;
+    PROFILEPHOTO_REQUEST,
+    FRIENDLIST_REQUEST;
 
     RequestCode(){
         this.toString();

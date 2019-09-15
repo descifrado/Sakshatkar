@@ -10,6 +10,7 @@ import filehandler.FileReciever;
 import filehandler.FileSender;
 import onlineUserHandler.OnlineUserListHandler;
 import request.*;
+import searchHandler.FriendListHandler;
 import searchHandler.SearchHandler;
 import statusHandler.OnlineStatusHandler;
 import statusHandler.OnlineUserHandler;
@@ -112,6 +113,10 @@ HandleClientRequest implements Runnable{
                     fileSender.sendFile(fileSender.createSocketChannel(socket.getInetAddress().getCanonicalHostName()),loc+userId);
                     System.out.println("Sending Profile Pic..!!");
 
+                }else if(request.getRequestCode().equals(RequestCode.FRIENDLIST_REQUEST)){
+                    FriendListHandler friendListHandler = new FriendListHandler((FriendListRequest)request);
+                    oos.writeObject(friendListHandler.getResponse());
+                    oos.flush();
                 }
             }catch (Exception e){
                 e.printStackTrace();
