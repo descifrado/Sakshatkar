@@ -16,6 +16,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 import mainApp.App;
+import request.OnlineUserRequest;
 import request.Response;
 import request.UserSearchRequest;
 import tools.FileReciever;
@@ -78,40 +79,63 @@ public class Controller_Dashboard {
     }
 
     public void onsearchclicked(ActionEvent actionEvent) {
+        onlineuserslist.getItems().removeAll();
         UserSearchRequest userSearchRequest=new UserSearchRequest(namesearch.getText());
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                try{
-                    App.sockerTracker = new Socket(App.serverIP,App.portNo);
-                    App.oosTracker = new ObjectOutputStream(App.sockerTracker.getOutputStream());
-                    App.oisTracker = new ObjectInputStream(App.sockerTracker.getInputStream());
-                    App.oosTracker.writeObject(userSearchRequest);
-                    App.oosTracker.flush();
-                    Response response;
-                    response = (Response)App.oisTracker.readObject();
-                    if(response.getResponseCode().equals(ResponseCode.SUCCESS)){
-                        ArrayList<User> users =(ArrayList<User>)response.getResponseObject();
-                        for(User user: users)
-                        {
-                            onlineuserslist.getItems().add(user.getFirstName()+" "+user.getLastName());
-                        }
-                    }
-                    else
-                    {
-
-                    }
-
-                }
-                catch (IOException | ClassNotFoundException e){
-                    e.printStackTrace();
-                    System.out.println(e.getMessage());
+        try{
+            App.sockerTracker = new Socket(App.serverIP,App.portNo);
+            App.oosTracker = new ObjectOutputStream(App.sockerTracker.getOutputStream());
+            App.oisTracker = new ObjectInputStream(App.sockerTracker.getInputStream());
+            App.oosTracker.writeObject(userSearchRequest);
+            App.oosTracker.flush();
+            Response response;
+            response = (Response)App.oisTracker.readObject();
+            if(response.getResponseCode().equals(ResponseCode.SUCCESS)){
+                ArrayList<User> users =(ArrayList<User>)response.getResponseObject();
+                for(User user: users)
+                {
+                    onlineuserslist.getItems().add(user.getFirstName()+" "+user.getLastName());
                 }
             }
-        }).start();
+            else
+            {
+                System.out.println("Error");
+            }
+
+        }
+        catch (IOException | ClassNotFoundException e){
+            e.printStackTrace();
+            System.out.println(e.getMessage());
+        }
+
     }
 
     public void ononlineclicked(ActionEvent actionEvent) {
-        
+        onlineuserslist.getItems().removeAll();
+        OnlineUserRequest onlineUserRequest=new OnlineUserRequest();
+        try{
+            App.sockerTracker = new Socket(App.serverIP,App.portNo);
+            App.oosTracker = new ObjectOutputStream(App.sockerTracker.getOutputStream());
+            App.oisTracker = new ObjectInputStream(App.sockerTracker.getInputStream());
+            App.oosTracker.writeObject(onlineUserRequest);
+            App.oosTracker.flush();
+            Response response;
+            response = (Response)App.oisTracker.readObject();
+            if(response.getResponseCode().equals(ResponseCode.SUCCESS)){
+                ArrayList<User> users =(ArrayList<User>)response.getResponseObject();
+                for(User user: users)
+                {
+                    onlineuserslist.getItems().add(user.getFirstName()+" "+user.getLastName());
+                }
+            }
+            else
+            {
+                System.out.println("Error");
+            }
+
+        }
+        catch (IOException | ClassNotFoundException e){
+            e.printStackTrace();
+            System.out.println(e.getMessage());
+        }
     }
 }

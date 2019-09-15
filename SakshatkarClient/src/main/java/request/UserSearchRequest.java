@@ -21,7 +21,8 @@ public class UserSearchRequest extends Request implements Serializable
         this.name=name;
     }
     @Override
-    public RequestCode getRequestCode() {
-        return null;
+    public RequestCode getRequestCode()
+    {
+        return RequestCode.USERSEARCH_REQUEST;
     }
 }
