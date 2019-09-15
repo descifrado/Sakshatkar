@@ -86,7 +86,7 @@
                 <Font size="18.0" />
             </font>
         </JFXTextField>
-        <JFXButton fx:id="searchuser" layoutX="967.0" layoutY="238.0" onAction="#onsearchclicked" prefHeight="33.0" prefWidth="155.0" style="-fx-background-color: white;" text="Search a User" textFill="#33bfc6">
+        <JFXButton fx:id="searchuser" layoutX="1106.0" layoutY="238.0" onAction="#onsearchclicked" prefHeight="33.0" prefWidth="155.0" style="-fx-background-color: white;" text="Search a User" textFill="#33bfc6">
             <font>
                 <Font size="18.0" />
             </font>
@@ -94,7 +94,7 @@
                 <Bloom />
             </effect>
         </JFXButton>
-        <JFXButton fx:id="onlineuser" layoutX="969.0" layoutY="874.0" onAction="#ononlineclicked" prefHeight="33.0" prefWidth="155.0" style="-fx-background-color: white;" text="Online Users" textFill="#33bfc6">
+        <JFXButton fx:id="onlineuser" layoutX="834.0" layoutY="238.0" onAction="#ononlineclicked" prefHeight="33.0" prefWidth="155.0" style="-fx-background-color: white;" text="Online Users" textFill="#33bfc6">
             <font>
                 <Font size="18.0" />
             </font>
@@ -107,6 +107,14 @@
                 <Font size="18.0" />
             </font>
         </JFXTextField>
-        <JFXListView fx:id="onlineuserslist" layoutX="911.0" layoutY="304.0" onMouseClicked="#onuserlistclicked" prefHeight="517.0" prefWidth="268.0" style="-fx-font-size: 20; -fx-font-color: #da1313; -fx-text-inner-color: #da1313; -fx-prompt-text-fill: #da1313;" />
+      <JFXButton layoutX="961.0" layoutY="890.0" onAction="#onviewprofileclicked" prefHeight="33.0" prefWidth="155.0" style="-fx-background-color: white;" text="View Profile" textFill="#33bfc6">
+         <font>
+            <Font size="18.0" />
+         </font>
+         <effect>
+            <Bloom />
+         </effect>
+      </JFXButton>
+      <JFXListView fx:id="onlineuserslist" editable="true" layoutX="905.0" layoutY="321.0" onMouseClicked="#onuserlistclivked" prefHeight="498.0" prefWidth="268.0" style="-fx-font-size: 20; -fx-font-weight: bold; -fx-font-color: #da1313; -fx-text-inner-color: #da1313; -fx-prompt-text-fill: #da1313;" />
     </children>
 </AnchorPane>

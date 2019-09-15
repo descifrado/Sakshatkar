@@ -5,6 +5,7 @@ import data.User;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.image.ImageView;
+import request.ProfilePhotoRequest;
 
 public class Controller_Profile {
 
@@ -19,7 +20,6 @@ public class Controller_Profile {
     @FXML
     public void initialize()
     {
-
         user=Controller_Dashboard.getUserprofile();
         firstname.setText(user.getFirstName());
         lastname.setText(user.getLastName());

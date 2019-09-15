@@ -39,7 +39,7 @@ public class Controller_Dashboard {
     public static User getUserprofile() {
         return userprofile;
     }
-
+    private ArrayList<User> users;
     private static User userprofile;
     @FXML
     public ImageView profilephoto;
@@ -97,16 +97,12 @@ public class Controller_Dashboard {
             Response response;
             response = (Response)App.oisTracker.readObject();
             if(response.getResponseCode().equals(ResponseCode.SUCCESS)){
-                ArrayList<User> users =(ArrayList<User>)response.getResponseObject();
+                users =(ArrayList<User>)response.getResponseObject();
                 if(!users.isEmpty()) {
                     for (User user : users) {
                         onlineuserslist.getItems().add(user);
                     }
                     onlineuserslist.getItems().remove(App.user);
-                }
-                else
-                {
-                    onlineuserslist.getItems().add("No such user");
                 }
             }
             else
@@ -134,7 +130,7 @@ public class Controller_Dashboard {
             Response response;
             response = (Response)App.oisTracker.readObject();
             if(response.getResponseCode().equals(ResponseCode.SUCCESS)){
-                ArrayList<User> users =(ArrayList<User>)response.getResponseObject();
+                users =(ArrayList<User>)response.getResponseObject();
                 if(!users.isEmpty())
                 {
                     for(User user: users)
@@ -142,9 +138,6 @@ public class Controller_Dashboard {
                         onlineuserslist.getItems().add(user);
                     }
                     onlineuserslist.getItems().remove(App.user);
-                }
-                else {
-                    onlineuserslist.getItems().add("No user online");
                 }
             }
             else
@@ -159,8 +152,9 @@ public class Controller_Dashboard {
         }
     }
 
-    public void onuserlistclicked(MouseEvent mouseEvent) {
-        userprofile=(User)onlineuserslist.getSelectionModel().getSelectedItem();
+
+    public void onviewprofileclicked(ActionEvent actionEvent) {
+        System.out.println(userprofile);
         Platform.runLater(new Runnable() {
             @Override
             public void run() {
@@ -176,5 +170,13 @@ public class Controller_Dashboard {
 
             }
         });
+    }
+
+    public void onuserlistclivked(MouseEvent mouseEvent) {
+        if(!onlineuserslist.getItems().isEmpty())
+        {
+            int idx=onlineuserslist.getSelectionModel().getSelectedIndex();
+            userprofile=(User)users.get(idx);
+        }
     }
 }
