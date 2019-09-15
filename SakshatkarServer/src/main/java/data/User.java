@@ -72,4 +72,15 @@ public class User implements Serializable,Cloneable
     public Object clone() throws CloneNotSupportedException {
         return super.clone();
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        obj=(User)obj;
+        return this.getUserUID().equals(((User) obj).getUserUID());
+    }
+
+    @Override
+    public String toString() {
+        return this.getFirstName()+" "+getLastName();
+    }
 }
