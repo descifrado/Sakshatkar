@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXButton?>
-<?import com.jfoenix.controls.JFXListView?>
 <?import com.jfoenix.controls.JFXTextField?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.effect.Bloom?>
@@ -9,10 +8,10 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="pane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="961.0" prefWidth="1303.0" stylesheets="@mainApp/backgroundbig.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.Controller_Dashboard">
+<AnchorPane fx:id="pane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="961.0" prefWidth="1303.0" stylesheets="@mainApp/backgroundbig.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.Controller_Profile">
     <children>
         <Label layoutX="1147.0" layoutY="931.0" prefHeight="16.0" prefWidth="142.0" text="NobodyDoesItBetter" textFill="#58ccd0" />
-        <Label alignment="CENTER" layoutX="463.0" layoutY="92.0" prefHeight="49.0" prefWidth="336.0" text="DashBoard" textFill="#bf2525">
+        <Label alignment="CENTER" layoutX="463.0" layoutY="92.0" prefHeight="49.0" prefWidth="336.0" text="User Profile" textFill="#bf2525">
             <font>
                 <Font size="40.0" />
             </font>
@@ -27,7 +26,7 @@
                 <Font size="18.0" />
             </font>
         </JFXTextField>
-        <JFXButton fx:id="logout" layoutX="251.0" layoutY="890.0" onAction="#onlogoutclicked" prefHeight="33.0" prefWidth="155.0" style="-fx-background-color: white;" text="Logout" textFill="#33bfc6">
+        <JFXButton fx:id="addfriend" layoutX="864.0" layoutY="297.0" onAction="#onaddfriendclicked" prefHeight="33.0" prefWidth="155.0" style="-fx-background-color: white;" text="Add Friend" textFill="#33bfc6">
             <font>
                 <Font size="18.0" />
             </font>
@@ -86,27 +85,29 @@
                 <Font size="18.0" />
             </font>
         </JFXTextField>
-        <JFXButton fx:id="searchuser" layoutX="967.0" layoutY="238.0" onAction="#onsearchclicked" prefHeight="33.0" prefWidth="155.0" style="-fx-background-color: white;" text="Search a User" textFill="#33bfc6">
-            <font>
-                <Font size="18.0" />
-            </font>
-            <effect>
-                <Bloom />
-            </effect>
-        </JFXButton>
-        <JFXButton fx:id="onlineuser" layoutX="969.0" layoutY="874.0" onAction="#ononlineclicked" prefHeight="33.0" prefWidth="155.0" style="-fx-background-color: white;" text="Online Users" textFill="#33bfc6">
-            <font>
-                <Font size="18.0" />
-            </font>
-            <effect>
-                <Bloom />
-            </effect>
-        </JFXButton>
-        <JFXTextField fx:id="namesearch" alignment="CENTER" focusColor="#6880b2" labelFloat="true" layoutX="909.0" layoutY="166.0" prefHeight="33.0" prefWidth="274.0" promptText="Enter User Name" style="-fx-prompt-text-fill: WHITE; -fx-text-inner-color: WHITE;" unFocusColor="#5e788a">
-            <font>
-                <Font size="18.0" />
-            </font>
-        </JFXTextField>
-        <JFXListView fx:id="onlineuserslist" layoutX="911.0" layoutY="304.0" onMouseClicked="#onuserlistclicked" prefHeight="517.0" prefWidth="268.0" style="-fx-font-size: 20; -fx-font-color: #da1313; -fx-text-inner-color: #da1313; -fx-prompt-text-fill: #da1313;" />
+      <JFXButton fx:id="videocall" layoutX="864.0" layoutY="409.0" onAction="#onvideocallclicked" prefHeight="33.0" prefWidth="155.0" style="-fx-background-color: white;" text="Video Call" textFill="#33bfc6">
+         <font>
+            <Font size="18.0" />
+         </font>
+         <effect>
+            <Bloom />
+         </effect>
+      </JFXButton>
+      <JFXButton fx:id="chat" layoutX="864.0" layoutY="519.0" onAction="#onchatclicked" prefHeight="33.0" prefWidth="155.0" style="-fx-background-color: white;" text="Chat" textFill="#33bfc6">
+         <font>
+            <Font size="18.0" />
+         </font>
+         <effect>
+            <Bloom />
+         </effect>
+      </JFXButton>
+      <JFXButton fx:id="sendfile" layoutX="864.0" layoutY="633.0" onAction="#onsendclicked" prefHeight="33.0" prefWidth="155.0" style="-fx-background-color: white;" text="Send File" textFill="#33bfc6">
+         <font>
+            <Font size="18.0" />
+         </font>
+         <effect>
+            <Bloom />
+         </effect>
+      </JFXButton>
     </children>
 </AnchorPane>

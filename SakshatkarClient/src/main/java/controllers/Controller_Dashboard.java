@@ -14,6 +14,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import mainApp.App;
 import request.OnlineUserRequest;
@@ -34,6 +35,12 @@ import java.util.ArrayList;
 public class Controller_Dashboard {
 
     private String userUID;
+
+    public static User getUserprofile() {
+        return userprofile;
+    }
+
+    private static User userprofile;
     @FXML
     public ImageView profilephoto;
     public JFXTextField firstname,lastname,email,phone,company,namesearch;
@@ -93,8 +100,9 @@ public class Controller_Dashboard {
                 ArrayList<User> users =(ArrayList<User>)response.getResponseObject();
                 for(User user: users)
                 {
-                    onlineuserslist.getItems().add(user.getFirstName()+" "+user.getLastName());
+                    onlineuserslist.getItems().add(user);
                 }
+                onlineuserslist.getItems().remove(App.user);
             }
             else
             {
@@ -124,8 +132,9 @@ public class Controller_Dashboard {
                 ArrayList<User> users =(ArrayList<User>)response.getResponseObject();
                 for(User user: users)
                 {
-                    onlineuserslist.getItems().add(user.getFirstName()+" "+user.getLastName());
+                    onlineuserslist.getItems().add(user);
                 }
+                onlineuserslist.getItems().remove(App.user);
             }
             else
             {
@@ -137,5 +146,24 @@ public class Controller_Dashboard {
             e.printStackTrace();
             System.out.println(e.getMessage());
         }
+    }
+
+    public void onuserlistclicked(MouseEvent mouseEvent) {
+        userprofile=(User)onlineuserslist.getSelectionModel().getSelectedItem();
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                Stage primaryStage = (Stage) onlineuserslist.getScene().getWindow();
+                Parent root = null;
+                try {
+
+                    root = FXMLLoader.load(getClass().getResource("/profile.fxml"));
+                }catch(IOException e){
+                    e.printStackTrace();
+                }
+                primaryStage.setScene(new Scene(root, 1303, 961));
+
+            }
+        });
     }
 }
