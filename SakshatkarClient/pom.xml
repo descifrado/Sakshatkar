@@ -41,12 +41,13 @@
             <artifactId>javafx-media</artifactId>
             <version>11-ea+25</version>
         </dependency>
-        <!-- https://mvnrepository.com/artifact/com.github.jjYBdx4IL.utils/swing-utils -->
+        <!-- https://mvnrepository.com/artifact/org.openjfx/javafx-swing -->
         <dependency>
-            <groupId>com.github.jjYBdx4IL.utils</groupId>
-            <artifactId>swing-utils</artifactId>
-            <version>1.0</version>
+            <groupId>org.openjfx</groupId>
+            <artifactId>javafx-swing</artifactId>
+            <version>11.0.2</version>
         </dependency>
+
 
     </dependencies>
 
