@@ -126,7 +126,8 @@ HandleClientRequest implements Runnable{
                     String userUID = ((LogoutRequest)request).getUserUID();
                     onlineUserHandler = new OnlineUserHandler(userUID);
                     onlineUserHandler.makeUserOffline();
-                    oos.writeObject(new Response(UIDGenerator.generateuid(),null,ResponseCode.SUCCESS));
+                    Response response = new Response(UIDGenerator.generateuid(),null,ResponseCode.SUCCESS);
+                    oos.writeObject(response);
                     oos.flush();
                 }
 
