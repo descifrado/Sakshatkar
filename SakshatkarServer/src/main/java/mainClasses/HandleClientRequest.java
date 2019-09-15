@@ -9,6 +9,8 @@ import data.User;
 import filehandler.FileReciever;
 import filehandler.FileSender;
 import request.*;
+import statusHandler.OnlineStatusHandler;
+import statusHandler.OnlineUserHandler;
 
 import java.io.EOFException;
 import java.io.IOException;
@@ -23,6 +25,7 @@ HandleClientRequest implements Runnable{
     ObjectOutputStream oos;
     ObjectInputStream ois ;
     String userIP;
+    OnlineUserHandler onlineUserHandler;
     public HandleClientRequest(Socket socket){
         this.socket=socket;
         System.out.println(socket.getInetAddress().getCanonicalHostName());
@@ -49,9 +52,11 @@ HandleClientRequest implements Runnable{
                     request = (Request)object;
                 }catch (EOFException e){
                     System.out.println("Client Disconnected..!!");
+                    onlineUserHandler.makeUserOffline();
                     return;
                 }catch (SocketException e){
                     System.out.println("Client Disconnected..!!");
+                    onlineUserHandler.makeUserOffline();
                     return;
                 }
 
@@ -67,7 +72,10 @@ HandleClientRequest implements Runnable{
                     oos.flush();
                 }else if(request.getRequestCode().equals(RequestCode.LOGIN_REQUEST)){
                     Login login = new Login((LoginRequest)request);
-                    oos.writeObject(login.getResponse());
+                    Response response=login.getResponse();
+                    onlineUserHandler=new OnlineUserHandler(((User)response.getResponseObject()).getUserUID());
+                    onlineUserHandler.makeUserOnline();
+                    oos.writeObject(response);
                     oos.flush();
                     String cwd = System.getProperty("user.dir");
                     String loc = cwd+"/profilePics/";
