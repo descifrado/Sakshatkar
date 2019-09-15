@@ -98,11 +98,16 @@ public class Controller_Dashboard {
             response = (Response)App.oisTracker.readObject();
             if(response.getResponseCode().equals(ResponseCode.SUCCESS)){
                 ArrayList<User> users =(ArrayList<User>)response.getResponseObject();
-                for(User user: users)
-                {
-                    onlineuserslist.getItems().add(user);
+                if(!users.isEmpty()) {
+                    for (User user : users) {
+                        onlineuserslist.getItems().add(user);
+                    }
+                    onlineuserslist.getItems().remove(App.user);
                 }
-                onlineuserslist.getItems().remove(App.user);
+                else
+                {
+                    onlineuserslist.getItems().add("No such user");
+                }
             }
             else
             {
@@ -130,11 +135,17 @@ public class Controller_Dashboard {
             response = (Response)App.oisTracker.readObject();
             if(response.getResponseCode().equals(ResponseCode.SUCCESS)){
                 ArrayList<User> users =(ArrayList<User>)response.getResponseObject();
-                for(User user: users)
+                if(!users.isEmpty())
                 {
-                    onlineuserslist.getItems().add(user);
+                    for(User user: users)
+                    {
+                        onlineuserslist.getItems().add(user);
+                    }
+                    onlineuserslist.getItems().remove(App.user);
                 }
-                onlineuserslist.getItems().remove(App.user);
+                else {
+                    onlineuserslist.getItems().add("No user online");
+                }
             }
             else
             {
