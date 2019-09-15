@@ -10,10 +10,12 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 import mainApp.App;
+import request.AddFriendRequest;
 import request.ProfilePhotoRequest;
 import request.Response;
 import tools.FileReciever;
@@ -90,6 +92,29 @@ public class Controller_Profile {
     }
 
     public void onaddfriendclicked(ActionEvent actionEvent) {
+        AddFriendRequest addFriendRequest=new AddFriendRequest(App.user.getUserUID(), user.getUserUID());
+        try{
+            App.sockerTracker = new Socket(App.serverIP,App.portNo);
+            App.oosTracker = new ObjectOutputStream(App.sockerTracker.getOutputStream());
+            App.oisTracker = new ObjectInputStream(App.sockerTracker.getInputStream());
+            App.oosTracker.writeObject(addFriendRequest);
+            App.oosTracker.flush();
+            Response response;
+            response = (Response)App.oisTracker.readObject();
+            if(response.getResponseCode().equals(ResponseCode.SUCCESS)){
+                Alert alert = new Alert(Alert.AlertType.INFORMATION, "Friend Added Successfully");
+                alert.showAndWait();
+            }
+            else
+            {
+                System.out.println("Error");
+            }
+
+        }
+        catch (IOException | ClassNotFoundException e){
+            e.printStackTrace();
+            System.out.println(e.getMessage());
+        }
     }
 
     public void onbackclicked(ActionEvent actionEvent) {
