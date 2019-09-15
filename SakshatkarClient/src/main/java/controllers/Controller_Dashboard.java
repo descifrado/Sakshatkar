@@ -62,14 +62,14 @@ public class Controller_Dashboard {
     public void onlogoutclicked(ActionEvent actionEvent) {
         LogoutRequest logoutRequest=new LogoutRequest(App.user.getUserUID());
         try{
-            App.sockerTracker = new Socket(App.serverIP,App.portNo);
-            App.oosTracker = new ObjectOutputStream(App.sockerTracker.getOutputStream());
-            App.oisTracker = new ObjectInputStream(App.sockerTracker.getInputStream());
             App.oosTracker.writeObject(logoutRequest);
             App.oosTracker.flush();
             Response response;
+            System.out.println("Reading Object");
             response = (Response)App.oisTracker.readObject();
+            System.out.println(response.getResponseCode().toString());
             if(response.getResponseCode().equals(ResponseCode.SUCCESS)){
+                System.out.println("Success to hua h");
                 Alert alert = new Alert(Alert.AlertType.INFORMATION, "Log Out Successfully");
                 alert.showAndWait();
             }
@@ -111,9 +111,6 @@ public class Controller_Dashboard {
         onlineuserslist.getItems().clear();
         UserSearchRequest userSearchRequest=new UserSearchRequest(namesearch.getText());
         try{
-            App.sockerTracker = new Socket(App.serverIP,App.portNo);
-            App.oosTracker = new ObjectOutputStream(App.sockerTracker.getOutputStream());
-            App.oisTracker = new ObjectInputStream(App.sockerTracker.getInputStream());
             App.oosTracker.writeObject(userSearchRequest);
             App.oosTracker.flush();
             Response response;
@@ -144,9 +141,6 @@ public class Controller_Dashboard {
         onlineuserslist.getItems().clear();
         OnlineUserRequest onlineUserRequest=new OnlineUserRequest();
         try{
-            App.sockerTracker = new Socket(App.serverIP,App.portNo);
-            App.oosTracker = new ObjectOutputStream(App.sockerTracker.getOutputStream());
-            App.oisTracker = new ObjectInputStream(App.sockerTracker.getInputStream());
             App.oosTracker.writeObject(onlineUserRequest);
             App.oosTracker.flush();
             Response response;
@@ -206,9 +200,6 @@ public class Controller_Dashboard {
         onlineuserslist.getItems().clear();
         FriendListRequest friendListRequest=new FriendListRequest(App.user.getUserUID());
         try{
-            App.sockerTracker = new Socket(App.serverIP,App.portNo);
-            App.oosTracker = new ObjectOutputStream(App.sockerTracker.getOutputStream());
-            App.oisTracker = new ObjectInputStream(App.sockerTracker.getInputStream());
             App.oosTracker.writeObject(friendListRequest);
             App.oosTracker.flush();
             Response response;

@@ -51,9 +51,6 @@ public class Controller_Profile {
         ProfilePhotoRequest profilePhotoRequest=new ProfilePhotoRequest(user.getUserUID());
         System.out.println(user.getUserUID());
         try{
-            App.sockerTracker = new Socket(App.serverIP,App.portNo);
-            App.oosTracker = new ObjectOutputStream(App.sockerTracker.getOutputStream());
-            App.oisTracker = new ObjectInputStream(App.sockerTracker.getInputStream());
             App.oosTracker.writeObject(profilePhotoRequest);
             App.oosTracker.flush();
             Response response;
@@ -94,9 +91,6 @@ public class Controller_Profile {
     public void onaddfriendclicked(ActionEvent actionEvent) {
         AddFriendRequest addFriendRequest=new AddFriendRequest(App.user.getUserUID(), user.getUserUID());
         try{
-            App.sockerTracker = new Socket(App.serverIP,App.portNo);
-            App.oosTracker = new ObjectOutputStream(App.sockerTracker.getOutputStream());
-            App.oisTracker = new ObjectInputStream(App.sockerTracker.getInputStream());
             App.oosTracker.writeObject(addFriendRequest);
             App.oosTracker.flush();
             Response response;
