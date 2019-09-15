@@ -17,6 +17,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import mainApp.App;
+import request.FriendListRequest;
 import request.OnlineUserRequest;
 import request.Response;
 import request.UserSearchRequest;
@@ -181,6 +182,34 @@ public class Controller_Dashboard {
     }
 
     public void onfriendsclicked(ActionEvent actionEvent) {
+        onlineuserslist.getItems().clear();
+        FriendListRequest friendListRequest=new FriendListRequest(App.user.getUserUID());
+        try{
+            App.sockerTracker = new Socket(App.serverIP,App.portNo);
+            App.oosTracker = new ObjectOutputStream(App.sockerTracker.getOutputStream());
+            App.oisTracker = new ObjectInputStream(App.sockerTracker.getInputStream());
+            App.oosTracker.writeObject(friendListRequest);
+            App.oosTracker.flush();
+            Response response;
+            response = (Response)App.oisTracker.readObject();
+            if(response.getResponseCode().equals(ResponseCode.SUCCESS)){
+                users =(ArrayList<User>)response.getResponseObject();
+                if(!users.isEmpty())
+                {
+                    for(User user: users) {
+                        onlineuserslist.getItems().add(user);
+                    }
+                }
+            }
+            else
+            {
+                System.out.println("Error");
+            }
 
+        }
+        catch (IOException | ClassNotFoundException e){
+            e.printStackTrace();
+            System.out.println(e.getMessage());
+        }
     }
 }
