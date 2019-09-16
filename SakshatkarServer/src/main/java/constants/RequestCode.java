@@ -12,7 +12,8 @@ public enum RequestCode {
     LOGOUT_REQUEST,
     ADDFRIEND_REQUEST,
     USERIP_REQUEST,
-    FRIENDSUGGESTION_REQUEST;
+    FRIENDSUGGESTION_REQUEST,
+    FEEDBACK_REQUEST;
 
     RequestCode(){
         this.toString();

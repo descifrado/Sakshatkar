@@ -6,6 +6,7 @@ import constants.RequestCode;
 
 import constants.ResponseCode;
 import data.User;
+import feedbackHandler.FeedBackHandler;
 import filehandler.FileReciever;
 import filehandler.FileSender;
 import friendsHandler.FriendAddHandler;
@@ -137,7 +138,11 @@ HandleClientRequest implements Runnable{
                     oos.flush();
                 }else if(request.getRequestCode().equals(RequestCode.FRIENDSUGGESTION_REQUEST)){
                     FriendSuggestionHandler friendSuggestionHandler = new FriendSuggestionHandler((FriendSuggestionRequest)request);
-                    oos.writeObject(friendSuggestionHandler);
+                    oos.writeObject(friendSuggestionHandler.getResponse());
+                    oos.flush();
+                }else if(request.getRequestCode().equals(RequestCode.FEEDBACK_REQUEST)){
+                    FeedBackHandler feedBackHandler = new FeedBackHandler((FeedbackRequest)request);
+                    oos.writeObject(feedBackHandler.getResponse());
                     oos.flush();
                 }
 
