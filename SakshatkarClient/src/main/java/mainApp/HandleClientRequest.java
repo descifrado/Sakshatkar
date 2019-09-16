@@ -87,7 +87,7 @@ public class HandleClientRequest implements Runnable {
                         oos.writeObject(new Response(UIDGenerator.generateuid(),null, ResponseCode.SUCCESS));
                         oos.flush();
                         System.out.println(alert.getResult());
-                        userSocket=new Socket(socket.getInetAddress().getCanonicalHostName(),7000);
+                        userSocket=socket;
                         Platform.runLater(new Runnable() {
                             @Override
                             public void run() {

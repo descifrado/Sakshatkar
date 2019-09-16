@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXComboBox?>
 <?import com.jfoenix.controls.JFXListView?>
 <?import com.jfoenix.controls.JFXTextField?>
+<?import java.lang.String?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.effect.Bloom?>
 <?import javafx.scene.image.ImageView?>
@@ -22,12 +24,12 @@
                 <Font name="System Bold" size="70.0" />
             </font>
         </Label>
-        <JFXTextField fx:id="lastname" alignment="CENTER" editable="false" focusColor="#6880b2" labelFloat="true" layoutX="351.0" layoutY="519.0" prefHeight="33.0" prefWidth="274.0" style="-fx-prompt-text-fill: WHITE; -fx-text-inner-color: WHITE;" unFocusColor="#5e788a">
+        <JFXTextField fx:id="lastname" alignment="CENTER" editable="false" focusColor="#6880b2" labelFloat="true" layoutX="343.0" layoutY="515.0" prefHeight="33.0" prefWidth="274.0" style="-fx-prompt-text-fill: WHITE; -fx-text-inner-color: WHITE;" unFocusColor="#5e788a">
             <font>
                 <Font size="18.0" />
             </font>
         </JFXTextField>
-        <JFXButton fx:id="logout" layoutX="251.0" layoutY="890.0" onAction="#onlogoutclicked" prefHeight="33.0" prefWidth="155.0" style="-fx-background-color: white;" text="Logout" textFill="#33bfc6">
+        <JFXButton fx:id="logout" layoutX="245.0" layoutY="882.0" onAction="#onlogoutclicked" prefHeight="33.0" prefWidth="155.0" style="-fx-background-color: white;" text="Logout" textFill="#33bfc6">
             <font>
                 <Font size="18.0" />
             </font>
@@ -40,48 +42,48 @@
                 <Font size="29.0" />
             </font>
         </Label>
-        <Label fx:id="labelPath" layoutX="26.0" layoutY="441.0" prefHeight="34.0" prefWidth="109.0" text="First Name" textFill="#58ccd0">
+        <Label fx:id="labelPath" layoutX="26.0" layoutY="425.0" prefHeight="34.0" prefWidth="109.0" text="First Name" textFill="#58ccd0">
             <font>
                 <Font size="20.0" />
             </font>
         </Label>
-        <Label fx:id="labelPath1" layoutX="26.0" layoutY="528.0" prefHeight="34.0" prefWidth="109.0" text="Last Name" textFill="#58ccd0">
+        <Label fx:id="labelPath1" layoutX="26.0" layoutY="514.0" prefHeight="34.0" prefWidth="109.0" text="Last Name" textFill="#58ccd0">
             <font>
                 <Font size="20.0" />
             </font>
         </Label>
-        <Label fx:id="labelPath2" layoutX="26.0" layoutY="626.0" prefHeight="34.0" prefWidth="109.0" text="Email ID" textFill="#58ccd0">
+        <Label fx:id="labelPath2" layoutX="26.0" layoutY="600.0" prefHeight="34.0" prefWidth="109.0" text="Email ID" textFill="#58ccd0">
             <font>
                 <Font size="20.0" />
             </font>
         </Label>
-        <Label fx:id="labelPath11" layoutX="26.0" layoutY="712.0" prefHeight="34.0" prefWidth="109.0" text="Phone" textFill="#58ccd0">
+        <Label fx:id="labelPath11" layoutX="26.0" layoutY="681.0" prefHeight="34.0" prefWidth="109.0" text="Phone" textFill="#58ccd0">
             <font>
                 <Font size="20.0" />
             </font>
         </Label>
-        <JFXTextField fx:id="firstname" alignment="CENTER" editable="false" focusColor="#6880b2" labelFloat="true" layoutX="351.0" layoutY="425.0" prefHeight="33.0" prefWidth="274.0" style="-fx-prompt-text-fill: WHITE; -fx-text-inner-color: WHITE;" unFocusColor="#5e788a">
+        <JFXTextField fx:id="firstname" alignment="CENTER" editable="false" focusColor="#6880b2" labelFloat="true" layoutX="343.0" layoutY="426.0" prefHeight="33.0" prefWidth="274.0" style="-fx-prompt-text-fill: WHITE; -fx-text-inner-color: WHITE;" unFocusColor="#5e788a">
             <font>
                 <Font size="18.0" />
             </font>
         </JFXTextField>
-        <JFXTextField fx:id="phone" alignment="CENTER" editable="false" focusColor="#6880b2" labelFloat="true" layoutX="351.0" layoutY="705.0" prefHeight="33.0" prefWidth="274.0" style="-fx-prompt-text-fill: WHITE; -fx-text-inner-color: WHITE;" unFocusColor="#5e788a">
+        <JFXTextField fx:id="phone" alignment="CENTER" editable="false" focusColor="#6880b2" labelFloat="true" layoutX="343.0" layoutY="682.0" prefHeight="33.0" prefWidth="274.0" style="-fx-prompt-text-fill: WHITE; -fx-text-inner-color: WHITE;" unFocusColor="#5e788a">
             <font>
                 <Font size="18.0" />
             </font>
         </JFXTextField>
-        <JFXTextField fx:id="email" alignment="CENTER" editable="false" focusColor="#6880b2" labelFloat="true" layoutX="351.0" layoutY="616.0" prefHeight="33.0" prefWidth="274.0" style="-fx-prompt-text-fill: WHITE; -fx-text-inner-color: WHITE;" unFocusColor="#5e788a">
+        <JFXTextField fx:id="email" alignment="CENTER" editable="false" focusColor="#6880b2" labelFloat="true" layoutX="343.0" layoutY="601.0" prefHeight="33.0" prefWidth="274.0" style="-fx-prompt-text-fill: WHITE; -fx-text-inner-color: WHITE;" unFocusColor="#5e788a">
             <font>
                 <Font size="18.0" />
             </font>
         </JFXTextField>
-        <ImageView fx:id="profilephoto" fitHeight="150.0" fitWidth="200.0" layoutX="228.0" layoutY="238.0" pickOnBounds="true" preserveRatio="true" />
-        <Label fx:id="labelPath111" layoutX="26.0" layoutY="794.0" prefHeight="34.0" prefWidth="109.0" text="Company" textFill="#58ccd0">
+        <ImageView fx:id="profilephoto" fitHeight="154.0" fitWidth="249.0" layoutX="35.0" layoutY="222.0" pickOnBounds="true" preserveRatio="true" />
+        <Label fx:id="labelPath111" layoutX="26.0" layoutY="761.0" prefHeight="34.0" prefWidth="109.0" text="Company" textFill="#58ccd0">
             <font>
                 <Font size="20.0" />
             </font>
         </Label>
-        <JFXTextField fx:id="company" alignment="CENTER" editable="false" focusColor="#6880b2" labelFloat="true" layoutX="351.0" layoutY="786.0" prefHeight="33.0" prefWidth="274.0" style="-fx-prompt-text-fill: WHITE; -fx-text-inner-color: WHITE;" unFocusColor="#5e788a">
+        <JFXTextField fx:id="company" alignment="CENTER" editable="false" focusColor="#6880b2" labelFloat="true" layoutX="343.0" layoutY="762.0" prefHeight="33.0" prefWidth="274.0" style="-fx-prompt-text-fill: WHITE; -fx-text-inner-color: WHITE;" unFocusColor="#5e788a">
             <font>
                 <Font size="18.0" />
             </font>
@@ -102,12 +104,12 @@
                 <Bloom />
             </effect>
         </JFXButton>
-        <JFXTextField fx:id="namesearch" alignment="CENTER" focusColor="#6880b2" labelFloat="true" layoutX="708.0" layoutY="355.0" prefHeight="33.0" prefWidth="274.0" promptText="Enter User Name" style="-fx-prompt-text-fill: WHITE; -fx-text-inner-color: WHITE;" unFocusColor="#5e788a">
+        <JFXTextField fx:id="namesearch" alignment="CENTER" focusColor="#6880b2" labelFloat="true" layoutX="708.0" layoutY="355.0" prefHeight="33.0" prefWidth="274.0" promptText="Enter User Name to Search" style="-fx-prompt-text-fill: WHITE; -fx-text-inner-color: WHITE;" unFocusColor="#5e788a">
             <font>
                 <Font size="18.0" />
             </font>
         </JFXTextField>
-      <JFXButton layoutX="1070.0" layoutY="882.0" onAction="#onviewprofileclicked" prefHeight="33.0" prefWidth="155.0" style="-fx-background-color: white;" text="View Profile" textFill="#33bfc6">
+      <JFXButton layoutX="1071.0" layoutY="882.0" onAction="#onviewprofileclicked" prefHeight="33.0" prefWidth="155.0" style="-fx-background-color: white;" text="View Profile" textFill="#33bfc6">
          <font>
             <Font size="18.0" />
          </font>
@@ -115,7 +117,7 @@
             <Bloom />
          </effect>
       </JFXButton>
-      <JFXListView fx:id="onlineuserslist" editable="true" layoutX="1014.0" layoutY="209.0" onMouseClicked="#onuserlistclivked" prefHeight="610.0" prefWidth="268.0" style="-fx-font-size: 20; -fx-font-weight: bold; -fx-font-color: #da1313; -fx-text-inner-color: #da1313; -fx-prompt-text-fill: #da1313;" />
+      <JFXListView fx:id="onlineuserslist" editable="true" layoutX="1014.0" layoutY="215.0" onMouseClicked="#onuserlistclivked" prefHeight="604.0" prefWidth="268.0" style="-fx-font-size: 20; -fx-font-weight: bold; -fx-font-color: #da1313; -fx-text-inner-color: #da1313; -fx-prompt-text-fill: #da1313;" />
       <JFXButton fx:id="myfriends" layoutX="746.0" layoutY="689.0" onAction="#onfriendsclicked" prefHeight="33.0" prefWidth="200.0" style="-fx-background-color: white;" text="My Friends" textFill="#33bfc6">
          <font>
             <Font size="18.0" />
@@ -125,6 +127,30 @@
          </effect>
       </JFXButton>
       <JFXButton fx:id="friendsug" layoutX="746.0" layoutY="778.0" onAction="#onfriendsugclicked" prefHeight="33.0" prefWidth="200.0" style="-fx-background-color: white;" text="Suggested Friends" textFill="#33bfc6">
+         <font>
+            <Font size="18.0" />
+         </font>
+         <effect>
+            <Bloom />
+         </effect>
+      </JFXButton>
+      <Label fx:id="labelPath3" layoutX="439.0" layoutY="245.0" prefHeight="34.0" prefWidth="71.0" text="Status" textFill="#58ccd0">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Label>
+      <JFXTextField fx:id="status" alignment="CENTER" editable="false" focusColor="#6880b2" labelFloat="true" layoutX="343.0" layoutY="299.0" prefHeight="33.0" prefWidth="274.0" style="-fx-prompt-text-fill: WHITE; -fx-text-inner-color: WHITE;" unFocusColor="#5e788a">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </JFXTextField>
+      <JFXComboBox fx:id="availablestatus" focusColor="#6880b2" labelFloat="true" layoutX="752.0" layoutY="191.0" prefHeight="33.0" prefWidth="189.0" promptText="Available Status" style="-fx-font-size: 18; -fx-text-fill: WHITE; -fx-prompt-text-fill: WHITE; -fx-text-inner-color: WHITE;" unFocusColor="#5e788a">
+         <styleClass>
+            <String fx:value=".jfx-combo-box {-fx-background-color:  WHITE;}" />
+            <String fx:value=".jfx-combo-box .label {-fx-background-color:  WHITE;-fx-text-fill: WHITE;}" />
+         </styleClass>
+      </JFXComboBox>
+      <JFXButton fx:id="updatestatus" layoutX="745.0" layoutY="253.0" onAction="#onupdatestatusclicked" prefHeight="33.0" prefWidth="200.0" style="-fx-background-color: white;" text="Update Status" textFill="#33bfc6">
          <font>
             <Font size="18.0" />
          </font>

@@ -1,6 +1,7 @@
 package controllers;
 
 import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXListView;
 import com.jfoenix.controls.JFXTextField;
 import constants.ResponseCode;
@@ -33,6 +34,7 @@ import java.util.ArrayList;
 
 public class Controller_Dashboard {
 
+    public JFXComboBox availablestatus;
     private String userUID;
 
     public static User getUserprofile() {
@@ -123,6 +125,11 @@ public class Controller_Dashboard {
                             onlineuserslist.getItems().add(user);
                     }
                 }
+                else
+                {
+                    Alert alert = new Alert(Alert.AlertType.INFORMATION, "No User Matched Your Search");
+                    alert.showAndWait();
+                }
             }
             else
             {
@@ -155,6 +162,11 @@ public class Controller_Dashboard {
                             onlineuserslist.getItems().add(user);
                     }
                 }
+                else{
+                    Alert alert = new Alert(Alert.AlertType.INFORMATION, "No User Online");
+                    alert.showAndWait();
+                }
+
             }
             else
             {
@@ -212,6 +224,11 @@ public class Controller_Dashboard {
                         onlineuserslist.getItems().add(user);
                     }
                 }
+                else
+                {
+                    Alert alert = new Alert(Alert.AlertType.INFORMATION, "You Seem to be Quit Alone");
+                    alert.showAndWait();
+                }
             }
             else
             {
@@ -241,6 +258,10 @@ public class Controller_Dashboard {
                         onlineuserslist.getItems().add(user);
                     }
                 }
+                else {
+                    Alert alert = new Alert(Alert.AlertType.INFORMATION, "No Suggestion for You. Make some friends First");
+                    alert.showAndWait();
+                }
             }
             else
             {
@@ -255,4 +276,6 @@ public class Controller_Dashboard {
     }
 
 
+    public void onupdatestatusclicked(ActionEvent actionEvent) {
+    }
 }
