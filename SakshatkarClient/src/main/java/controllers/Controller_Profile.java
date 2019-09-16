@@ -104,7 +104,7 @@ public class Controller_Profile {
                 userIP=((String)response.getResponseObject());
                 videoCallSocket=new Socket(userIP,6963);
 
-                Platform.runLater(new Runnable() {
+                new Thread(new Runnable() {
                     @Override
                     public void run() {
                         VideoCallRequest videoCallRequest=new VideoCallRequest(App.user);
@@ -153,7 +153,7 @@ public class Controller_Profile {
                         }
 
                     }
-                });
+                }).start();
             }
 
         } catch (IOException e) {

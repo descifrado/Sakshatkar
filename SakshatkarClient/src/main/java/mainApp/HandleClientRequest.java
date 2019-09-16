@@ -27,6 +27,7 @@ public class HandleClientRequest implements Runnable {
     private ObjectOutputStream oos;
     private ObjectInputStream ois;
     private static Socket userSocket=null;
+    private static volatile Alert alert;
 
     public static Socket getUserSocket() {
         return userSocket;
@@ -73,9 +74,15 @@ public class HandleClientRequest implements Runnable {
 
                 if (request.getRequestCode().equals(RequestCode.VIDEO_CALL_REQUEST)){
                     User requestingUser=((VideoCallRequest)request).getUser();
-                    Alert alert=new Alert(Alert.AlertType.CONFIRMATION,requestingUser+" wants to have a video call with you.\n Wanna Connect ?", ButtonType.YES,ButtonType.NO);
-                    alert.showAndWait();
-
+                    Platform.runLater(new Runnable() {
+                        @Override
+                        public void run() {
+                            alert = new Alert(Alert.AlertType.CONFIRMATION, requestingUser + " wants to have a video call with you.\n Wanna Connect ?", ButtonType.YES, ButtonType.NO);
+                            alert.showAndWait();
+                        }
+                    });
+                    while (alert==null || alert.getResult()==null);
+                    System.out.println(alert.getResult());
                     if (alert.getResult()==ButtonType.YES){
                         oos.writeObject(new Response(UIDGenerator.generateuid(),null, ResponseCode.SUCCESS));
                         oos.flush();

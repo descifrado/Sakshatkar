@@ -20,7 +20,7 @@ import java.nio.channels.ServerSocketChannel;
  */
 public class App extends Application {
 
-    public static String serverIP = "192.168.1.8";
+    public static String serverIP = "192.168.0.110";
     public static int portNo = 6963;
     public static Socket sockerTracker ;
     public static ObjectOutputStream oosTracker ;
