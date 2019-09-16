@@ -13,6 +13,7 @@ public enum RequestCode {
     ADDFRIEND_REQUEST,
     STATUS_CHANGE_REQUEST,
     USERIP_REQUEST,
+    FEEDBACK_REQUEST,
     VIDEO_CALL_REQUEST;
     RequestCode(){
         this.toString();

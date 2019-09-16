@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.effect.Bloom?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane fx:id="pane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="961.0" prefWidth="1303.0" stylesheets="@mainApp/backgroundbig.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.Controller_Feedback">
+    <children>
+        <Label layoutX="1147.0" layoutY="931.0" prefHeight="16.0" prefWidth="142.0" text="NobodyDoesItBetter" textFill="#58ccd0" />
+        <Label alignment="CENTER" layoutX="484.0" layoutY="149.0" prefHeight="49.0" prefWidth="336.0" text="Feedback" textFill="#bf2525">
+            <font>
+                <Font size="40.0" />
+            </font>
+        </Label>
+        <Label layoutX="433.0" layoutY="34.0" prefHeight="91.0" prefWidth="502.0" text="Sakshatkar" textAlignment="RIGHT" textFill="#da1313">
+            <font>
+                <Font name="System Bold" size="70.0" />
+            </font>
+        </Label>
+        <JFXTextField fx:id="audio" alignment="CENTER" editable="false" focusColor="#6880b2" labelFloat="true" layoutX="964.0" layoutY="400.0" prefHeight="33.0" prefWidth="274.0" promptText="On a Scale of 1 to 10" style="-fx-prompt-text-fill: WHITE; -fx-text-inner-color: WHITE;" unFocusColor="#5e788a">
+            <font>
+                <Font size="18.0" />
+            </font>
+        </JFXTextField>
+        <JFXButton fx:id="submit" layoutX="231.0" layoutY="849.0" onAction="#onsubmitclicked" prefHeight="33.0" prefWidth="198.0" style="-fx-background-color: white;" text="Submit Feedback" textFill="#33bfc6">
+            <font>
+                <Font size="18.0" />
+            </font>
+            <effect>
+                <Bloom />
+            </effect>
+        </JFXButton>
+        <Label fx:id="labelPath" layoutX="81.0" layoutY="398.0" prefHeight="34.0" prefWidth="142.0" text="Video Quality" textFill="#58ccd0">
+            <font>
+                <Font size="20.0" />
+            </font>
+        </Label>
+        <Label fx:id="labelPath1" layoutX="749.0" layoutY="399.0" prefHeight="34.0" prefWidth="142.0" text="Audio Quality" textFill="#58ccd0">
+            <font>
+                <Font size="20.0" />
+            </font>
+        </Label>
+        <Label fx:id="labelPath2" layoutX="81.0" layoutY="536.0" prefHeight="34.0" prefWidth="162.0" text="Responsiveness" textFill="#58ccd0">
+            <font>
+                <Font size="20.0" />
+            </font>
+        </Label>
+        <Label fx:id="labelPath11" layoutX="749.0" layoutY="536.0" prefHeight="34.0" prefWidth="109.0" text="Rating" textFill="#58ccd0">
+            <font>
+                <Font size="20.0" />
+            </font>
+        </Label>
+        <JFXTextField fx:id="video" alignment="CENTER" editable="false" focusColor="#6880b2" labelFloat="true" layoutX="312.0" layoutY="399.0" prefHeight="33.0" prefWidth="274.0" promptText="On a Scale of 1 to 10" style="-fx-prompt-text-fill: WHITE; -fx-text-inner-color: WHITE;" unFocusColor="#5e788a">
+            <font>
+                <Font size="18.0" />
+            </font>
+        </JFXTextField>
+        <JFXTextField fx:id="rating" alignment="CENTER" editable="false" focusColor="#6880b2" labelFloat="true" layoutX="964.0" layoutY="537.0" prefHeight="33.0" prefWidth="274.0" promptText="On a Scale of 1 to 10" style="-fx-prompt-text-fill: WHITE; -fx-text-inner-color: WHITE;" unFocusColor="#5e788a">
+            <font>
+                <Font size="18.0" />
+            </font>
+        </JFXTextField>
+        <JFXTextField fx:id="response" alignment="CENTER" editable="false" focusColor="#6880b2" labelFloat="true" layoutX="312.0" layoutY="537.0" prefHeight="33.0" prefWidth="274.0" promptText="On a Scale of 1 to 10" style="-fx-prompt-text-fill: WHITE; -fx-text-inner-color: WHITE;" unFocusColor="#5e788a">
+            <font>
+                <Font size="18.0" />
+            </font>
+        </JFXTextField>
+        <Label fx:id="labelPath111" layoutX="330.0" layoutY="258.0" prefHeight="34.0" prefWidth="644.0" text="Please Provide an Honest Feedback As It Will Help Us Improve" textFill="#58ccd0">
+            <font>
+                <Font size="20.0" />
+            </font>
+        </Label>
+      <JFXButton fx:id="dashboard" layoutX="865.0" layoutY="849.0" onAction="#ondashboardclicked" prefHeight="33.0" prefWidth="198.0" style="-fx-background-color: white;" text="Dashboard" textFill="#33bfc6">
+         <font>
+            <Font size="18.0" />
+         </font>
+         <effect>
+            <Bloom />
+         </effect>
+      </JFXButton>
+      <Label fx:id="labelPath21" layoutX="133.0" layoutY="691.0" prefHeight="34.0" prefWidth="162.0" text="Comments" textFill="#58ccd0">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Label>
+      <JFXTextField fx:id="comment" alignment="CENTER" editable="false" focusColor="#6880b2" labelFloat="true" layoutX="364.0" layoutY="692.0" prefHeight="33.0" prefWidth="759.0" style="-fx-prompt-text-fill: WHITE; -fx-text-inner-color: WHITE;" unFocusColor="#5e788a">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </JFXTextField>
+
+    </children>
+</AnchorPane>
