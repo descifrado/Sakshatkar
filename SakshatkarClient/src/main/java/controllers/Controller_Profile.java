@@ -118,6 +118,7 @@ public class Controller_Profile {
                             Response videoCallResponse= (Response) ois.readObject();
                             if (videoCallResponse.getResponseCode().equals(ResponseCode.FAILED)){
                                 System.out.println("Request denied");
+                                videoCallSocket.close();
                                 return;
                             }
 
@@ -126,32 +127,33 @@ public class Controller_Profile {
                         } catch (ClassNotFoundException e) {
                             e.printStackTrace();
                         }
-                        Parent root;
-                        try {
-                            FXMLLoader loader=new FXMLLoader(getClass().getResource("/videoCall.fxml"));
-                            System.out.println(loader);
-                            root = loader.load();
-                            FXMLLoader fxmlLoader=new FXMLLoader();
-                            System.out.println(videoCallSocket);
-                            Controller_VideoCall videoCallController=loader.getController();
-                            System.out.println(videoCallController);
-                            Stage stage = new Stage();
-                            stage.setTitle("Call to "+user);
-                            stage.setScene(new Scene(root, 1303, 961));
-                            stage.show();
-                            stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
-                                @Override
-                                public void handle(WindowEvent windowEvent) {
-                                    videoCallController.getCaptureFrame().setClosed();
-                                }
-                            });
-                            // Hide this current window (if this is what you want)
-                            //((Node)(event.getSource())).getScene().getWindow().hide();
-                        }
-                        catch (IOException e) {
-                            e.printStackTrace();
-                        }
-
+                        Platform.runLater(()->{
+                            Parent root;
+                            try {
+                                FXMLLoader loader=new FXMLLoader(getClass().getResource("/videoCall.fxml"));
+                                System.out.println(loader);
+                                root = loader.load();
+                                FXMLLoader fxmlLoader=new FXMLLoader();
+                                System.out.println(videoCallSocket);
+                                Controller_VideoCall videoCallController=loader.getController();
+                                System.out.println(videoCallController);
+                                Stage stage = new Stage();
+                                stage.setTitle("Call to "+user);
+                                stage.setScene(new Scene(root, 1303, 961));
+                                stage.show();
+                                stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
+                                    @Override
+                                    public void handle(WindowEvent windowEvent) {
+                                        videoCallController.getCaptureFrame().setClosed();
+                                    }
+                                });
+                                // Hide this current window (if this is what you want)
+                                //((Node)(event.getSource())).getScene().getWindow().hide();
+                            }
+                            catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                        });
                     }
                 }).start();
             }

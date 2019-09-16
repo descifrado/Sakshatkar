@@ -29,6 +29,7 @@ public class App extends Application {
     public static ServerSocketChannel serverClientSocketChannel;
     public static Socket socketp2p;
     public static ServerSocket serverSocket;
+    private static ServerSocket serverSocketFrame;
 
     @Override
     public void start(Stage primaryStage) throws IOException {
@@ -48,6 +49,7 @@ public class App extends Application {
 
         try{
             App.serverSocket = new ServerSocket(6963);
+            App.serverSocketFrame = new ServerSocket(7000);
             System.out.println("Client Started..!!");
         }catch (IOException e){
             e.printStackTrace();

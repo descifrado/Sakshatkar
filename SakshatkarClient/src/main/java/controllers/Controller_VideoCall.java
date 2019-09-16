@@ -23,6 +23,7 @@ public class Controller_VideoCall {
     private ObjectOutputStream frameOOS;
     private ObjectInputStream frameOIS;
     private Socket userSocket;
+    private String userIP;
     private volatile CaptureFrame captureFrame;
     private boolean videoEnabled;
     @FXML
@@ -41,10 +42,16 @@ public class Controller_VideoCall {
         else {
             userSocket= HandleClientRequest.getUserSocket();
         }
+        userIP=userSocket.getInetAddress().getCanonicalHostName();
+        try {
+            userSocket=new Socket(userIP,7000);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         videoEnabled=true;
         try {
-            frameOIS=new ObjectInputStream(userSocket.getInputStream());
             frameOOS=new ObjectOutputStream(userSocket.getOutputStream());
+            frameOIS=new ObjectInputStream(userSocket.getInputStream());
         } catch (IOException e) {
             e.printStackTrace();
         }

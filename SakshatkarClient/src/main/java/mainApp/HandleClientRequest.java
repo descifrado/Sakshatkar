@@ -86,13 +86,14 @@ public class HandleClientRequest implements Runnable {
                     if (alert.getResult()==ButtonType.YES){
                         oos.writeObject(new Response(UIDGenerator.generateuid(),null, ResponseCode.SUCCESS));
                         oos.flush();
+                        System.out.println(alert.getResult());
                         userSocket=socket;
                         Platform.runLater(new Runnable() {
                             @Override
                             public void run() {
                                 Parent root;
                                 try {
-                                    FXMLLoader loader=new FXMLLoader(getClass().getResource("/login.fxml"));
+                                    FXMLLoader loader=new FXMLLoader(getClass().getResource("/videoCall.fxml"));
                                     root = loader.load();
                                     Stage stage = new Stage();
                                     stage.setTitle("Call to "+requestingUser);
