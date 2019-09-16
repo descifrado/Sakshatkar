@@ -3,7 +3,9 @@ package statusHandler;
 import constants.ResponseCode;
 import constants.Status;
 import mainClasses.Main;
+import request.Request;
 import request.Response;
+import request.StatusChangeRequest;
 import tools.UIDGenerator;
 
 import java.sql.PreparedStatement;
@@ -11,12 +13,15 @@ import java.sql.SQLException;
 
 public class OnlineStatusHandler {
     private String userUID;
-
-    public OnlineStatusHandler(String userId){
-        this.userUID=userId;
+    private Status status;
+    private StatusChangeRequest statusChangeRequest;
+    public OnlineStatusHandler(StatusChangeRequest statusChangeRequest){
+        this.statusChangeRequest=statusChangeRequest;
+        this.userUID=statusChangeRequest.getUserUID();
+        this.status=statusChangeRequest.getStatus();
     }
 
-    public Response changeOnlineStatus(Status status){
+    public Response getResponse(){
         String query="UPDATE OnlineUser set status=? where userUID=?";
         try {
             PreparedStatement preparedStatement= Main.connection.prepareStatement(query);

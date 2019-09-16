@@ -5,6 +5,7 @@ import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXListView;
 import com.jfoenix.controls.JFXTextField;
 import constants.ResponseCode;
+import constants.Status;
 import data.User;
 import javafx.application.Platform;
 import javafx.embed.swing.SwingFXUtils;
@@ -23,7 +24,6 @@ import request.*;
 import tools.FileReciever;
 
 import javax.imageio.ImageIO;
-import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -31,11 +31,16 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.util.ArrayList;
+import java.util.List;
+
+import static org.json.JSONObject.getNames;
 
 public class Controller_Dashboard {
 
     public JFXComboBox availablestatus;
+    private String currentSelectedStatus;
     private String userUID;
+    private List<String> availableStatus;
 
     public static User getUserprofile() {
         return userprofile;
@@ -69,6 +74,10 @@ public class Controller_Dashboard {
             e.printStackTrace();
             System.out.println(e.getMessage());
         }
+        availableStatus=new ArrayList<String>();
+        String[] fileTypes = getNames(Status.class);
+        availablestatus.getItems().addAll(fileTypes);
+        currentSelectedStatus=null;
         firstname.setText(App.user.getFirstName());
         lastname.setText(App.user.getLastName());
         email.setText(App.user.getEmail());
@@ -298,6 +307,30 @@ public class Controller_Dashboard {
 
 
     public void onupdatestatusclicked(ActionEvent actionEvent) {
+        String typeString=availablestatus.getSelectionModel().getSelectedItem().toString();
+        Status status1;
+        if (typeString==null)status1=Status.USING_SAKSHATKAR;
+        else status1=Status.valueOf(typeString);
+        StatusChangeRequest statusChangeRequest=new StatusChangeRequest(App.user.getUserUID(), status1);
+        try{
+            App.oosTracker.writeObject(statusChangeRequest);
+            App.oosTracker.flush();
+            Response response;
+            response = (Response)App.oisTracker.readObject();
+            if(response.getResponseCode().equals(ResponseCode.SUCCESS)){
+                Alert alert = new Alert(Alert.AlertType.INFORMATION, "Status Successfully Updated");
+                alert.showAndWait();
+            }
+            else
+            {
+                System.out.println("Error");
+            }
 
+        }
+        catch (IOException | ClassNotFoundException e){
+            e.printStackTrace();
+            System.out.println(e.getMessage());
+        }
+        status.setText(status1.toString());
     }
 }

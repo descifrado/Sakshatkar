@@ -11,6 +11,7 @@ import filehandler.FileReciever;
 import filehandler.FileSender;
 import friendsHandler.FriendAddHandler;
 import friendsHandler.FriendSuggestionHandler;
+import javafx.application.Application;
 import onlineUserHandler.OnlineUserListHandler;
 import onlineUserHandler.UserIPHandler;
 import request.*;
@@ -94,11 +95,6 @@ HandleClientRequest implements Runnable{
                         fileSender.sendFile(fileSender.createSocketChannel(socket.getInetAddress().getCanonicalHostName()),loc+userId);
                         System.out.println("Sending Profile Pic..!!");
                     }
-                }else if(request.getRequestCode().equals(RequestCode.STATUS_CHANGE_REQUEST)){
-                    StatusChangeRequest statusChangeRequest= (StatusChangeRequest) request;
-                    OnlineStatusHandler onlineStatusHandler=new OnlineStatusHandler(statusChangeRequest.getUserUID());
-                    oos.writeObject(onlineStatusHandler.changeOnlineStatus(statusChangeRequest.getStatus()));
-                    oos.flush();
                 }else if(request.getRequestCode().equals(RequestCode.USERSEARCH_REQUEST)){
                     SearchHandler searchHandler = new SearchHandler((UserSearchRequest)request);
                     Response response = searchHandler.getResponse();
@@ -150,6 +146,12 @@ HandleClientRequest implements Runnable{
                 {
                     GetStatusHandler getStatusHandler=new GetStatusHandler((GetStatusRequest) request);
                     oos.writeObject(getStatusHandler.getResponse());
+                    oos.flush();
+                }
+                else if(request.getRequestCode().equals(RequestCode.STATUS_CHANGE_REQUEST))
+                {
+                    OnlineStatusHandler onlineStatusHandler=new OnlineStatusHandler((StatusChangeRequest)request);
+                    oos.writeObject(onlineStatusHandler.getResponse());
                     oos.flush();
                 }
 
