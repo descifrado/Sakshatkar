@@ -10,6 +10,7 @@ import filehandler.FileReciever;
 import filehandler.FileSender;
 import friendsHandler.FriendAddHandler;
 import onlineUserHandler.OnlineUserListHandler;
+import onlineUserHandler.UserIPHandler;
 import request.*;
 import friendsHandler.FriendListHandler;
 import searchHandler.SearchHandler;
@@ -128,6 +129,10 @@ HandleClientRequest implements Runnable{
                     onlineUserHandler.makeUserOffline();
                     Response response = new Response(UIDGenerator.generateuid(),null,ResponseCode.SUCCESS);
                     oos.writeObject(response);
+                    oos.flush();
+                }else if(request.getRequestCode().equals(RequestCode.USERIP_REQUEST)){
+                    UserIPHandler userIPHandler = new UserIPHandler((UserIPRequest)request);
+                    oos.writeObject(userIPHandler.getResponse());
                     oos.flush();
                 }
 
