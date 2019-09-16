@@ -2,19 +2,11 @@ package videoCallHandler.frameHandler;
 
 import org.opencv.core.Mat;
 import org.opencv.core.Size;
-import org.opencv.highgui.HighGui;
-import org.opencv.imgcodecs.Imgcodecs;
 import org.opencv.imgproc.Imgproc;
 import org.opencv.videoio.VideoCapture;
 
-import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.io.ObjectOutput;
 import java.io.ObjectOutputStream;
-import java.net.DatagramPacket;
-import java.net.DatagramSocket;
-import java.net.InetAddress;
-import java.net.SocketException;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
@@ -23,13 +15,11 @@ public class CaptureFrame {
     // a timer for acquiring the video stream
     private ScheduledExecutorService timer;
     // the OpenCV object that realizes the video capture
-    private VideoCapture capture = new VideoCapture(0);
+    private VideoCapture capture = new VideoCapture();
     // a flag to change the button behavior
     private boolean cameraActive = false;
     // the id of the camera to be used
     private static int cameraId = 0;
-
-
 
     private Mat grabFrame()
     {
@@ -66,20 +56,20 @@ public class CaptureFrame {
         {
             try
             {
-                    // stop the timer
+                // stop the timer
                 this.timer.shutdown();
                 this.timer.awaitTermination(33, TimeUnit.MILLISECONDS);
             }
             catch (InterruptedException e)
             {
-                    // log any exception
+                // log any exception
                 System.err.println("Exception in stopping the frame capture, trying to release the camera now... " + e);
             }
         }
 
         if (this.capture.isOpened())
         {
-                // release the camera
+            // release the camera
             this.capture.release();
         }
     }
@@ -106,6 +96,7 @@ public class CaptureFrame {
                     {
                         // effectively grab and process a single frame
                         Mat frameMat = grabFrame();
+
                         Size size=new Size(180,180);
                         Mat finalFrame=new Mat();
                         Imgproc.resize(frameMat,finalFrame,size);
@@ -143,4 +134,6 @@ public class CaptureFrame {
     }
 
 }
+
+
 

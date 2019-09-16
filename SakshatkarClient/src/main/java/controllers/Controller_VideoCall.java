@@ -5,7 +5,6 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import mainApp.App;
 import mainApp.HandleClientRequest;
 import org.opencv.core.Mat;
 import org.opencv.videoio.VideoCapture;
@@ -13,11 +12,10 @@ import videoCallHandler.frameHandler.CaptureFrame;
 import videoCallHandler.frameHandler.MatWrapper;
 import videoCallHandler.frameHandler.Utils;
 
-import java.io.*;
-import java.net.DatagramPacket;
-import java.net.InetAddress;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.net.Socket;
-import java.net.UnknownHostException;
 import java.util.concurrent.ScheduledExecutorService;
 
 public class Controller_VideoCall {
@@ -32,7 +30,7 @@ public class Controller_VideoCall {
     private JFXButton stopvideo;
     @FXML
     private ImageView videoFrame;
-    private InetAddress userAddress;
+
     public CaptureFrame getCaptureFrame() {
         return captureFrame;
     }
@@ -45,11 +43,6 @@ public class Controller_VideoCall {
             userSocket= HandleClientRequest.getUserSocket();
         }
         userIP=userSocket.getInetAddress().getCanonicalHostName();
-        try {
-            userAddress=InetAddress.getByName(userIP);
-        } catch (UnknownHostException e) {
-            e.printStackTrace();
-        }
 
         System.out.println(userSocket);
 
