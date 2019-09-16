@@ -6,7 +6,37 @@ import java.io.Serializable;
 
 public class FeedbackRequest extends Request implements Serializable {
 
-    private String userUID,video,audio,response,rating,comment;
+    private String userUID;
+    private String video;
+
+    public String getUserUID() {
+        return userUID;
+    }
+
+    public String getVideo() {
+        return video;
+    }
+
+    public String getAudio() {
+        return audio;
+    }
+
+    public String getResponse() {
+        return response;
+    }
+
+    public String getRating() {
+        return rating;
+    }
+
+    public String getComment() {
+        return comment;
+    }
+
+    private String audio;
+    private String response;
+    private String rating;
+    private String comment;
 
     public FeedbackRequest(String userUID, String video, String audio, String response, String rating, String comment)
     {
