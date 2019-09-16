@@ -57,7 +57,7 @@ public class Controller_Dashboard {
             response = (Response)App.oisTracker.readObject();
             System.out.println(response.getResponseCode().toString());
             if(response.getResponseCode().equals(ResponseCode.SUCCESS)){
-                status.setText("hello");
+                status.setText(response.getResponseObject().toString());
             }
             else
             {
