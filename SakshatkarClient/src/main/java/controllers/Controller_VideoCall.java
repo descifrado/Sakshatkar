@@ -54,36 +54,18 @@ public class Controller_VideoCall {
         System.out.println(userSocket);
 
         videoEnabled=true;
-//        try {
-//            frameOOS=new ObjectOutputStream(userSocket.getOutputStream());
-//            frameOIS=new ObjectInputStream(userSocket.getInputStream());
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
+        try {
+            frameOOS=new ObjectOutputStream(userSocket.getOutputStream());
+            frameOIS=new ObjectInputStream(userSocket.getInputStream());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         captureFrame=new CaptureFrame();
-        captureFrame.startCam(userAddress);
+        captureFrame.startCam(frameOOS);
         new Thread(() -> {
             while (true){
                 try {
-                    byte[] matArray=new byte[60000];
-                    DatagramPacket dpFrame=new DatagramPacket(matArray,60000);
-                    App.serverSocketFrameData.receive(dpFrame);
-                    MatWrapper mat ;
-
-                    ByteArrayInputStream bis = new ByteArrayInputStream(matArray);
-                    ObjectInput in = null;
-                    try {
-                        in = new ObjectInputStream(bis);
-                        mat = (MatWrapper) in.readObject();
-                    } finally {
-                        try {
-                            if (in != null) {
-                                in.close();
-                            }
-                        } catch (IOException ex) {
-                            // ignore close exception
-                        }
-                    }
+                    MatWrapper mat = (MatWrapper) frameOIS.readObject();
                     Mat frame = new Mat(mat.getRows(),mat.getCols(),mat.getType());
                     frame.put(0,0,mat.getMatArray());
                     Image image=Utils.mat2Image(frame);
@@ -119,7 +101,7 @@ public class Controller_VideoCall {
             stopvideo.setText("Start Video");
         }
         else {
-            captureFrame.startCam(userAddress);
+            captureFrame.startCam(frameOOS);
             videoEnabled=true;
             stopvideo.setText("Stop Video");
         }

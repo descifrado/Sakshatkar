@@ -28,18 +28,8 @@ public class CaptureFrame {
     private boolean cameraActive = false;
     // the id of the camera to be used
     private static int cameraId = 0;
-    private DatagramSocket socket;
 
-    public CaptureFrame()
-    {
-        boolean wset = capture.set(HighGui.WINDOW_NORMAL,180);
-        boolean hset = capture.set(HighGui.WINDOW_NORMAL,180);
-        try {
-            socket = new DatagramSocket();
-        } catch (SocketException e) {
-            e.printStackTrace();
-        }
-    }
+
 
     private Mat grabFrame()
     {
@@ -97,7 +87,7 @@ public class CaptureFrame {
     {
         this.stopAcquisition();
     }
-    public void startCam(InetAddress address){
+    public void startCam(ObjectOutputStream objectOutputStream){
         if (!this.cameraActive)
         {
             // start the video capture
@@ -122,25 +112,8 @@ public class CaptureFrame {
                         frameMat=finalFrame;
                         MatWrapper frame=new MatWrapper(frameMat);
                         // convert and show the frame
-                        byte[] framePacket;
                         try {
-                            ByteArrayOutputStream bos=new ByteArrayOutputStream();
-                            ObjectOutput output=null;
-                            try {
-                                output=new ObjectOutputStream(bos);
-                                output.writeObject(frame);
-                                output.flush();
-                                framePacket=bos.toByteArray();
-                            }finally {
-                                try {
-                                    bos.close();
-                                }catch (Exception e){
-                                    e.printStackTrace();
-                                }
-                            }
-                            System.out.println(framePacket.length);
-                            DatagramPacket packet=new DatagramPacket(framePacket,framePacket.length,address,7000);
-                            socket.send(packet);
+                            objectOutputStream.writeObject(frame);
                         } catch (IOException e) {
                             e.printStackTrace();
                         }
