@@ -4,8 +4,14 @@ import org.opencv.core.Mat;
 import org.opencv.imgproc.Imgproc;
 import org.opencv.videoio.VideoCapture;
 
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.io.ObjectOutput;
 import java.io.ObjectOutputStream;
+import java.net.DatagramPacket;
+import java.net.DatagramSocket;
+import java.net.InetAddress;
+import java.net.SocketException;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
@@ -19,6 +25,16 @@ public class CaptureFrame {
     private boolean cameraActive = false;
     // the id of the camera to be used
     private static int cameraId = 0;
+    private DatagramSocket socket;
+
+    public CaptureFrame()
+    {
+        try {
+            socket = new DatagramSocket();
+        } catch (SocketException e) {
+            e.printStackTrace();
+        }
+    }
 
     private Mat grabFrame()
     {
@@ -76,7 +92,7 @@ public class CaptureFrame {
     {
         this.stopAcquisition();
     }
-    public void startCam(ObjectOutputStream objectOutputStream){
+    public void startCam(InetAddress address){
         if (!this.cameraActive)
         {
             // start the video capture
@@ -97,8 +113,24 @@ public class CaptureFrame {
                         Mat frameMat = grabFrame();
                         MatWrapper frame=new MatWrapper(frameMat);
                         // convert and show the frame
+                        byte[] framePacket;
                         try {
-                            objectOutputStream.writeObject(frame);
+                            ByteArrayOutputStream bos=new ByteArrayOutputStream();
+                            ObjectOutput output=null;
+                            try {
+                                output=new ObjectOutputStream(bos);
+                                output.writeObject(frame);
+                                output.flush();
+                                framePacket=bos.toByteArray();
+                            }finally {
+                                try {
+                                    bos.close();
+                                }catch (Exception e){
+                                    e.printStackTrace();
+                                }
+                            }
+                            DatagramPacket packet=new DatagramPacket(framePacket,framePacket.length,address,7000);
+                            socket.send(packet);
                         } catch (IOException e) {
                             e.printStackTrace();
                         }

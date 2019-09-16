@@ -5,6 +5,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import mainApp.App;
 import mainApp.HandleClientRequest;
 import org.opencv.core.Mat;
 import org.opencv.videoio.VideoCapture;
@@ -12,10 +13,11 @@ import videoCallHandler.frameHandler.CaptureFrame;
 import videoCallHandler.frameHandler.MatWrapper;
 import videoCallHandler.frameHandler.Utils;
 
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
+import java.io.*;
+import java.net.DatagramPacket;
+import java.net.InetAddress;
 import java.net.Socket;
+import java.net.UnknownHostException;
 import java.util.concurrent.ScheduledExecutorService;
 
 public class Controller_VideoCall {
@@ -30,7 +32,7 @@ public class Controller_VideoCall {
     private JFXButton stopvideo;
     @FXML
     private ImageView videoFrame;
-
+    private InetAddress userAddress;
     public CaptureFrame getCaptureFrame() {
         return captureFrame;
     }
@@ -43,22 +45,45 @@ public class Controller_VideoCall {
             userSocket= HandleClientRequest.getUserSocket();
         }
         userIP=userSocket.getInetAddress().getCanonicalHostName();
+        try {
+            userAddress=InetAddress.getByName(userIP);
+        } catch (UnknownHostException e) {
+            e.printStackTrace();
+        }
 
         System.out.println(userSocket);
 
         videoEnabled=true;
-        try {
-            frameOOS=new ObjectOutputStream(userSocket.getOutputStream());
-            frameOIS=new ObjectInputStream(userSocket.getInputStream());
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+//        try {
+//            frameOOS=new ObjectOutputStream(userSocket.getOutputStream());
+//            frameOIS=new ObjectInputStream(userSocket.getInputStream());
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
         captureFrame=new CaptureFrame();
-        captureFrame.startCam(frameOOS);
+        captureFrame.startCam(userAddress);
         new Thread(() -> {
             while (true){
                 try {
-                    MatWrapper mat = (MatWrapper) frameOIS.readObject();
+                    byte[] matArray=new byte[1024*1024];
+                    DatagramPacket dpFrame=new DatagramPacket(matArray,1024*1024);
+                    App.serverSocketFrameData.receive(dpFrame);
+                    MatWrapper mat ;
+
+                    ByteArrayInputStream bis = new ByteArrayInputStream(matArray);
+                    ObjectInput in = null;
+                    try {
+                        in = new ObjectInputStream(bis);
+                        mat = (MatWrapper) in.readObject();
+                    } finally {
+                        try {
+                            if (in != null) {
+                                in.close();
+                            }
+                        } catch (IOException ex) {
+                            // ignore close exception
+                        }
+                    }
                     Mat frame = new Mat(mat.getRows(),mat.getCols(),mat.getType());
                     frame.put(0,0,mat.getMatArray());
                     Image image=Utils.mat2Image(frame);
@@ -94,7 +119,7 @@ public class Controller_VideoCall {
             stopvideo.setText("Start Video");
         }
         else {
-            captureFrame.startCam(frameOOS);
+            captureFrame.startCam(userAddress);
             videoEnabled=true;
             stopvideo.setText("Stop Video");
         }

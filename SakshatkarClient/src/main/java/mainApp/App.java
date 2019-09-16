@@ -51,8 +51,8 @@ public class App extends Application {
 
         try{
             App.serverSocket = new ServerSocket(6963);
-            App.serverSocketFrame = new ServerSocket(7000);
-            App.serverSocketFrameData = new DatagramSocket();
+            App.serverSocketFrame = new ServerSocket(7001);
+            App.serverSocketFrameData = new DatagramSocket(7000);
             System.out.println("Client Started..!!");
         }catch (IOException e){
             e.printStackTrace();
