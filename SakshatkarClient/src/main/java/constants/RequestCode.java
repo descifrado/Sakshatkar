@@ -12,7 +12,8 @@ public enum RequestCode {
     LOGOUT_REQUEST,
     ADDFRIEND_REQUEST,
     STATUS_CHANGE_REQUEST,
-    USERIP_REQUEST;
+    USERIP_REQUEST,
+    VIDEO_CALL_REQUEST;
     RequestCode(){
         this.toString();
     }

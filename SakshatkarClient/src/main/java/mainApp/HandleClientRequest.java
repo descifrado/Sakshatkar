@@ -1,7 +1,22 @@
 package mainApp;
 
 import constants.RequestCode;
+import constants.ResponseCode;
+import controllers.Controller_VideoCall;
+import data.User;
+import javafx.application.Platform;
+import javafx.event.EventHandler;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
+import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 import request.Request;
+import request.Response;
+import request.peerRequest.VideoCallRequest;
+import tools.UIDGenerator;
 
 import java.io.*;
 import java.net.Socket;
@@ -11,6 +26,12 @@ public class HandleClientRequest implements Runnable {
     private Socket socket;
     private ObjectOutputStream oos;
     private ObjectInputStream ois;
+    private static Socket userSocket;
+
+    public static Socket getUserSocket() {
+        return userSocket;
+    }
+
     public HandleClientRequest(Socket socket) {
         this.socket = socket;
         try {
@@ -48,6 +69,56 @@ public class HandleClientRequest implements Runnable {
                 {
                     System.out.println("Client Disconnected..!!");
                     return;
+                }
+
+                if (request.getRequestCode().equals(RequestCode.VIDEO_CALL_REQUEST)){
+                    User requestingUser=((VideoCallRequest)request).getUser();
+                    Alert alert=new Alert(Alert.AlertType.CONFIRMATION,requestingUser+" wants to have a video call with you.\n Wanna Connect ?", ButtonType.YES,ButtonType.NO);
+                    alert.showAndWait();
+
+                    if (alert.getResult()==ButtonType.YES){
+                        oos.writeObject(new Response(UIDGenerator.generateuid(),null, ResponseCode.SUCCESS));
+                        oos.flush();
+                        userSocket=socket;
+                        Platform.runLater(new Runnable() {
+                            @Override
+                            public void run() {
+                                Parent root;
+                                try {
+                                    FXMLLoader loader=new FXMLLoader(getClass().getResource("/login.fxml"));
+                                    root = loader.load();
+                                    Stage stage = new Stage();
+                                    stage.setTitle("Call to "+requestingUser);
+                                    stage.setScene(new Scene(root, 1303, 961));
+                                    Controller_VideoCall videoCallController=loader.<Controller_VideoCall>getController();
+                                    videoCallController.initSocket(socket);
+                                    stage.show();
+                                    stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
+                                        @Override
+                                        public void handle(WindowEvent windowEvent) {
+                                            videoCallController.getCaptureFrame().setClosed();
+                                            try {
+                                                socket.close();
+                                            } catch (IOException e) {
+                                                e.printStackTrace();
+                                            }
+                                        }
+                                    });
+                                    // Hide this current window (if this is what you want)
+                                    //((Node)(event.getSource())).getScene().getWindow().hide();
+                                }
+                                catch (IOException e) {
+                                    e.printStackTrace();
+                                }
+
+                            }
+                        });
+
+                    }
+                    else {
+                        oos.writeObject(new Response(UIDGenerator.generateuid(),null, ResponseCode.FAILED));
+                        oos.flush();
+                    }
                 }
 
             }

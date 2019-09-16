@@ -6,18 +6,22 @@ import data.User;
 import javafx.application.Platform;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 import mainApp.App;
 import request.AddFriendRequest;
 import request.ProfilePhotoRequest;
 import request.Response;
+import request.UserIPRequest;
 import tools.FileReciever;
 
 import javax.imageio.ImageIO;
@@ -37,6 +41,13 @@ public class Controller_Profile {
     public JFXTextField email;
     public ImageView profilephoto;
     public JFXTextField company;
+    public Label videocallstatus;
+    private String userIP;
+    private static Socket videoCallSocket;
+
+    public static Socket getVideoCallSocket(){
+        return videoCallSocket;
+    }
 
     private User user;
     @FXML
@@ -80,6 +91,51 @@ public class Controller_Profile {
     }
 
     public void onvideocallclicked(ActionEvent actionEvent) {
+        UserIPRequest userIPRequest=new UserIPRequest(user.getUserUID());
+        try {
+            App.oosTracker.writeObject(userIPRequest);
+            App.oosTracker.flush();
+            Response response= (Response) App.oisTracker.readObject();
+            if (response.getResponseCode().equals(ResponseCode.FAILED)){
+                videocallstatus.setText("User Offline");
+            }
+            else {
+                videoCallSocket=new Socket(userIP,6963);
+                Platform.runLater(new Runnable() {
+                    @Override
+                    public void run() {
+                        Parent root;
+                        try {
+                            FXMLLoader loader=new FXMLLoader(getClass().getResource("/login.fxml"));
+                            root = loader.load();
+                            Stage stage = new Stage();
+                            stage.setTitle("Call to "+user);
+                            stage.setScene(new Scene(root, 1303, 961));
+                            Controller_VideoCall videoCallController=loader.<Controller_VideoCall>getController();
+                            videoCallController.initSocket(videoCallSocket);
+                            stage.show();
+                            stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
+                                @Override
+                                public void handle(WindowEvent windowEvent) {
+                                    videoCallController.getCaptureFrame().setClosed();
+                                }
+                            });
+                            // Hide this current window (if this is what you want)
+                            //((Node)(event.getSource())).getScene().getWindow().hide();
+                        }
+                        catch (IOException e) {
+                            e.printStackTrace();
+                        }
+
+                    }
+                });
+            }
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
     }
 
     public void onchatclicked(ActionEvent actionEvent) {

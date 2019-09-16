@@ -47,6 +47,13 @@
             <artifactId>javafx-swing</artifactId>
             <version>11.0.2</version>
         </dependency>
+        <!-- https://mvnrepository.com/artifact/org.openpnp/opencv -->
+        <dependency>
+            <groupId>org.openpnp</groupId>
+            <artifactId>opencv</artifactId>
+            <version>3.4.2-1</version>
+        </dependency>
+
 
 
     </dependencies>
