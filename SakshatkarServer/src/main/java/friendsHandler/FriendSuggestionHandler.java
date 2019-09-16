@@ -17,6 +17,7 @@ public class FriendSuggestionHandler {
     private String userUID;
     public FriendSuggestionHandler(FriendSuggestionRequest friendSuggestionRequest) {
         this.friendSuggestionRequest = friendSuggestionRequest;
+        this.userUID = friendSuggestionRequest.getUserUID();
     }
     public Response getResponse(){
         String query = "\n" +
