@@ -1,6 +1,8 @@
 package videoCallHandler.frameHandler;
 
 import org.opencv.core.Mat;
+import org.opencv.highgui.HighGui;
+import org.opencv.imgcodecs.Imgcodecs;
 import org.opencv.imgproc.Imgproc;
 import org.opencv.videoio.VideoCapture;
 
@@ -20,7 +22,7 @@ public class CaptureFrame {
     // a timer for acquiring the video stream
     private ScheduledExecutorService timer;
     // the OpenCV object that realizes the video capture
-    private VideoCapture capture = new VideoCapture();
+    private VideoCapture capture = new VideoCapture(0);
     // a flag to change the button behavior
     private boolean cameraActive = false;
     // the id of the camera to be used
@@ -29,6 +31,8 @@ public class CaptureFrame {
 
     public CaptureFrame()
     {
+        boolean wset = capture.set(3,360);
+        boolean hset = capture.set(4,360);
         try {
             socket = new DatagramSocket();
         } catch (SocketException e) {
