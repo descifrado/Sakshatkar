@@ -48,27 +48,27 @@ public class Controller_Dashboard {
     public JFXButton logout;
     public JFXListView onlineuserslist;
     public void initialize() throws IOException {
-//        GetStatusRequest getStatusRequest=new GetStatusRequest(App.user.getUserUID());
-//        try{
-//            App.oosTracker.writeObject(getStatusRequest);
-//            App.oosTracker.flush();
-//            Response response;
-//            System.out.println("Reading Object");
-//            response = (Response)App.oisTracker.readObject();
-//            System.out.println(response.getResponseCode().toString());
-//            if(response.getResponseCode().equals(ResponseCode.SUCCESS)){
-//                status.setText("hello");
-//            }
-//            else
-//            {
-//                System.out.println("Error");
-//            }
-//
-//        }
-//        catch (IOException | ClassNotFoundException e){
-//            e.printStackTrace();
-//            System.out.println(e.getMessage());
-//        }
+        GetStatusRequest getStatusRequest=new GetStatusRequest(App.user.getUserUID());
+        try{
+            App.oosTracker.writeObject(getStatusRequest);
+            App.oosTracker.flush();
+            Response response;
+            System.out.println("Reading Object");
+            response = (Response)App.oisTracker.readObject();
+            System.out.println(response.getResponseCode().toString());
+            if(response.getResponseCode().equals(ResponseCode.SUCCESS)){
+                status.setText("hello");
+            }
+            else
+            {
+                System.out.println("Error");
+            }
+
+        }
+        catch (IOException | ClassNotFoundException e){
+            e.printStackTrace();
+            System.out.println(e.getMessage());
+        }
         firstname.setText(App.user.getFirstName());
         lastname.setText(App.user.getLastName());
         email.setText(App.user.getEmail());
