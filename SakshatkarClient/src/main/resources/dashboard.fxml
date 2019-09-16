@@ -86,7 +86,7 @@
                 <Font size="18.0" />
             </font>
         </JFXTextField>
-        <JFXButton fx:id="searchuser" layoutX="768.0" layoutY="475.0" onAction="#onsearchclicked" prefHeight="33.0" prefWidth="155.0" style="-fx-background-color: white;" text="Search User" textFill="#33bfc6">
+        <JFXButton fx:id="searchuser" layoutX="746.0" layoutY="475.0" onAction="#onsearchclicked" prefHeight="33.0" prefWidth="200.0" style="-fx-background-color: white;" text="Search User" textFill="#33bfc6">
             <font>
                 <Font size="18.0" />
             </font>
@@ -94,7 +94,7 @@
                 <Bloom />
             </effect>
         </JFXButton>
-        <JFXButton fx:id="onlineuser" layoutX="768.0" layoutY="583.0" onAction="#ononlineclicked" prefHeight="33.0" prefWidth="155.0" style="-fx-background-color: white;" text="Online Users" textFill="#33bfc6">
+        <JFXButton fx:id="onlineuser" layoutX="746.0" layoutY="583.0" onAction="#ononlineclicked" prefHeight="33.0" prefWidth="200.0" style="-fx-background-color: white;" text="Online Users" textFill="#33bfc6">
             <font>
                 <Font size="18.0" />
             </font>
@@ -116,7 +116,15 @@
          </effect>
       </JFXButton>
       <JFXListView fx:id="onlineuserslist" editable="true" layoutX="1014.0" layoutY="209.0" onMouseClicked="#onuserlistclivked" prefHeight="610.0" prefWidth="268.0" style="-fx-font-size: 20; -fx-font-weight: bold; -fx-font-color: #da1313; -fx-text-inner-color: #da1313; -fx-prompt-text-fill: #da1313;" />
-      <JFXButton fx:id="myfriends" layoutX="768.0" layoutY="689.0" onAction="#onfriendsclicked" prefHeight="33.0" prefWidth="155.0" style="-fx-background-color: white;" text="My Friends" textFill="#33bfc6">
+      <JFXButton fx:id="myfriends" layoutX="746.0" layoutY="689.0" onAction="#onfriendsclicked" prefHeight="33.0" prefWidth="200.0" style="-fx-background-color: white;" text="My Friends" textFill="#33bfc6">
+         <font>
+            <Font size="18.0" />
+         </font>
+         <effect>
+            <Bloom />
+         </effect>
+      </JFXButton>
+      <JFXButton fx:id="friendsug" layoutX="746.0" layoutY="778.0" onAction="#onfriendsugclicked" prefHeight="33.0" prefWidth="200.0" style="-fx-background-color: white;" text="Suggested Friends" textFill="#33bfc6">
          <font>
             <Font size="18.0" />
          </font>

@@ -119,9 +119,9 @@ public class Controller_Dashboard {
                 users =(ArrayList<User>)response.getResponseObject();
                 if(!users.isEmpty()) {
                     for (User user : users) {
-                        onlineuserslist.getItems().add(user);
+                        if(user.getUserUID()!=App.user.getUserUID())
+                            onlineuserslist.getItems().add(user);
                     }
-                    onlineuserslist.getItems().remove(App.user);
                 }
             }
             else
@@ -151,9 +151,9 @@ public class Controller_Dashboard {
                 {
                     for(User user: users)
                     {
-                        onlineuserslist.getItems().add(user);
+                        if(user.getUserUID()!=App.user.getUserUID())
+                            onlineuserslist.getItems().add(user);
                     }
-                    onlineuserslist.getItems().remove(App.user);
                 }
             }
             else
@@ -201,6 +201,35 @@ public class Controller_Dashboard {
         FriendListRequest friendListRequest=new FriendListRequest(App.user.getUserUID());
         try{
             App.oosTracker.writeObject(friendListRequest);
+            App.oosTracker.flush();
+            Response response;
+            response = (Response)App.oisTracker.readObject();
+            if(response.getResponseCode().equals(ResponseCode.SUCCESS)){
+                users =(ArrayList<User>)response.getResponseObject();
+                if(!users.isEmpty())
+                {
+                    for(User user: users) {
+                        onlineuserslist.getItems().add(user);
+                    }
+                }
+            }
+            else
+            {
+                System.out.println("Error");
+            }
+
+        }
+        catch (IOException | ClassNotFoundException e){
+            e.printStackTrace();
+            System.out.println(e.getMessage());
+        }
+    }
+
+    public void onfriendsugclicked(ActionEvent actionEvent) {
+        onlineuserslist.getItems().clear();
+        FriendSuggestionRequest friendSuggestionRequest=new FriendSuggestionRequest(App.user.getUserUID());
+        try{
+            App.oosTracker.writeObject(friendSuggestionRequest);
             App.oosTracker.flush();
             Response response;
             response = (Response)App.oisTracker.readObject();
