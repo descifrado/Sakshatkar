@@ -29,7 +29,7 @@ public class App extends Application {
     public static ServerSocketChannel serverClientSocketChannel;
     public static Socket socketp2p;
     public static ServerSocket serverSocket;
-    private static ServerSocket serverSocketFrame;
+    public static ServerSocket serverSocketFrame;
 
     @Override
     public void start(Stage primaryStage) throws IOException {
@@ -67,7 +67,6 @@ public class App extends Application {
     public static void main(String[] args) {
         System.loadLibrary("opencv_java411");
         launch(args);
-
     }
 
 }

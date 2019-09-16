@@ -127,6 +127,12 @@ public class Controller_Profile {
                         } catch (ClassNotFoundException e) {
                             e.printStackTrace();
                         }
+                        try {
+                            Socket socket=App.serverSocketFrame.accept();
+                            videoCallSocket=socket;
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
                         Platform.runLater(()->{
                             Parent root;
                             try {

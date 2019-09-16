@@ -43,11 +43,9 @@ public class Controller_VideoCall {
             userSocket= HandleClientRequest.getUserSocket();
         }
         userIP=userSocket.getInetAddress().getCanonicalHostName();
-        try {
-            userSocket=new Socket(userIP,7000);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+
+        System.out.println(userSocket);
+
         videoEnabled=true;
         try {
             frameOOS=new ObjectOutputStream(userSocket.getOutputStream());
