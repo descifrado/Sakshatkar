@@ -63,7 +63,7 @@ public class App extends Application {
 
 
     public static void main(String[] args) {
-
+        System.loadLibrary("opencv_java411");
         launch(args);
 
     }

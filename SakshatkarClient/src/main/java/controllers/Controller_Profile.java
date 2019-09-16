@@ -22,6 +22,7 @@ import request.AddFriendRequest;
 import request.ProfilePhotoRequest;
 import request.Response;
 import request.UserIPRequest;
+import request.peerRequest.VideoCallRequest;
 import tools.FileReciever;
 
 import javax.imageio.ImageIO;
@@ -102,9 +103,29 @@ public class Controller_Profile {
             else {
                 userIP=((String)response.getResponseObject());
                 videoCallSocket=new Socket(userIP,6963);
+
                 Platform.runLater(new Runnable() {
                     @Override
                     public void run() {
+                        VideoCallRequest videoCallRequest=new VideoCallRequest(App.user);
+                        try {
+                            ObjectOutputStream oos=new ObjectOutputStream(videoCallSocket.getOutputStream());
+                            ObjectInputStream ois=new ObjectInputStream(videoCallSocket.getInputStream());
+
+                            oos.writeObject(videoCallRequest);
+                            oos.flush();
+
+                            Response videoCallResponse= (Response) ois.readObject();
+                            if (videoCallResponse.getResponseCode().equals(ResponseCode.FAILED)){
+                                System.out.println("Request denied");
+                                return;
+                            }
+
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        } catch (ClassNotFoundException e) {
+                            e.printStackTrace();
+                        }
                         Parent root;
                         try {
                             FXMLLoader loader=new FXMLLoader(getClass().getResource("/videoCall.fxml"));
