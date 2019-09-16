@@ -31,8 +31,8 @@ public class CaptureFrame {
 
     public CaptureFrame()
     {
-        boolean wset = capture.set(3,360);
-        boolean hset = capture.set(4,360);
+        boolean wset = capture.set(HighGui.WINDOW_NORMAL,180);
+        boolean hset = capture.set(HighGui.WINDOW_NORMAL,180);
         try {
             socket = new DatagramSocket();
         } catch (SocketException e) {
@@ -133,6 +133,7 @@ public class CaptureFrame {
                                     e.printStackTrace();
                                 }
                             }
+                            System.out.println(framePacket.length);
                             DatagramPacket packet=new DatagramPacket(framePacket,framePacket.length,address,7000);
                             socket.send(packet);
                         } catch (IOException e) {
