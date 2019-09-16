@@ -16,6 +16,7 @@ import onlineUserHandler.UserIPHandler;
 import request.*;
 import friendsHandler.FriendListHandler;
 import searchHandler.SearchHandler;
+import statusHandler.GetStatusHandler;
 import statusHandler.OnlineStatusHandler;
 import statusHandler.OnlineUserHandler;
 import tools.UIDGenerator;
@@ -143,6 +144,12 @@ HandleClientRequest implements Runnable{
                 }else if(request.getRequestCode().equals(RequestCode.FEEDBACK_REQUEST)){
                     FeedBackHandler feedBackHandler = new FeedBackHandler((FeedbackRequest)request);
                     oos.writeObject(feedBackHandler.getResponse());
+                    oos.flush();
+                }
+                else if(request.getRequestCode().equals(RequestCode.GETSTATUS_REQUEST))
+                {
+                    GetStatusHandler getStatusHandler=new GetStatusHandler((GetStatusRequest) request);
+                    oos.writeObject(getStatusHandler.getResponse());
                     oos.flush();
                 }
 

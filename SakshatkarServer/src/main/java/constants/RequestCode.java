@@ -13,6 +13,7 @@ public enum RequestCode {
     ADDFRIEND_REQUEST,
     USERIP_REQUEST,
     FRIENDSUGGESTION_REQUEST,
+    GETSTATUS_REQUEST,
     FEEDBACK_REQUEST;
 
     RequestCode(){

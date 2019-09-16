@@ -65,8 +65,8 @@ public class Controller_VideoCall {
         new Thread(() -> {
             while (true){
                 try {
-                    byte[] matArray=new byte[1024*1024];
-                    DatagramPacket dpFrame=new DatagramPacket(matArray,1024*1024);
+                    byte[] matArray=new byte[60000];
+                    DatagramPacket dpFrame=new DatagramPacket(matArray,60000);
                     App.serverSocketFrameData.receive(dpFrame);
                     MatWrapper mat ;
 
