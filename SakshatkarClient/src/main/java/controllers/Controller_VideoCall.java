@@ -1,10 +1,17 @@
 package controllers;
 
 import com.jfoenix.controls.JFXButton;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.stage.Stage;
 import mainApp.HandleClientRequest;
 import org.opencv.core.Mat;
 import org.opencv.videoio.VideoCapture;
@@ -66,8 +73,23 @@ public class Controller_VideoCall {
                 }  catch (ClassNotFoundException e) {
                     e.printStackTrace();
                 } catch (IOException e) {
+                    e.printStackTrace();
+                    captureFrame.setClosed();
 
-                    //e.printStackTrace();
+                    Platform.runLater( () -> {
+                        Alert alert = new Alert(Alert.AlertType.INFORMATION, "Call disconnected !!! ", ButtonType.FINISH);
+                        alert.showAndWait();
+                        while (alert==null || alert.getResult()==null);
+                        Stage primaryStage = (Stage) stopvideo.getScene().getWindow();
+                        Parent root = null;
+                        try {
+                            root = FXMLLoader.load(getClass().getResource("/feedback.fxml"));
+                        }catch(IOException ex){
+                            ex.printStackTrace();
+                        }
+                        primaryStage.setScene(new Scene(root, 1081, 826));
+                    });
+                    Thread.currentThread().stop();
                 }
             }
 
@@ -81,6 +103,16 @@ public class Controller_VideoCall {
 
     public void oncancelclicked(ActionEvent actionEvent) {
         captureFrame.setClosed();
+        Platform.runLater( () -> {
+            Stage primaryStage = (Stage) stopvideo.getScene().getWindow();
+            Parent root = null;
+            try {
+                root = FXMLLoader.load(getClass().getResource("/feedback.fxml"));
+            }catch(IOException e){
+                e.printStackTrace();
+            }
+            primaryStage.setScene(new Scene(root, 1081, 826));
+        });
     }
 
     public void onsharescreenclicked(ActionEvent actionEvent) {

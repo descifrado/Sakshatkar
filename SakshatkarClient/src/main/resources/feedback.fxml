@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="pane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="961.0" prefWidth="1303.0" stylesheets="@mainApp/backgroundbig.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.Controller_Feedback">
+<AnchorPane fx:id="pane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="961.0" prefWidth="1303.0" stylesheets="@mainApp/backgroundbig.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.Controller_Feedback">
     <children>
         <Label layoutX="1147.0" layoutY="931.0" prefHeight="16.0" prefWidth="142.0" text="NobodyDoesItBetter" textFill="#58ccd0" />
         <Label alignment="CENTER" layoutX="484.0" layoutY="149.0" prefHeight="49.0" prefWidth="336.0" text="Feedback" textFill="#bf2525">
@@ -73,7 +73,7 @@
                 <Font size="20.0" />
             </font>
         </Label>
-      <JFXButton fx:id="dashboard" layoutX="865.0" layoutY="849.0" onAction="#ondashboardclicked" prefHeight="33.0" prefWidth="198.0" style="-fx-background-color: white;" text="Dashboard" textFill="#33bfc6">
+      <JFXButton fx:id="dashboard" layoutX="865.0" layoutY="849.0" onAction="#oncloseclicked" prefHeight="33.0" prefWidth="198.0" style="-fx-background-color: white;" text="Close" textFill="#33bfc6">
          <font>
             <Font size="18.0" />
          </font>

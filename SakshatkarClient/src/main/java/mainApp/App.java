@@ -31,7 +31,7 @@ public class App extends Application {
     public static Socket socketp2p;
     public static ServerSocket serverSocket;
     public static ServerSocket serverSocketFrame;
-    
+
     @Override
     public void start(Stage primaryStage) throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("/login.fxml"));

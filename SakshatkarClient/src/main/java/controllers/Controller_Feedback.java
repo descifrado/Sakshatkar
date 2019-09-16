@@ -48,20 +48,12 @@ public class Controller_Feedback {
         }
     }
 
-    public void ondashboardclicked(ActionEvent actionEvent) {
+    public void oncloseclicked(ActionEvent actionEvent) {
         Platform.runLater(new Runnable() {
             @Override
             public void run() {
                 Stage primaryStage = (Stage) audio.getScene().getWindow();
-                Parent root = null;
-                try {
-
-                    root = FXMLLoader.load(getClass().getResource("/dashboard.fxml"));
-                }catch(IOException e){
-                    e.printStackTrace();
-                }
-                primaryStage.setScene(new Scene(root, 1303, 961));
-
+                primaryStage.close();
             }
         });
     }
