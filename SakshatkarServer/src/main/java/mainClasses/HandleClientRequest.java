@@ -78,7 +78,7 @@ HandleClientRequest implements Runnable{
                 }else if(request.getRequestCode().equals(RequestCode.LOGIN_REQUEST)){
                     Login login = new Login((LoginRequest)request);
                     Response response=login.getResponse();
-                    onlineUserHandler=new OnlineUserHandler(((User)response.getResponseObject()).getUserUID());
+                    onlineUserHandler=new OnlineUserHandler(((User)response.getResponseObject()).getUserUID(),socket.getInetAddress().getCanonicalHostName());
                     onlineUserHandler.makeUserOnline();
                     oos.writeObject(response);
                     oos.flush();
@@ -124,7 +124,7 @@ HandleClientRequest implements Runnable{
                     oos.flush();
                 }else if(request.getRequestCode().equals(RequestCode.LOGOUT_REQUEST)){
                     String userUID = ((LogoutRequest)request).getUserUID();
-                    onlineUserHandler = new OnlineUserHandler(userUID);
+                    onlineUserHandler = new OnlineUserHandler(userUID,socket.getInetAddress().getCanonicalHostName());
                     onlineUserHandler.makeUserOffline();
                     Response response = new Response(UIDGenerator.generateuid(),null,ResponseCode.SUCCESS);
                     oos.writeObject(response);

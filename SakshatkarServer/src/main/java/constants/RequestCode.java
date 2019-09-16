@@ -10,7 +10,8 @@ public enum RequestCode {
     PROFILEPHOTO_REQUEST,
     FRIENDLIST_REQUEST,
     LOGOUT_REQUEST,
-    ADDFRIEND_REQUEST;
+    ADDFRIEND_REQUEST,
+    USERIP_REQUEST;
 
     RequestCode(){
         this.toString();
