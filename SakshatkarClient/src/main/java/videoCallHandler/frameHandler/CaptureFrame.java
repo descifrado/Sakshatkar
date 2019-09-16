@@ -1,6 +1,7 @@
 package videoCallHandler.frameHandler;
 
 import org.opencv.core.Mat;
+import org.opencv.imgproc.Imgproc;
 import org.opencv.videoio.VideoCapture;
 
 import java.io.IOException;
@@ -35,7 +36,7 @@ public class CaptureFrame {
                 // if the frame is not empty, process it
                 if (!frame.empty())
                 {
-                    //Imgproc.cvtColor(frame, frame, Imgproc.COLOR_BGR2GRAY);
+                    Imgproc.cvtColor(frame, frame, Imgproc.COLOR_BGR2GRAY);
                 }
 
             }

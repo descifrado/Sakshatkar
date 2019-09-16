@@ -10,6 +10,7 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.net.DatagramSocket;
 import java.net.InetSocketAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -30,6 +31,7 @@ public class App extends Application {
     public static Socket socketp2p;
     public static ServerSocket serverSocket;
     public static ServerSocket serverSocketFrame;
+    public static DatagramSocket serverSocketFrameData;
 
     @Override
     public void start(Stage primaryStage) throws IOException {
@@ -50,6 +52,7 @@ public class App extends Application {
         try{
             App.serverSocket = new ServerSocket(6963);
             App.serverSocketFrame = new ServerSocket(7000);
+            App.serverSocketFrameData = new DatagramSocket();
             System.out.println("Client Started..!!");
         }catch (IOException e){
             e.printStackTrace();
