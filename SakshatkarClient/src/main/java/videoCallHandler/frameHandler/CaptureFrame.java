@@ -1,6 +1,7 @@
 package videoCallHandler.frameHandler;
 
 import org.opencv.core.Mat;
+import org.opencv.core.Size;
 import org.opencv.highgui.HighGui;
 import org.opencv.imgcodecs.Imgcodecs;
 import org.opencv.imgproc.Imgproc;
@@ -115,6 +116,10 @@ public class CaptureFrame {
                     {
                         // effectively grab and process a single frame
                         Mat frameMat = grabFrame();
+                        Size size=new Size(180,180);
+                        Mat finalFrame=new Mat();
+                        Imgproc.resize(frameMat,finalFrame,size);
+                        frameMat=finalFrame;
                         MatWrapper frame=new MatWrapper(frameMat);
                         // convert and show the frame
                         byte[] framePacket;
