@@ -9,6 +9,7 @@ import data.User;
 import filehandler.FileReciever;
 import filehandler.FileSender;
 import friendsHandler.FriendAddHandler;
+import friendsHandler.FriendSuggestionHandler;
 import onlineUserHandler.OnlineUserListHandler;
 import onlineUserHandler.UserIPHandler;
 import request.*;
@@ -133,6 +134,10 @@ HandleClientRequest implements Runnable{
                 }else if(request.getRequestCode().equals(RequestCode.USERIP_REQUEST)){
                     UserIPHandler userIPHandler = new UserIPHandler((UserIPRequest)request);
                     oos.writeObject(userIPHandler.getResponse());
+                    oos.flush();
+                }else if(request.getRequestCode().equals(RequestCode.FRIENDSUGGESTION_REQUEST)){
+                    FriendSuggestionHandler friendSuggestionHandler = new FriendSuggestionHandler((FriendSuggestionRequest)request);
+                    oos.writeObject(friendSuggestionHandler);
                     oos.flush();
                 }
 
