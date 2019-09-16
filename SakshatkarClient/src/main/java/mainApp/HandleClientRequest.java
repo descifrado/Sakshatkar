@@ -26,7 +26,7 @@ public class HandleClientRequest implements Runnable {
     private Socket socket;
     private ObjectOutputStream oos;
     private ObjectInputStream ois;
-    private static Socket userSocket;
+    private static Socket userSocket=null;
 
     public static Socket getUserSocket() {
         return userSocket;
@@ -91,7 +91,6 @@ public class HandleClientRequest implements Runnable {
                                     stage.setTitle("Call to "+requestingUser);
                                     stage.setScene(new Scene(root, 1303, 961));
                                     Controller_VideoCall videoCallController=loader.<Controller_VideoCall>getController();
-                                    videoCallController.initSocket(socket);
                                     stage.show();
                                     stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
                                         @Override

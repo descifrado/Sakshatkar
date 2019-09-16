@@ -5,6 +5,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import mainApp.HandleClientRequest;
 import org.opencv.core.Mat;
 import org.opencv.videoio.VideoCapture;
 import videoCallHandler.frameHandler.CaptureFrame;
@@ -34,6 +35,12 @@ public class Controller_VideoCall {
     }
 
     public void initialize(){
+        if (Controller_Profile.getVideoCallSocket()!=null){
+            userSocket=Controller_Profile.getVideoCallSocket();
+        }
+        else {
+            userSocket= HandleClientRequest.getUserSocket();
+        }
         videoEnabled=true;
         try {
             frameOIS=new ObjectInputStream(userSocket.getInputStream());

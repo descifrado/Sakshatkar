@@ -43,7 +43,7 @@ public class Controller_Profile {
     public JFXTextField company;
     public Label videocallstatus;
     private String userIP;
-    private static Socket videoCallSocket;
+    private static Socket videoCallSocket=null;
 
     public static Socket getVideoCallSocket(){
         return videoCallSocket;
@@ -100,19 +100,23 @@ public class Controller_Profile {
                 videocallstatus.setText("User Offline");
             }
             else {
+                userIP=((String)response.getResponseObject());
                 videoCallSocket=new Socket(userIP,6963);
                 Platform.runLater(new Runnable() {
                     @Override
                     public void run() {
                         Parent root;
                         try {
-                            FXMLLoader loader=new FXMLLoader(getClass().getResource("/login.fxml"));
+                            FXMLLoader loader=new FXMLLoader(getClass().getResource("/videoCall.fxml"));
+                            System.out.println(loader);
                             root = loader.load();
+                            FXMLLoader fxmlLoader=new FXMLLoader();
+                            System.out.println(videoCallSocket);
+                            Controller_VideoCall videoCallController=loader.getController();
+                            System.out.println(videoCallController);
                             Stage stage = new Stage();
                             stage.setTitle("Call to "+user);
                             stage.setScene(new Scene(root, 1303, 961));
-                            Controller_VideoCall videoCallController=loader.<Controller_VideoCall>getController();
-                            videoCallController.initSocket(videoCallSocket);
                             stage.show();
                             stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
                                 @Override
