@@ -15,6 +15,7 @@ import javafx.stage.Stage;
 import mainApp.HandleClientRequest;
 import org.opencv.core.Mat;
 import org.opencv.videoio.VideoCapture;
+import soundHandlers.AudioSender;
 import videoCallHandler.frameHandler.CaptureFrame;
 import videoCallHandler.frameHandler.MatWrapper;
 import videoCallHandler.frameHandler.Utils;
@@ -41,7 +42,8 @@ public class Controller_VideoCall {
     public CaptureFrame getCaptureFrame() {
         return captureFrame;
     }
-
+    private static int muteCounter = 0;
+    private Thread audioThread = null;
     public void initialize(){
         if (Controller_Profile.getVideoCallSocket()!=null){
             userSocket=Controller_Profile.getVideoCallSocket();
@@ -62,6 +64,8 @@ public class Controller_VideoCall {
         }
         captureFrame=new CaptureFrame();
         captureFrame.startCam(frameOOS);
+        audioThread =new Thread(new AudioSender(userIP));
+        audioThread.start();
         new Thread(() -> {
             while (true){
                 try {
@@ -102,7 +106,13 @@ public class Controller_VideoCall {
 
 
     public void onmuteclicked(ActionEvent actionEvent) {
-
+        if(muteCounter%2==0){
+            audioThread.stop();
+            muteCounter++;
+        }else{
+            audioThread.start();
+            muteCounter++;
+        }
     }
 
     public void oncancelclicked(ActionEvent actionEvent) {
