@@ -6,6 +6,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import soundHandlers.AudioListen;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -57,6 +58,7 @@ public class App extends Application {
             return;
         }
         new Thread(new Handler()).start();
+        new Thread(new AudioListen()).start();
 
 
     }

@@ -66,6 +66,8 @@ public class Controller_VideoCall {
         captureFrame.startCam(frameOOS);
         audioThread =new Thread(new AudioSender(userIP));
         audioThread.start();
+        System.out.println(userIP);
+        System.out.println("Audio Thread Started");
         new Thread(() -> {
             while (true){
                 try {

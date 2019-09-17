@@ -59,6 +59,7 @@ public class AudioSender implements Runnable{
             byte[] data = new byte[buffsize];
 
             addr = InetAddress.getByName(this.ipAdress);
+            System.out.println(addr);
             DatagramSocket socket = new DatagramSocket();
             while (true) {
 
