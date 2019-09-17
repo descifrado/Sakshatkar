@@ -216,6 +216,21 @@ public class Controller_Profile {
     }
 
     public void onchatclicked(ActionEvent actionEvent) {
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                Stage primaryStage = (Stage) firstname.getScene().getWindow();
+                Parent root = null;
+                try {
+
+                    root = FXMLLoader.load(getClass().getResource("/chat.fxml"));
+                }catch(IOException e){
+                    e.printStackTrace();
+                }
+                primaryStage.setScene(new Scene(root, 1300, 960));
+
+            }
+        });
     }
 
     public void onsendclicked(ActionEvent actionEvent) {

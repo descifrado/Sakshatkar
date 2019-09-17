@@ -3,6 +3,8 @@ package controllers;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextArea;
 import com.jfoenix.controls.JFXTextField;
+import constants.ResponseCode;
+import data.Message;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
@@ -10,8 +12,13 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import mainApp.App;
+import request.MessageSendRequest;
+import request.Response;
+import request.UserIPRequest;
 
 import java.io.*;
+import java.util.Date;
+import java.util.concurrent.TimeUnit;
 
 public class Controller_ChatWindow {
 
@@ -21,7 +28,40 @@ public class Controller_ChatWindow {
     private BufferedReader reader;
     private String filePath="";
     private Thread refresh;
+
+    private String senderIP, recieverIP;
+
     public void initialize() {
+        UserIPRequest userIPRequest=new UserIPRequest(App.user.getUserUID());
+        try {
+            App.oosTracker.writeObject(userIPRequest);
+            App.oosTracker.flush();
+            Response response;
+            System.out.println("Reading Object");
+            response = (Response) App.oisTracker.readObject();
+            System.out.println(response.getResponseCode().toString());
+            if (response.getResponseCode().equals(ResponseCode.SUCCESS)) {
+                senderIP=response.getResponseObject().toString();
+            }
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
+        userIPRequest=new UserIPRequest(Controller_Profile.getUser().getUserUID());
+        try {
+            App.oosTracker.writeObject(userIPRequest);
+            App.oosTracker.flush();
+            Response response;
+            System.out.println("Reading Object");
+            response = (Response) App.oisTracker.readObject();
+            System.out.println(response.getResponseCode().toString());
+            if (response.getResponseCode().equals(ResponseCode.SUCCESS)) {
+                recieverIP=response.getResponseObject().toString();
+            }
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
         chatarea.clear();
         String cwd=System.getProperty("user.dir");
         filePath=cwd+"/chat/"+App.user.getUserUID() + Controller_Profile.getUser().getUserUID();
@@ -61,15 +101,32 @@ public class Controller_ChatWindow {
     }
     public void onsendclicked(ActionEvent actionEvent)
     {
-        try {
+        Message msg=new Message(message.getText(), App.user, Controller_Profile.getUser());
+        MessageSendRequest messageSendRequest=new MessageSendRequest(senderIP, recieverIP, msg);
+        try
+        {
+            App.oosTracker.writeObject(messageSendRequest);
+            App.oosTracker.flush();
+            Response response;
+            System.out.println("Reading Object");
+            response = (Response) App.oisTracker.readObject();
+            System.out.println(response.getResponseCode().toString());
+            if (response.getResponseCode().equals(ResponseCode.SUCCESS)) {
+                try {
 
-            BufferedWriter out = new BufferedWriter( new FileWriter(filePath, true));
-            out.write(App.user.getFirstName()+": "+message.getText()+"\n");
-            out.close();
+                    BufferedWriter out = new BufferedWriter( new FileWriter(filePath, true));
+                    out.write(App.user.getFirstName()+": "+message.getText()+"\n");
+                    out.close();
+                }
+                catch (IOException e) {
+                    System.out.println("exception occoured" + e.getMessage());
+                }
+            }
         }
-        catch (IOException e) {
-            System.out.println("exception occoured" + e);
+        catch (Exception e){
+
         }
+
     }
 
     public void onbackclicked(ActionEvent actionEvent) {
@@ -85,7 +142,7 @@ public class Controller_ChatWindow {
                 }catch(IOException e){
                     e.printStackTrace();
                 }
-                primaryStage.setScene(new Scene(root, 1081, 826));
+                primaryStage.setScene(new Scene(root, 1301, 960));
 
             }
         });
