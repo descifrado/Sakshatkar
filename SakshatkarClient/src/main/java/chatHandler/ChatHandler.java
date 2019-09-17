@@ -20,17 +20,17 @@ public class ChatHandler implements Runnable {
 
     @Override
     public void run() {
-        try {
-            Socket socket= App.serverSocketMessage.accept();
-            oos=new ObjectOutputStream(socket.getOutputStream());
-            ois=new ObjectInputStream(socket.getInputStream());
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
         Response response;
         Message message;
         User messagingUser;
         while (true){
+            try {
+                Socket socket= App.serverSocketMessage.accept();
+                oos=new ObjectOutputStream(socket.getOutputStream());
+                ois=new ObjectInputStream(socket.getInputStream());
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
             try {
                 response= (Response) ois.readObject();
                 message= (Message) response.getResponseObject();
