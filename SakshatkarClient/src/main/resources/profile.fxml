@@ -26,7 +26,7 @@
                 <Font size="18.0" />
             </font>
         </JFXTextField>
-        <JFXButton fx:id="addfriend" layoutX="924.0" layoutY="347.0" onAction="#onaddfriendclicked" prefHeight="33.0" prefWidth="155.0" style="-fx-background-color: white;" text="Add Friend" textFill="#33bfc6">
+        <JFXButton fx:id="addfriend" layoutX="924.0" layoutY="519.0" onAction="#onaddfriendclicked" prefHeight="33.0" prefWidth="155.0" style="-fx-background-color: white;" text="Add Friend" textFill="#33bfc6">
             <font>
                 <Font size="18.0" />
             </font>
@@ -85,7 +85,7 @@
                 <Font size="18.0" />
             </font>
         </JFXTextField>
-      <JFXButton fx:id="videocall" layoutX="924.0" layoutY="442.0" onAction="#onvideocallclicked" prefHeight="33.0" prefWidth="155.0" style="-fx-background-color: white;" text="Video Call" textFill="#33bfc6">
+      <JFXButton fx:id="videocall" layoutX="924.0" layoutY="610.0" onAction="#onvideocallclicked" prefHeight="33.0" prefWidth="155.0" style="-fx-background-color: white;" text="Video Call" textFill="#33bfc6">
          <font>
             <Font size="18.0" />
          </font>
@@ -93,7 +93,7 @@
             <Bloom />
          </effect>
       </JFXButton>
-      <JFXButton fx:id="chat" layoutX="924.0" layoutY="552.0" onAction="#onchatclicked" prefHeight="33.0" prefWidth="155.0" style="-fx-background-color: white;" text="Chat" textFill="#33bfc6">
+      <JFXButton fx:id="chat" layoutX="924.0" layoutY="696.0" onAction="#onchatclicked" prefHeight="33.0" prefWidth="155.0" style="-fx-background-color: white;" text="Chat" textFill="#33bfc6">
          <font>
             <Font size="18.0" />
          </font>
@@ -101,7 +101,7 @@
             <Bloom />
          </effect>
       </JFXButton>
-      <JFXButton fx:id="sendfile" layoutX="924.0" layoutY="672.0" onAction="#onsendclicked" prefHeight="33.0" prefWidth="155.0" style="-fx-background-color: white;" text="Send File" textFill="#33bfc6">
+      <JFXButton fx:id="sendfile" layoutX="924.0" layoutY="364.0" onAction="#onsendclicked" prefHeight="33.0" prefWidth="155.0" style="-fx-background-color: white;" text="Send File" textFill="#33bfc6">
          <font>
             <Font size="18.0" />
          </font>
@@ -128,6 +128,19 @@
          </font>
       </Label>
       <JFXTextField fx:id="status" alignment="CENTER" editable="false" focusColor="#6880b2" labelFloat="true" layoutX="352.0" layoutY="323.0" prefHeight="33.0" prefWidth="274.0" style="-fx-prompt-text-fill: WHITE; -fx-text-inner-color: WHITE;" unFocusColor="#5e788a">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </JFXTextField>
+      <JFXButton fx:id="browse" layoutX="924.0" layoutY="183.0" onAction="#onbrowseclicked" prefHeight="33.0" prefWidth="155.0" style="-fx-background-color: white;" text="Browse" textFill="#33bfc6">
+         <font>
+            <Font size="18.0" />
+         </font>
+         <effect>
+            <Bloom />
+         </effect>
+      </JFXButton>
+      <JFXTextField fx:id="filePath" alignment="CENTER" editable="false" focusColor="#6880b2" labelFloat="true" layoutX="825.0" layoutY="266.0" prefHeight="33.0" prefWidth="353.0" style="-fx-prompt-text-fill: WHITE; -fx-text-inner-color: WHITE;" unFocusColor="#5e788a">
          <font>
             <Font size="18.0" />
          </font>
