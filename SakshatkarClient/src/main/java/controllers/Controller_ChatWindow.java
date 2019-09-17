@@ -91,7 +91,7 @@ public class Controller_ChatWindow {
                         try {
                             line = reader.readLine();
                         } catch (IOException e) {
-                            e.printStackTrace();
+                            //e.printStackTrace();
                         }
                 }
 
@@ -99,13 +99,13 @@ public class Controller_ChatWindow {
 
                 reader.close();
             } catch (IOException e) {
-                e.printStackTrace();
+                //e.printStackTrace();
             }
             try {
                 Thread.sleep(500);
 
             } catch (InterruptedException e) {
-                e.printStackTrace();
+                //e.printStackTrace();
             }
         }
     }
