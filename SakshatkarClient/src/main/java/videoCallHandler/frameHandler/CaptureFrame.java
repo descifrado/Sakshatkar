@@ -106,7 +106,7 @@ public class CaptureFrame {
                         try {
                             objectOutputStream.writeObject(frame);
                         } catch (Exception e) {
-                            e.printStackTrace();
+                            System.out.println("Disconnected");
                             stopAcquisition();
                         }
                     }
