@@ -28,6 +28,8 @@ import java.util.concurrent.ScheduledExecutorService;
 
 public class Controller_VideoCall {
 
+    public JFXButton cancel;
+    public JFXButton mute;
     private ObjectOutputStream frameOOS;
     private ObjectInputStream frameOIS;
     private Socket userSocket;
@@ -81,7 +83,9 @@ public class Controller_VideoCall {
                 } catch (Exception e) {
                     System.out.println("Client Disconnected");
                     captureFrame.setClosed();
-
+                    if(audioThread.isAlive()){
+                        audioThread.stop();
+                    }
                     Platform.runLater( () -> {
                         Alert alert = new Alert(Alert.AlertType.INFORMATION, "Call disconnected !!! ", ButtonType.FINISH);
                         alert.showAndWait();
@@ -110,9 +114,12 @@ public class Controller_VideoCall {
     public void onmuteclicked(ActionEvent actionEvent) {
         if(muteCounter%2==0){
             audioThread.stop();
+            mute.setText("Unmute");
             muteCounter++;
         }else{
+            audioThread = new Thread(new AudioSender(userIP));
             audioThread.start();
+            mute.setText("Mute");
             muteCounter++;
         }
     }
@@ -136,6 +143,9 @@ public class Controller_VideoCall {
             }
             primaryStage.setScene(new Scene(root, 1303, 961));
         });
+        if(audioThread.isAlive()){
+            audioThread.stop();
+        }
     }
 
     public void onsharescreenclicked(ActionEvent actionEvent) {
