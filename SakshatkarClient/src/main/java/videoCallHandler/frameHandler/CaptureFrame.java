@@ -105,8 +105,9 @@ public class CaptureFrame {
                         // convert and show the frame
                         try {
                             objectOutputStream.writeObject(frame);
-                        } catch (IOException e) {
+                        } catch (Exception e) {
                             e.printStackTrace();
+                            stopAcquisition();
                         }
                     }
                 };

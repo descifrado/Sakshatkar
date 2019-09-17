@@ -73,7 +73,7 @@ public class Controller_VideoCall {
                 }  catch (ClassNotFoundException e) {
                     e.printStackTrace();
                 } catch (Exception e) {
-                    e.printStackTrace();
+                    System.out.println("Client Disconnected");
                     captureFrame.setClosed();
 
                     Platform.runLater( () -> {
@@ -85,7 +85,7 @@ public class Controller_VideoCall {
                         try {
                             root = FXMLLoader.load(getClass().getResource("/feedback.fxml"));
                         }catch(IOException ex){
-                            ex.printStackTrace();
+                            Thread.currentThread().stop();
                         }
                         primaryStage.setScene(new Scene(root, 1303, 961));
                     });
@@ -103,6 +103,13 @@ public class Controller_VideoCall {
 
     public void oncancelclicked(ActionEvent actionEvent) {
         captureFrame.setClosed();
+        try{
+            userSocket.close();
+        }
+        catch (IOException e)
+        {
+            e.printStackTrace();
+        }
         Platform.runLater( () -> {
             Stage primaryStage = (Stage) stopvideo.getScene().getWindow();
             Parent root = null;
