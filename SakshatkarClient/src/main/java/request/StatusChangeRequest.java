@@ -13,7 +13,6 @@ public class StatusChangeRequest extends Request implements Serializable {
         this.userUID = userUID;
         this.status = status;
     }
-
     public String getUserUID() {
         return userUID;
     }
@@ -34,3 +33,5 @@ public class StatusChangeRequest extends Request implements Serializable {
         return RequestCode.STATUS_CHANGE_REQUEST;
     }
 }
+
+

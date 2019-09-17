@@ -32,6 +32,8 @@ import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import static org.json.JSONObject.getNames;
 
@@ -40,7 +42,6 @@ public class Controller_Dashboard {
     public JFXComboBox availablestatus;
     private String currentSelectedStatus;
     private String userUID;
-    private List<String> availableStatus;
 
     public static User getUserprofile() {
         return userprofile;
@@ -74,9 +75,9 @@ public class Controller_Dashboard {
             e.printStackTrace();
             System.out.println(e.getMessage());
         }
-        availableStatus=new ArrayList<String>();
-        String[] fileTypes = getNames(Status.class);
-        availablestatus.getItems().addAll(fileTypes);
+        List<String> statuses= Stream.of(Status.values()).map(Status::name).collect(Collectors.toList());
+        System.out.println(statuses);
+        availablestatus.getItems().addAll(statuses);
         currentSelectedStatus=null;
         firstname.setText(App.user.getFirstName());
         lastname.setText(App.user.getLastName());

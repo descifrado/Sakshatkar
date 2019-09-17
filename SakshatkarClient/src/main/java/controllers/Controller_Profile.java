@@ -18,10 +18,7 @@ import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 import mainApp.App;
-import request.AddFriendRequest;
-import request.ProfilePhotoRequest;
-import request.Response;
-import request.UserIPRequest;
+import request.*;
 import request.peerRequest.VideoCallRequest;
 import tools.FileReciever;
 
@@ -43,6 +40,7 @@ public class Controller_Profile {
     public ImageView profilephoto;
     public JFXTextField company;
     public Label videocallstatus;
+    public JFXTextField status;
     private String userIP;
     private static Socket videoCallSocket=null;
 
@@ -55,6 +53,30 @@ public class Controller_Profile {
     public void initialize()
     {
         user=Controller_Dashboard.getUserprofile();
+        GetStatusRequest getStatusRequest=new GetStatusRequest(user.getUserUID());
+        try{
+            App.oosTracker.writeObject(getStatusRequest);
+            App.oosTracker.flush();
+            Response response;
+            System.out.println("Reading Object");
+            response = (Response)App.oisTracker.readObject();
+            System.out.println(response.getResponseCode().toString());
+            if(response.getResponseCode().equals(ResponseCode.SUCCESS)){
+                if(!response.getResponseObject().toString().isEmpty())
+                    status.setText(response.getResponseObject().toString());
+                else
+                    status.setText("Offline");
+            }
+            else
+            {
+                System.out.println("Error");
+            }
+
+        }
+        catch (IOException | ClassNotFoundException e){
+            e.printStackTrace();
+            System.out.println(e.getMessage());
+        }
         firstname.setText(user.getFirstName());
         lastname.setText(user.getLastName());
         email.setText(user.getEmail());
