@@ -30,6 +30,17 @@ public class GetStatusHandler {
         }catch (SQLException e){
             e.printStackTrace();
         }
+        String lastSeenQuery="Select time from LastSeen where userUID=?";
+        try {
+            PreparedStatement preparedStatement=Main.connection.prepareStatement(lastSeenQuery);
+            preparedStatement.setString(1,userUID);
+            ResultSet resultSet=preparedStatement.executeQuery();
+            if (resultSet.next()){
+                status=resultSet.getString(1);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
         return new Response(UIDGenerator.generateuid(),status, ResponseCode.FAILED);
     }
 }

@@ -29,7 +29,9 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
+import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.Date;
 
 public class Controller_Profile {
 
@@ -62,10 +64,18 @@ public class Controller_Profile {
             response = (Response)App.oisTracker.readObject();
             System.out.println(response.getResponseCode().toString());
             if(response.getResponseCode().equals(ResponseCode.SUCCESS)){
-                if(!response.getResponseObject().toString().isEmpty())
+                try {
+                    long lastSeen=Long.parseLong(response.getResponseObject().toString());
+                    status.setText(String.valueOf(new Date(lastSeen)));
+                }
+                catch (Exception e){
                     status.setText(response.getResponseObject().toString());
-                else
-                    status.setText("Offline");
+                }
+
+//                if(!response.getResponseObject().toString().isEmpty())
+//                    status.setText(response.getResponseObject().toString());
+//                else
+//                    status.setText("Offline");
             }
             else
             {

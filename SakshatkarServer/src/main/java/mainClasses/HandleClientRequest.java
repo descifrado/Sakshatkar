@@ -11,7 +11,6 @@ import filehandler.FileReciever;
 import filehandler.FileSender;
 import friendsHandler.FriendAddHandler;
 import friendsHandler.FriendSuggestionHandler;
-import javafx.application.Application;
 import onlineUserHandler.OnlineUserListHandler;
 import onlineUserHandler.UserIPHandler;
 import request.*;
