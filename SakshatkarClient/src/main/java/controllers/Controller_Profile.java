@@ -34,6 +34,7 @@ import java.net.Socket;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.concurrent.TimeUnit;
 
 public class Controller_Profile {
 
@@ -45,7 +46,7 @@ public class Controller_Profile {
     public JFXTextField company;
     public Label videocallstatus;
     public JFXTextField status;
-    private String userIP;
+    private String userIP,userIP1;
     private static Socket videoCallSocket=null;
     private String filepath, fileName;
 
@@ -66,24 +67,27 @@ public class Controller_Profile {
             System.out.println("Reading Object");
             response = (Response)App.oisTracker.readObject();
             System.out.println(response.getResponseCode().toString());
-            if(response.getResponseCode().equals(ResponseCode.SUCCESS)){
-                try {
-                    long lastSeen=Long.parseLong(response.getResponseObject().toString());
-                    status.setText(String.valueOf(new Date(lastSeen)));
-                }
-                catch (Exception e){
-                    status.setText(response.getResponseObject().toString());
-                }
+           // if(response.getResponseCode().equals(ResponseCode.SUCCESS)){
+            try {
+                long lastSeen=Long.parseLong(response.getResponseObject().toString());
+                long diff=new Date().getTime()-lastSeen;
+                long min= TimeUnit.MINUTES.convert(diff,TimeUnit.MILLISECONDS);
+                status.setText("Online "+(min/60)+" hrs "+(min%60)+" minutes ago");
+
+            }
+            catch (Exception e){
+                status.setText(response.getResponseObject().toString());
+            }
 
 //                if(!response.getResponseObject().toString().isEmpty())
 //                    status.setText(response.getResponseObject().toString());
 //                else
 //                    status.setText("Offline");
-            }
-            else
-            {
-                System.out.println("Error");
-            }
+//            }
+//            else
+//            {
+//                System.out.println("Error");
+//            }
 
         }
         catch (IOException | ClassNotFoundException e){
@@ -210,15 +214,15 @@ public class Controller_Profile {
     }
 
     public void onsendclicked(ActionEvent actionEvent) {
-        FileTransferRequest fileTransferRequest=new FileTransferRequest(App.user.getUserUID(), App.user.getFirstName(), fileName);
+        UserIPRequest userIPRequest=new UserIPRequest(user.getUserUID());
+//
         try{
-            App.oosTracker.writeObject(fileTransferRequest);
+            App.oosTracker.writeObject(userIPRequest);
             App.oosTracker.flush();
             Response response;
             response = (Response)App.oisTracker.readObject();
             if(response.getResponseCode().equals(ResponseCode.SUCCESS)){
-                FileSender fileSender=new FileSender();
-                fileSender.sendFile(fileSender.createSocketChannel(App.serverIP),filepath);
+                userIP1=response.getResponseObject().toString();
                 System.out.println("File Sent");
             }
             else
@@ -230,6 +234,25 @@ public class Controller_Profile {
         catch (IOException | ClassNotFoundException e){
             e.printStackTrace();
             System.out.println(e.getMessage());
+        }
+        FileTransferRequest fileTransferRequest=new FileTransferRequest(App.user.getUserUID(), App.user.getFirstName(), fileName);
+        try{
+            Socket socket=new Socket(userIP1,6963);
+            ObjectOutputStream oos=new ObjectOutputStream(socket.getOutputStream());
+            ObjectInputStream ois=new ObjectInputStream(socket.getInputStream());
+            oos.writeObject(fileTransferRequest);
+            oos.flush();
+            Response response=(Response) ois.readObject();
+            if(response.getResponseCode().equals(ResponseCode.SUCCESS))
+            {
+                FileSender fileSender=new FileSender();
+                fileSender.sendFile(fileSender.createSocketChannel(userIP1),filepath);
+                System.out.println("File Sent");
+            }
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
         }
     }
     public void onaddfriendclicked(ActionEvent actionEvent) {
