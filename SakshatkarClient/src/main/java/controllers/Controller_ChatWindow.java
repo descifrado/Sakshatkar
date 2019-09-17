@@ -25,18 +25,29 @@ public class Controller_ChatWindow {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        try
-        {
-            reader = new BufferedReader(new FileReader("/Users/pankaj/Downloads/myfile.txt"));
-            String line = reader.readLine();
-            while (line != null) {
-                chatarea.appendText(line);
-                line = reader.readLine();
+        new Thread(()->{
+            while (true)
+            {
+                try
+                {
+                    reader = new BufferedReader(new FileReader("/Users/pankaj/Downloads/myfile.txt"));
+                    String line = reader.readLine();
+                    while (line != null) {
+                        chatarea.appendText(line);
+                        line = reader.readLine();
+                    }
+                    reader.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                try {
+                    Thread.sleep(50);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
             }
-            reader.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        }).start();
+
     }
 
     public void onsendclicked(ActionEvent actionEvent)
@@ -52,5 +63,8 @@ public class Controller_ChatWindow {
         catch (IOException e) {
             System.out.println("exception occoured" + e);
         }
+    }
+
+    public void onbackclicked(ActionEvent actionEvent) {
     }
 }
