@@ -87,7 +87,7 @@ public class Controller_ChatWindow {
                 while (line != null) {
 
                         chatarea.appendText(line);
-                        chatarea.appendText("/n");
+                        chatarea.appendText("\n");
                         try {
                             line = reader.readLine();
                         } catch (IOException e) {
