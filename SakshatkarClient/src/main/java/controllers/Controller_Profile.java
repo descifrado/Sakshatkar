@@ -54,7 +54,12 @@ public class Controller_Profile {
         return videoCallSocket;
     }
 
-    private User user;
+    private static User user;
+
+    public static User getUser() {
+        return user;
+    }
+
     @FXML
     public void initialize()
     {
