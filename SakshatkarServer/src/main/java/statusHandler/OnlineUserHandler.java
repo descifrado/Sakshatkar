@@ -40,7 +40,7 @@ public class OnlineUserHandler {
             preparedStatement.setString(2, String.valueOf(Status.USING_SAKSHATKAR));
             preparedStatement.setString(3,this.userIP);
             preparedStatement.executeUpdate();
-            preparedStatement= Main.connection.prepareStatement(query);
+            preparedStatement= Main.connection.prepareStatement(lastSeenQuery);
             preparedStatement.setString(1,this.userUID);
             preparedStatement.executeUpdate();
         } catch (SQLException e) {

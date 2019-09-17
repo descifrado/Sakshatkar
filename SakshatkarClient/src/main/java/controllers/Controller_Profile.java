@@ -30,8 +30,12 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
+import java.util.concurrent.TimeUnit;
 
 public class Controller_Profile {
 
@@ -63,10 +67,17 @@ public class Controller_Profile {
             System.out.println("Reading Object");
             response = (Response)App.oisTracker.readObject();
             System.out.println(response.getResponseCode().toString());
-            if(response.getResponseCode().equals(ResponseCode.SUCCESS)){
+//            if(response.getResponseCode().equals(ResponseCode.SUCCESS)){
                 try {
                     long lastSeen=Long.parseLong(response.getResponseObject().toString());
-                    status.setText(String.valueOf(new Date(lastSeen)));
+                    Date date=new Date(lastSeen);
+                    Calendar calendar=new GregorianCalendar();
+                    calendar.setTime(date);
+                    long diff=new Date().getTime()-lastSeen;
+                    //long min=TimeUnit.MINUTES.convert(diff,TimeUnit.MILLISECONDS);
+                    SimpleDateFormat sdf=new SimpleDateFormat("hh hours mm minutes");
+
+                    status.setText("Online " +sdf.format(new Date(diff))+" ago");
                 }
                 catch (Exception e){
                     status.setText(response.getResponseObject().toString());
@@ -76,11 +87,11 @@ public class Controller_Profile {
 //                    status.setText(response.getResponseObject().toString());
 //                else
 //                    status.setText("Offline");
-            }
-            else
-            {
-                System.out.println("Error");
-            }
+//            }
+//            else
+//            {
+//                System.out.println("Error");
+//            }
 
         }
         catch (IOException | ClassNotFoundException e){

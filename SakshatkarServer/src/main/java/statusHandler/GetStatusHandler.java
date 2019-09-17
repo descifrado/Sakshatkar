@@ -24,9 +24,10 @@ public class GetStatusHandler {
             PreparedStatement preparedStatement = Main.connection.prepareStatement(query);
             preparedStatement.setString(1,userUID);
             ResultSet rs=preparedStatement.executeQuery();
-            if(rs.next())
+            if(rs.next()){
                 status=rs.getString(1);
-            return new Response(UIDGenerator.generateuid(),status, ResponseCode.SUCCESS);
+                return new Response(UIDGenerator.generateuid(),status, ResponseCode.SUCCESS);
+            }
         }catch (SQLException e){
             e.printStackTrace();
         }
@@ -41,6 +42,7 @@ public class GetStatusHandler {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        System.out.println(status);
         return new Response(UIDGenerator.generateuid(),status, ResponseCode.FAILED);
     }
 }
