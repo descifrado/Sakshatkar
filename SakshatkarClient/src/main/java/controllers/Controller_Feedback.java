@@ -35,6 +35,13 @@ public class Controller_Feedback {
             if(response.getResponseCode().equals(ResponseCode.SUCCESS)){
                 Alert alert = new Alert(Alert.AlertType.INFORMATION, "Thank You For Your Valuable Feedback");
                 alert.showAndWait();
+                Platform.runLater(new Runnable() {
+                    @Override
+                    public void run() {
+                        Stage primaryStage = (Stage) audio.getScene().getWindow();
+                        primaryStage.close();
+                    }
+                });
             }
             else
             {
