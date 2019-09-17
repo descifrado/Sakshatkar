@@ -17,6 +17,7 @@ import request.*;
 import friendsHandler.FriendListHandler;
 import searchHandler.SearchHandler;
 import statusHandler.GetStatusHandler;
+import statusHandler.GetUserOnlineStatus;
 import statusHandler.OnlineStatusHandler;
 import statusHandler.OnlineUserHandler;
 import tools.UIDGenerator;
@@ -152,6 +153,19 @@ HandleClientRequest implements Runnable{
                     OnlineStatusHandler onlineStatusHandler=new OnlineStatusHandler((StatusChangeRequest)request);
                     oos.writeObject(onlineStatusHandler.getResponse());
                     oos.flush();
+                }else if(request.getRequestCode().equals(RequestCode.MESSAGESEND_REQUEST)){
+                    String ip = ((MessageSendRequest)request).getRecieverIP();
+                    ResponseCode response = GetUserOnlineStatus.getStatus(ip);
+                    if(response.equals(ResponseCode.SUCCESS)){
+                        Socket socket = new Socket(ip,7575);
+                        ObjectOutputStream loos = new ObjectOutputStream(socket.getOutputStream());
+                        ObjectInputStream lois = new ObjectInputStream(socket.getInputStream());
+                        Response r = new Response(UIDGenerator.generateuid(),((MessageSendRequest)request).getMessage(),ResponseCode.SUCCESS);
+                        loos.writeObject(r);
+                        loos.flush();
+                    }else{
+
+                    }
                 }
 
 

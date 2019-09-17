@@ -3,28 +3,13 @@ package data;
 import java.io.Serializable;
 
 public class Message implements Serializable {
-    public String msgFrom,msgTo,msg;
+    private String msg;
+    private User sender,reciever;
 
-    public Message(String msgFrom, String msgTo, String msg) {
-        this.msgFrom = msgFrom;
-        this.msgTo = msgTo;
+    public Message(String msg, User sender, User reciever) {
         this.msg = msg;
-    }
-
-    public String getMsgFrom() {
-        return msgFrom;
-    }
-
-    public void setMsgFrom(String msgFrom) {
-        this.msgFrom = msgFrom;
-    }
-
-    public String getMsgTo() {
-        return msgTo;
-    }
-
-    public void setMsgTo(String msgTo) {
-        this.msgTo = msgTo;
+        this.sender = sender;
+        this.reciever = reciever;
     }
 
     public String getMsg() {
@@ -33,5 +18,21 @@ public class Message implements Serializable {
 
     public void setMsg(String msg) {
         this.msg = msg;
+    }
+
+    public User getSender() {
+        return sender;
+    }
+
+    public void setSender(User sender) {
+        this.sender = sender;
+    }
+
+    public User getReciever() {
+        return reciever;
+    }
+
+    public void setReciever(User reciever) {
+        this.reciever = reciever;
     }
 }
