@@ -14,7 +14,8 @@ public enum RequestCode {
     USERIP_REQUEST,
     FRIENDSUGGESTION_REQUEST,
     GETSTATUS_REQUEST,
-    FEEDBACK_REQUEST;
+    FEEDBACK_REQUEST,
+    MESSAGESEND_REQUEST;
 
     RequestCode(){
         this.toString();

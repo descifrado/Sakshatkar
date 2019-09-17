@@ -17,14 +17,12 @@ import request.*;
 import friendsHandler.FriendListHandler;
 import searchHandler.SearchHandler;
 import statusHandler.GetStatusHandler;
+import statusHandler.GetUserOnlineStatus;
 import statusHandler.OnlineStatusHandler;
 import statusHandler.OnlineUserHandler;
 import tools.UIDGenerator;
 
-import java.io.EOFException;
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
+import java.io.*;
 import java.net.Socket;
 import java.net.SocketException;
 
@@ -152,6 +150,33 @@ HandleClientRequest implements Runnable{
                     OnlineStatusHandler onlineStatusHandler=new OnlineStatusHandler((StatusChangeRequest)request);
                     oos.writeObject(onlineStatusHandler.getResponse());
                     oos.flush();
+                }else if(request.getRequestCode().equals(RequestCode.MESSAGESEND_REQUEST)){
+                    String ip = ((MessageSendRequest)request).getRecieverIP();
+                    ResponseCode response = GetUserOnlineStatus.getStatus(ip);
+                    User sender,reciever;
+                    sender = ((MessageSendRequest)request).getMessage().getSender();
+                    reciever =((MessageSendRequest)request).getMessage().getReciever();
+                    String message = ((MessageSendRequest)request).getMessage().getMsg();
+                    if(response.equals(ResponseCode.SUCCESS)){
+                        Socket socket = new Socket(ip,7575);
+                        ObjectOutputStream loos = new ObjectOutputStream(socket.getOutputStream());
+                        ObjectInputStream lois = new ObjectInputStream(socket.getInputStream());
+                        Response r = new Response(UIDGenerator.generateuid(),((MessageSendRequest)request).getMessage(),ResponseCode.SUCCESS);
+                        loos.writeObject(r);
+                        loos.flush();
+                    }else{
+//                        create a file (senderUID + RecieverUID) if not exists and append the File With the message.
+                        String cwd = System.getProperty("user.dir");
+                        String loc = cwd+"/chat";
+                        File file = new File(loc);
+                        if(!file.exists()){file.mkdir();}
+                        loc = loc+"/"+sender.getUserUID()+reciever.getUserUID();
+                        file = new File(loc);
+                        file.createNewFile();
+                        BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(file,true));
+                        bufferedWriter.write(message);
+                        bufferedWriter.flush();
+                    }
                 }
 
 
