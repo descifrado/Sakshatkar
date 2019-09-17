@@ -79,7 +79,9 @@ public class Controller_VideoCall {
                     Image image=Utils.mat2Image(frame);
                     updateImageView(videoFrame,image);
                 }  catch (ClassNotFoundException e) {
-                    e.printStackTrace();
+                    e.printStackTrace();if(audioThread.isAlive()){
+            audioThread.stop();
+        }
                 } catch (Exception e) {
                     System.out.println("Client Disconnected");
                     captureFrame.setClosed();

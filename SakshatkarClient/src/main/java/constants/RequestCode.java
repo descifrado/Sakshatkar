@@ -15,7 +15,8 @@ public enum RequestCode {
     GETSTATUS_REQUEST,
     USERIP_REQUEST,
     FEEDBACK_REQUEST,
-    VIDEO_CALL_REQUEST;
+    VIDEO_CALL_REQUEST,
+    FILETRANSFER_REQUEST;
     RequestCode(){
         this.toString();
     }

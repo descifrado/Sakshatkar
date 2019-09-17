@@ -13,9 +13,11 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
+import request.FileTransferRequest;
 import request.Request;
 import request.Response;
 import request.peerRequest.VideoCallRequest;
+import tools.FileReciever;
 import tools.UIDGenerator;
 
 import java.io.*;
@@ -126,6 +128,35 @@ public class HandleClientRequest implements Runnable {
                     else {
                         oos.writeObject(new Response(UIDGenerator.generateuid(),null, ResponseCode.FAILED));
                         oos.flush();
+                    }
+                }else if(request.getRequestCode().equals(RequestCode.FILETRANSFER_REQUEST)){
+                    String requestingUser = ((FileTransferRequest)request).getUserName();
+                    String fileName = ((FileTransferRequest)request).getFileName();
+                    String cwd=System.getProperty("user.dir");
+                    String path = cwd +"/Files/";
+                    Platform.runLater(new Runnable() {
+                        @Override
+                        public void run() {
+                            alert = new Alert(Alert.AlertType.CONFIRMATION, requestingUser + " wants to send a file.\n Wanna Download ?", ButtonType.YES, ButtonType.NO);
+                            alert.showAndWait();
+                        }
+                    });
+                    while (alert==null || alert.getResult()==null);
+                    if (alert.getResult()==ButtonType.YES){
+                        oos.writeObject(new Response(UIDGenerator.generateuid(),null, ResponseCode.SUCCESS));
+                        oos.flush();
+                        FileReciever fileReciever = new FileReciever();
+                        fileReciever.readFile(fileReciever.createSocketChannel(App.getServerSocketChannel()),fileName,path);
+                        Platform.runLater(new Runnable() {
+                            @Override
+                            public void run() {
+                                Alert alert = new Alert(Alert.AlertType.INFORMATION, "File Recieved Successfully");
+                                alert.showAndWait();
+                            }
+                        });
+
+                    }else{
+                        oos.writeObject(new Response(UIDGenerator.generateuid(),null, ResponseCode.FAILED));
                     }
                 }
 
