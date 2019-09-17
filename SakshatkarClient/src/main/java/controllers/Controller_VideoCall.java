@@ -84,10 +84,14 @@ public class Controller_VideoCall {
                         Parent root = null;
                         try {
                             root = FXMLLoader.load(getClass().getResource("/feedback.fxml"));
+                            primaryStage.setScene(new Scene(root, 1303, 961));
                         }catch(IOException ex){
                             Thread.currentThread().stop();
                         }
-                        primaryStage.setScene(new Scene(root, 1303, 961));
+                        catch (NullPointerException ex){
+                            Thread.currentThread().stop();
+                        }
+
                     });
                     Thread.currentThread().stop();
                 }
