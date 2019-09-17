@@ -34,7 +34,7 @@
                 <Font size="18.0" />
             </font>
         </Label>
-        <JFXTextField fx:id="message" alignment="CENTER" editable="false" focusColor="#6880b2" labelFloat="true" layoutX="234.0" layoutY="833.0" prefHeight="33.0" prefWidth="835.0" promptText="Enter Message" style="-fx-prompt-text-fill: WHITE; -fx-text-inner-color: WHITE;" unFocusColor="#5e788a">
+        <JFXTextField fx:id="message" alignment="CENTER" focusColor="#6880b2" labelFloat="true" layoutX="234.0" layoutY="833.0" prefHeight="33.0" prefWidth="835.0" promptText="Enter Message" style="-fx-prompt-text-fill: WHITE; -fx-text-inner-color: WHITE;" unFocusColor="#5e788a">
             <font>
                 <Font size="18.0" />
             </font>
