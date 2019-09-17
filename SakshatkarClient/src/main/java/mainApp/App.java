@@ -63,6 +63,7 @@ public class App extends Application {
                             Alert alert = new Alert(Alert.AlertType.INFORMATION, "Log Out Successfully");
                             alert.showAndWait();
                             App.user=null;
+
                         }
                         else
                         {
@@ -80,6 +81,7 @@ public class App extends Application {
                         e.printStackTrace();
                     }
                 }
+                System.exit(0);
             }
         });
 
