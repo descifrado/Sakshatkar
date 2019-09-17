@@ -15,12 +15,14 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 import mainApp.App;
 import request.*;
 import request.peerRequest.VideoCallRequest;
 import tools.FileReciever;
+import tools.FileSender;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
@@ -30,16 +32,12 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
-import java.util.GregorianCalendar;
-import java.util.concurrent.TimeUnit;
 
 public class Controller_Profile {
 
-    public JFXTextField lastname;
+    public JFXTextField lastname,filePath;
     public JFXTextField firstname;
     public JFXTextField phone;
     public JFXTextField email;
@@ -49,6 +47,7 @@ public class Controller_Profile {
     public JFXTextField status;
     private String userIP;
     private static Socket videoCallSocket=null;
+    private String filepath, fileName;
 
     public static Socket getVideoCallSocket(){
         return videoCallSocket;
@@ -67,17 +66,10 @@ public class Controller_Profile {
             System.out.println("Reading Object");
             response = (Response)App.oisTracker.readObject();
             System.out.println(response.getResponseCode().toString());
-//            if(response.getResponseCode().equals(ResponseCode.SUCCESS)){
+            if(response.getResponseCode().equals(ResponseCode.SUCCESS)){
                 try {
                     long lastSeen=Long.parseLong(response.getResponseObject().toString());
-                    Date date=new Date(lastSeen);
-                    Calendar calendar=new GregorianCalendar();
-                    calendar.setTime(date);
-                    long diff=new Date().getTime()-lastSeen;
-                    //long min=TimeUnit.MINUTES.convert(diff,TimeUnit.MILLISECONDS);
-                    SimpleDateFormat sdf=new SimpleDateFormat("hh hours mm minutes");
-
-                    status.setText("Online " +sdf.format(new Date(diff))+" ago");
+                    status.setText(String.valueOf(new Date(lastSeen)));
                 }
                 catch (Exception e){
                     status.setText(response.getResponseObject().toString());
@@ -87,11 +79,11 @@ public class Controller_Profile {
 //                    status.setText(response.getResponseObject().toString());
 //                else
 //                    status.setText("Offline");
-//            }
-//            else
-//            {
-//                System.out.println("Error");
-//            }
+            }
+            else
+            {
+                System.out.println("Error");
+            }
 
         }
         catch (IOException | ClassNotFoundException e){
@@ -218,8 +210,28 @@ public class Controller_Profile {
     }
 
     public void onsendclicked(ActionEvent actionEvent) {
-    }
+        FileTransferRequest fileTransferRequest=new FileTransferRequest(App.user.getUserUID(), App.user.getFirstName(), fileName);
+        try{
+            App.oosTracker.writeObject(fileTransferRequest);
+            App.oosTracker.flush();
+            Response response;
+            response = (Response)App.oisTracker.readObject();
+            if(response.getResponseCode().equals(ResponseCode.SUCCESS)){
+                FileSender fileSender=new FileSender();
+                fileSender.sendFile(fileSender.createSocketChannel(App.serverIP),filepath);
+                System.out.println("File Sent");
+            }
+            else
+            {
+                System.out.println("Error");
+            }
 
+        }
+        catch (IOException | ClassNotFoundException e){
+            e.printStackTrace();
+            System.out.println(e.getMessage());
+        }
+    }
     public void onaddfriendclicked(ActionEvent actionEvent) {
         AddFriendRequest addFriendRequest=new AddFriendRequest(App.user.getUserUID(), user.getUserUID());
         try{
@@ -259,5 +271,18 @@ public class Controller_Profile {
 
             }
         });
+    }
+
+    public void onbrowseclicked(ActionEvent actionEvent) {
+        Stage stage = (Stage) firstname.getScene().getWindow();
+        FileChooser fileChooser=new FileChooser();
+        File file=fileChooser.showOpenDialog(stage);
+        if(file!=null)
+        {
+            filepath=file.getAbsolutePath();
+        }
+        String temp[]=filepath.split("/");
+        fileName=temp[temp.length-1];
+        filePath.setText(fileName);
     }
 }
