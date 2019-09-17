@@ -83,28 +83,27 @@ public class Controller_ChatWindow {
             try
             {
                 reader = new BufferedReader(new FileReader(filePath));
-                final String[] line = {reader.readLine()};
-                while (line[0] != null) {
-                    Platform.runLater(new Runnable() {
-                        @Override
-                        public void run() {
-                            chatarea.appendText(line[0]);
-                            chatarea.appendText("/n");
-                            try {
-                                line[0] = reader.readLine();
-                            } catch (IOException e) {
-                                e.printStackTrace();
-                            }
-                        }
-                    });
+                String line = reader.readLine();
+                while (line != null) {
 
+                        chatarea.appendText(line);
+                        chatarea.appendText("/n");
+                        try {
+                            line = reader.readLine();
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
                 }
+
+
+
                 reader.close();
             } catch (IOException e) {
                 e.printStackTrace();
             }
             try {
-                Thread.sleep(50);
+                Thread.sleep(500);
+
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
