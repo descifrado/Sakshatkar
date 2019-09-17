@@ -72,7 +72,9 @@ public class Controller_ChatWindow {
             e.printStackTrace();
         }
         refresh=new Thread(()->{
-            run();
+            Platform.runLater(()->{
+                run();
+            });
         });
         refresh.start();
     }
@@ -88,6 +90,7 @@ public class Controller_ChatWindow {
                 String line = reader.readLine();
                 while (line != null) {
                     chatarea.appendText(line);
+                    chatarea.appendText("/n");
                     line = reader.readLine();
                 }
                 reader.close();
