@@ -1,9 +1,9 @@
 package mainApp;
 
+import chatHandler.ChatHandler;
 import constants.ResponseCode;
 import data.User;
 import javafx.application.Application;
-import javafx.application.Platform;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -18,7 +18,6 @@ import soundHandlers.AudioListen;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.net.DatagramSocket;
 import java.net.InetSocketAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -39,6 +38,7 @@ public class App extends Application {
     public static Socket socketp2p;
     public static ServerSocket serverSocket;
     public static ServerSocket serverSocketFrame;
+    public static ServerSocket serverSocketMessage;
 
     @Override
     public void start(Stage primaryStage) throws IOException {
@@ -97,6 +97,7 @@ public class App extends Application {
         try{
             App.serverSocket = new ServerSocket(6963);
             App.serverSocketFrame = new ServerSocket(7000);
+            App.serverSocketMessage = new ServerSocket(7575);
             System.out.println("Client Started..!!");
         }catch (IOException e){
             e.printStackTrace();
@@ -104,7 +105,7 @@ public class App extends Application {
         }
         new Thread(new Handler()).start();
         new Thread(new AudioListen()).start();
-
+        new Thread(new ChatHandler()).start();
 
     }
     public static ServerSocketChannel getServerSocketChannel(){
