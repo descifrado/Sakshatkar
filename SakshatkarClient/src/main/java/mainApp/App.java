@@ -1,11 +1,18 @@
 package mainApp;
 
+import constants.ResponseCode;
 import data.User;
 import javafx.application.Application;
+import javafx.application.Platform;
+import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
+import request.LogoutRequest;
+import request.Response;
 import soundHandlers.AudioListen;
 
 import java.io.IOException;
@@ -39,6 +46,42 @@ public class App extends Application {
         primaryStage.setTitle("Distribution");
         primaryStage.setScene(new Scene(root, 1081, 826));
         primaryStage.show();
+        primaryStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
+            @Override
+            public void handle(WindowEvent windowEvent) {
+                if (App.user!=null){
+                    LogoutRequest logoutRequest=new LogoutRequest(App.user.getUserUID());
+                    try{
+                        App.oosTracker.writeObject(logoutRequest);
+                        App.oosTracker.flush();
+                        Response response;
+                        System.out.println("Reading Object");
+                        response = (Response)App.oisTracker.readObject();
+                        System.out.println(response.getResponseCode().toString());
+                        if(response.getResponseCode().equals(ResponseCode.SUCCESS)){
+                            System.out.println("Success to hua h");
+                            Alert alert = new Alert(Alert.AlertType.INFORMATION, "Log Out Successfully");
+                            alert.showAndWait();
+                            App.user=null;
+                        }
+                        else
+                        {
+                            System.out.println("Error");
+                        }
+
+                    }
+                    catch (IOException | ClassNotFoundException e){
+                        e.printStackTrace();
+                        System.out.println(e.getMessage());
+                    }
+                    try{
+                        App.sockerTracker.close();
+                    }catch (IOException e){
+                        e.printStackTrace();
+                    }
+                }
+            }
+        });
 
         System.out.println("Hello I am Suraj");
         try {
