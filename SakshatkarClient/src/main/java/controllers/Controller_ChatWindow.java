@@ -71,7 +71,9 @@ public class Controller_ChatWindow {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        refresh=new Thread();
+        refresh=new Thread(()->{
+            run();
+        });
         refresh.start();
     }
     public void run()

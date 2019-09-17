@@ -48,7 +48,7 @@ public class ChatHandler implements Runnable {
                 try {
 
                     BufferedWriter out = new BufferedWriter( new FileWriter(filePath, true));
-                    out.write(App.user.getFirstName()+": "+message.getMsg()+"\n");
+                    out.write(message.getSender()+": "+message.getMsg()+"\n");
                     out.close();
                 }
                 catch (IOException e) {
