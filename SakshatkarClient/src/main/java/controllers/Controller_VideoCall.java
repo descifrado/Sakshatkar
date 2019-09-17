@@ -72,7 +72,7 @@ public class Controller_VideoCall {
                     updateImageView(videoFrame,image);
                 }  catch (ClassNotFoundException e) {
                     e.printStackTrace();
-                } catch (IOException e) {
+                } catch (Exception e) {
                     e.printStackTrace();
                     captureFrame.setClosed();
 
@@ -87,7 +87,7 @@ public class Controller_VideoCall {
                         }catch(IOException ex){
                             ex.printStackTrace();
                         }
-                        primaryStage.setScene(new Scene(root, 1081, 826));
+                        primaryStage.setScene(new Scene(root, 1303, 961));
                     });
                     Thread.currentThread().stop();
                 }
@@ -111,7 +111,7 @@ public class Controller_VideoCall {
             }catch(IOException e){
                 e.printStackTrace();
             }
-            primaryStage.setScene(new Scene(root, 1081, 826));
+            primaryStage.setScene(new Scene(root, 1303, 961));
         });
     }
 
