@@ -12,8 +12,8 @@ import java.util.ArrayList;
 
 public class GetUserOnlineStatus {
 
-    public static ResponseCode getStatus(String userIP) {
-        String query = "SELECT OnlineUser.userUID FROM OnlineUser WHERE OnlineUser.userUID = \"" + userIP + "\"";
+    public static ResponseCode getStatus(String userUID) {
+        String query = "SELECT OnlineUser.userUID FROM OnlineUser WHERE OnlineUser.userUID = \"" + userUID + "\"";
         System.out.println(query);
         try {
             PreparedStatement preparedStatement = Main.connection.prepareStatement(query);

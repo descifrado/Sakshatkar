@@ -152,13 +152,16 @@ HandleClientRequest implements Runnable{
                     oos.flush();
                 }else if(request.getRequestCode().equals(RequestCode.MESSAGESEND_REQUEST)){
                     String ip = ((MessageSendRequest)request).getRecieverIP();
-                    ResponseCode response = GetUserOnlineStatus.getStatus(ip);
+
+
                     User sender,reciever;
                     sender = ((MessageSendRequest)request).getMessage().getSender();
                     reciever =((MessageSendRequest)request).getMessage().getReciever();
+                    ResponseCode response = GetUserOnlineStatus.getStatus(reciever.getUserUID());
                     String message = ((MessageSendRequest)request).getMessage().getMsg();
                     if(response.equals(ResponseCode.SUCCESS)){
                         Socket socket = new Socket(ip,7575);
+                        System.out.println(socket);
                         ObjectOutputStream loos = new ObjectOutputStream(socket.getOutputStream());
                         ObjectInputStream lois = new ObjectInputStream(socket.getInputStream());
                         Response r = new Response(UIDGenerator.generateuid(),((MessageSendRequest)request).getMessage(),ResponseCode.SUCCESS);
@@ -177,6 +180,7 @@ HandleClientRequest implements Runnable{
                         bufferedWriter.write(message);
                         bufferedWriter.flush();
                     }
+                    oos.writeObject(new Response(UIDGenerator.generateuid(),null,ResponseCode.SUCCESS));
                 }
 
 
