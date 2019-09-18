@@ -105,6 +105,7 @@ public class Controller_Dashboard {
                 System.out.println("Success to hua h");
                 Alert alert = new Alert(Alert.AlertType.INFORMATION, "Log Out Successfully");
                 alert.showAndWait();
+                App.user=null;
             }
             else
             {
