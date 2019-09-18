@@ -6,23 +6,23 @@ import java.io.Serializable;
 
 public class Notification implements Serializable {
 
-    private String sender;
-    private String reciever;
+    private User sender;
+    private User reciever;
     private NotificationType notificationType;
 
-    public String getSender() {
+    public User getSender() {
         return sender;
     }
 
-    public void setSender(String sender) {
+    public void setSender(User sender) {
         this.sender = sender;
     }
 
-    public String getReciever() {
+    public User getReciever() {
         return reciever;
     }
 
-    public void setReciever(String reciever) {
+    public void setReciever(User reciever) {
         this.reciever = reciever;
     }
 
@@ -34,7 +34,7 @@ public class Notification implements Serializable {
         this.notificationType = notificationType;
     }
 
-    public Notification(String sender, String reciever, NotificationType notificationType) {
+    public Notification(User sender, User reciever, NotificationType notificationType) {
         this.sender = sender;
         this.reciever = reciever;
         this.notificationType = notificationType;

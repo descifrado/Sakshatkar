@@ -15,6 +15,7 @@ import mainApp.App;
 import request.MessageSendRequest;
 import request.Response;
 import request.UserIPRequest;
+import tools.EncryptDecrypt;
 
 import java.io.*;
 import java.util.Date;
@@ -84,6 +85,7 @@ public class Controller_ChatWindow {
             {
                 reader = new BufferedReader(new FileReader(filePath));
                 String line = reader.readLine();
+                line = EncryptDecrypt.decrypt(line);
                 while (line != null) {
 
                     String finalLine = line;
@@ -100,6 +102,8 @@ public class Controller_ChatWindow {
                 reader.close();
             } catch (IOException e) {
                 //e.printStackTrace();
+            } catch (Exception e) {
+                e.printStackTrace();
             }
             try {
                 Thread.sleep(500);
@@ -111,7 +115,12 @@ public class Controller_ChatWindow {
     }
     public void onsendclicked(ActionEvent actionEvent)
     {
-        Message msg=new Message(message.getText(), App.user, Controller_Profile.getUser());
+        Message msg= null;
+        try {
+            msg = new Message(EncryptDecrypt.encrypt(message.getText()), App.user, Controller_Profile.getUser());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         MessageSendRequest messageSendRequest=new MessageSendRequest(senderIP, recieverIP, msg);
         try
         {
@@ -125,7 +134,7 @@ public class Controller_ChatWindow {
                 try {
 
                     BufferedWriter out = new BufferedWriter( new FileWriter(filePath, true));
-                    out.write(App.user.getFirstName()+": "+message.getText()+"\n");
+                    out.write(EncryptDecrypt.encrypt(App.user.getFirstName()+": "+message.getText()+"\n"));
                     out.close();
                 }
                 catch (IOException e) {
