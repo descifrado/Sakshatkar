@@ -11,6 +11,7 @@ import filehandler.FileReciever;
 import filehandler.FileSender;
 import friendsHandler.FriendAddHandler;
 import friendsHandler.FriendSuggestionHandler;
+import offlineUserChatHandler.OfflineUserChatHandler;
 import onlineUserHandler.OnlineUserListHandler;
 import onlineUserHandler.UserIPHandler;
 import request.*;
@@ -166,7 +167,8 @@ HandleClientRequest implements Runnable{
                         loos.writeObject(r);
                         loos.flush();
                     }else{
-//                        create a file (senderUID + RecieverUID) if not exists and append the File With the message.
+                        OfflineUserChatHandler offlineUserChatHandler=new OfflineUserChatHandler(((MessageSendRequest) request).getMessage().getSender().getUserUID(),((MessageSendRequest) request).getMessage().getReciever().getUserUID());
+                        offlineUserChatHandler.insert();
                         String cwd = System.getProperty("user.dir");
                         String loc = cwd+"/chat";
                         File file = new File(loc);
