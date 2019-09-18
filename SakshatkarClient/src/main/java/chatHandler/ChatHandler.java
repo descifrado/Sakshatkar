@@ -51,7 +51,7 @@ public class ChatHandler implements Runnable {
                     BufferedWriter out = new BufferedWriter( new FileWriter(filePath, true));
                     String msg = message.getMsg();
                     msg = EncryptDecrypt.decrypt(msg);
-                    out.write(EncryptDecrypt.encrypt(message.getSender()+": "+msg+"\n"));
+                    out.write(EncryptDecrypt.encrypt(message.getSender()+": "+msg)+"\n");
                     out.close();
                 }
                 catch (IOException e) {
