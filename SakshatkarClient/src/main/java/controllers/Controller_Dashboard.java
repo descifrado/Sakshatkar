@@ -4,8 +4,10 @@ import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXListView;
 import com.jfoenix.controls.JFXTextField;
+import constants.NotificationType;
 import constants.ResponseCode;
 import constants.Status;
+import data.Notification;
 import data.User;
 import javafx.application.Platform;
 import javafx.embed.swing.SwingFXUtils;
@@ -15,6 +17,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -91,6 +94,34 @@ public class Controller_Dashboard {
         bufferedImage = ImageIO.read(new File(folder+"/"+App.user.getUserUID()));
         Image image = SwingFXUtils.toFXImage(bufferedImage, null);
         this.profilephoto.setImage(image);
+
+        new Thread(()->{
+            GetNotificationRequest getNotificationRequest=new GetNotificationRequest(App.user);
+            try {
+                App.oosTracker.writeObject(getNotificationRequest);
+                App.oosTracker.flush();
+                List<Notification> notifications= (List<Notification>) App.oisTracker.readObject();
+                for (Notification notification:
+                    notifications ) {
+                    String notificationMessage = null;
+                    if (notification.getNotificationType().equals(NotificationType.MESSAGE)){
+                        notificationMessage=notification.getSender().getFirstName()+" has send a message to you";
+                    }
+                    else {
+                        notificationMessage=" has send a message to you";
+                    }
+                    Platform.runLater(()->{
+                        Alert alert=new Alert(Alert.AlertType.INFORMATION,notificationMessage, ButtonType.OK);
+                        alert.showAndWait();
+                    });
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            } catch (ClassNotFoundException e) {
+                e.printStackTrace();
+            }
+        }).start();
+
     }
     public void onlogoutclicked(ActionEvent actionEvent) {
         LogoutRequest logoutRequest=new LogoutRequest(App.user.getUserUID());
