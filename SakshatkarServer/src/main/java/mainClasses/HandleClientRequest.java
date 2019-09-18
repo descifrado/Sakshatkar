@@ -152,8 +152,6 @@ HandleClientRequest implements Runnable{
                     oos.flush();
                 }else if(request.getRequestCode().equals(RequestCode.MESSAGESEND_REQUEST)){
                     String ip = ((MessageSendRequest)request).getRecieverIP();
-
-
                     User sender,reciever;
                     sender = ((MessageSendRequest)request).getMessage().getSender();
                     reciever =((MessageSendRequest)request).getMessage().getReciever();
