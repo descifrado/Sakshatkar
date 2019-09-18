@@ -144,7 +144,7 @@ public class Controller_ChatWindow {
         catch (Exception e){
 
         }
-
+        message.clear();
     }
 
     public void onbackclicked(ActionEvent actionEvent) {

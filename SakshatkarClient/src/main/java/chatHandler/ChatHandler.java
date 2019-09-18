@@ -8,6 +8,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import mainApp.App;
 import request.Response;
+import tools.EncryptDecrypt;
 
 import java.io.*;
 import java.net.Socket;
@@ -48,11 +49,15 @@ public class ChatHandler implements Runnable {
                 try {
 
                     BufferedWriter out = new BufferedWriter( new FileWriter(filePath, true));
-                    out.write(message.getSender()+": "+message.getMsg()+"\n");
+                    String msg = message.getMsg();
+                    msg = EncryptDecrypt.decrypt(msg);
+                    out.write(EncryptDecrypt.encrypt(message.getSender()+": "+msg+"\n"));
                     out.close();
                 }
                 catch (IOException e) {
                     System.out.println("exception occoured" + e);
+                } catch (Exception e) {
+                    e.printStackTrace();
                 }
 
                 User finalMessagingUser = messagingUser;
