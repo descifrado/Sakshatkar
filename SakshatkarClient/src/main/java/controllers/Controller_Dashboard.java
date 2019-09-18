@@ -95,30 +95,30 @@ public class Controller_Dashboard {
         Image image = SwingFXUtils.toFXImage(bufferedImage, null);
         this.profilephoto.setImage(image);
 
-        new Thread(()->{
-            GetNotificationRequest getNotificationRequest=new GetNotificationRequest(App.user);
-            try {
-                App.oosTracker.writeObject(getNotificationRequest);
-                App.oosTracker.flush();
-                List<Notification> notifications= (List<Notification>) App.oisTracker.readObject();
-                for (Notification notification:
-                    notifications ) {
-                    String notificationMessage = null;
-                    if (notification.getNotificationType().equals(NotificationType.CALL)){
-                        notificationMessage="You missed a call by "+notification.getSender().getFirstName();
-                        String finalNotificationMessage = notificationMessage;
-                        Platform.runLater(()->{
-                            Alert alert=new Alert(Alert.AlertType.INFORMATION, finalNotificationMessage, ButtonType.OK);
-                            alert.showAndWait();
-                        });
-                    }
-                }
-            } catch (IOException e) {
-                e.printStackTrace();
-            } catch (ClassNotFoundException e) {
-                e.printStackTrace();
-            }
-        }).start();
+//        new Thread(()->{
+//            GetNotificationRequest getNotificationRequest=new GetNotificationRequest(App.user);
+//            try {
+//                App.oosTracker.writeObject(getNotificationRequest);
+//                App.oosTracker.flush();
+//                List<Notification> notifications= (List<Notification>) App.oisTracker.readObject();
+//                for (Notification notification:
+//                    notifications ) {
+//                    String notificationMessage = null;
+//                    if (notification.getNotificationType().equals(NotificationType.CALL)){
+//                        notificationMessage="You missed a call by "+notification.getSender().getFirstName();
+//                        String finalNotificationMessage = notificationMessage;
+//                        Platform.runLater(()->{
+//                            Alert alert=new Alert(Alert.AlertType.INFORMATION, finalNotificationMessage, ButtonType.OK);
+//                            alert.showAndWait();
+//                        });
+//                    }
+//                }
+//            } catch (IOException e) {
+//                e.printStackTrace();
+//            } catch (ClassNotFoundException e) {
+//                e.printStackTrace();
+//            }
+//        }).start();
 
     }
     public void onlogoutclicked(ActionEvent actionEvent) {

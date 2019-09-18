@@ -85,10 +85,9 @@ public class Controller_ChatWindow {
             {
                 reader = new BufferedReader(new FileReader(filePath));
                 String line = reader.readLine();
-                line = EncryptDecrypt.decrypt(line);
                 while (line != null) {
 
-                    String finalLine = line;
+                    String finalLine = EncryptDecrypt.decrypt(line);;
                     Platform.runLater(() -> chatarea.appendText(finalLine + "\n"));
                         try {
                             line = reader.readLine();
