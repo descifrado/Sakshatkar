@@ -104,16 +104,14 @@ public class Controller_Dashboard {
                 for (Notification notification:
                     notifications ) {
                     String notificationMessage = null;
-                    if (notification.getNotificationType().equals(NotificationType.MESSAGE)){
-                        notificationMessage=notification.getSender().getFirstName()+" has send a message to you";
+                    if (notification.getNotificationType().equals(NotificationType.CALL)){
+                        notificationMessage="You missed a call by "+notification.getSender().getFirstName();
+                        String finalNotificationMessage = notificationMessage;
+                        Platform.runLater(()->{
+                            Alert alert=new Alert(Alert.AlertType.INFORMATION, finalNotificationMessage, ButtonType.OK);
+                            alert.showAndWait();
+                        });
                     }
-                    else {
-                        notificationMessage=" has send a message to you";
-                    }
-                    Platform.runLater(()->{
-                        Alert alert=new Alert(Alert.AlertType.INFORMATION,notificationMessage, ButtonType.OK);
-                        alert.showAndWait();
-                    });
                 }
             } catch (IOException e) {
                 e.printStackTrace();
