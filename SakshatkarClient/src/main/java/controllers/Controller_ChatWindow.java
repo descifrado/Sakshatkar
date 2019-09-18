@@ -86,8 +86,8 @@ public class Controller_ChatWindow {
                 String line = reader.readLine();
                 while (line != null) {
 
-                        chatarea.appendText(line);
-                        chatarea.appendText("\n");
+                    String finalLine = line;
+                    Platform.runLater(() -> chatarea.appendText(finalLine + "\n"));
                         try {
                             line = reader.readLine();
                         } catch (IOException e) {
