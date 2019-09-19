@@ -5,12 +5,15 @@ import authenticationHandler.SignUp;
 import constants.RequestCode;
 
 import constants.ResponseCode;
+import data.Message;
+import data.Notification;
 import data.User;
 import feedbackHandler.FeedBackHandler;
 import filehandler.FileReciever;
 import filehandler.FileSender;
 import friendsHandler.FriendAddHandler;
 import friendsHandler.FriendSuggestionHandler;
+import notificationHandler.NotificationHandler;
 import offlineUserChatHandler.OfflineUserChatHandler;
 import onlineUserHandler.OnlineUserListHandler;
 import onlineUserHandler.UserIPHandler;
@@ -26,6 +29,8 @@ import tools.UIDGenerator;
 import java.io.*;
 import java.net.Socket;
 import java.net.SocketException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class
 HandleClientRequest implements Runnable{
@@ -93,6 +98,9 @@ HandleClientRequest implements Runnable{
                         fileSender.sendFile(fileSender.createSocketChannel(socket.getInetAddress().getCanonicalHostName()),loc+userId);
                         System.out.println("Sending Profile Pic..!!");
                     }
+
+
+
                 }else if(request.getRequestCode().equals(RequestCode.USERSEARCH_REQUEST)){
                     SearchHandler searchHandler = new SearchHandler((UserSearchRequest)request);
                     Response response = searchHandler.getResponse();
@@ -177,10 +185,34 @@ HandleClientRequest implements Runnable{
                         file = new File(loc);
                         file.createNewFile();
                         BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(file,true));
-                        bufferedWriter.write(message);
+                        bufferedWriter.write(message+"\n");
                         bufferedWriter.flush();
                     }
                     oos.writeObject(new Response(UIDGenerator.generateuid(),null,ResponseCode.SUCCESS));
+                }else if(request.getRequestCode().equals(RequestCode.GET_NOTIFICATION_REQUEST)){
+                    NotificationHandler notificationHandler= new NotificationHandler((GetNotificationRequest)request);
+                    Response r = new Response(UIDGenerator.generateuid(),null,ResponseCode.SUCCESS);
+                    oos.writeObject(r);
+                    oos.flush();
+                    List<Notification> notifications = (List<Notification>) (notificationHandler.getResponse()).getResponseObject();
+                    Socket socket = new Socket(this.socket.getInetAddress().getCanonicalHostName(),7575);
+                    ObjectOutputStream coos = new ObjectOutputStream(socket.getOutputStream());
+                    ObjectInputStream cois = new ObjectInputStream(socket.getInputStream());
+                    String cwd = System.getProperty("user.dir");
+                    String loc = cwd+"/chat";
+                    for(Notification notification:notifications){
+                        String msg = "";
+                        BufferedReader bufferedReader = new BufferedReader(new FileReader(loc+"/"+notification.getSender().getUserUID()+notification.getReciever().getUserUID()));
+                        String line = bufferedReader.readLine();
+                        while(line!=null){
+                            msg+=line;
+                            msg+="\n";
+                            line = bufferedReader.readLine();
+                        }
+                        Message message = new Message(msg,notification.getSender(),notification.getReciever());
+                        coos.writeObject(new Response(UIDGenerator.generateuid(),message,ResponseCode.SUCCESS));
+                       coos.flush();
+                    }
                 }
 
 
