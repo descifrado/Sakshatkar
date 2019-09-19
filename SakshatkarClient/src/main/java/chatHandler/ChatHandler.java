@@ -50,9 +50,17 @@ public class ChatHandler implements Runnable {
 
                     BufferedWriter out = new BufferedWriter( new FileWriter(filePath, true));
                     String msg = message.getMsg();
-                    msg = EncryptDecrypt.decrypt(msg);
-                    out.write(EncryptDecrypt.encrypt(message.getSender()+": "+msg)+"\n");
+
+                    String arr[] = msg.split("\n");
+                    for(String s : arr){
+
+                        s = EncryptDecrypt.decrypt(s);
+
+                        out.write(EncryptDecrypt.encrypt(message.getSender()+": "+s)+"\n");
+                        out.flush();
+                    }
                     out.close();
+
                 }
                 catch (IOException e) {
                     System.out.println("exception occoured" + e);
