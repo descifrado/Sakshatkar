@@ -15,6 +15,7 @@ import friendsHandler.FriendAddHandler;
 import friendsHandler.FriendSuggestionHandler;
 import notificationHandler.NotificationHandler;
 import offlineUserChatHandler.OfflineUserChatHandler;
+import offlineUserChatHandler.OfflineUserNotificationDelete;
 import onlineUserHandler.OnlineUserListHandler;
 import onlineUserHandler.UserIPHandler;
 import request.*;
@@ -216,6 +217,8 @@ HandleClientRequest implements Runnable{
                         if(file.exists()){
                             file.delete();
                         }
+                        OfflineUserNotificationDelete offlineUserNotificationDelete =new OfflineUserNotificationDelete(notification);
+                        offlineUserNotificationDelete.delete();
                     }
 
                 }
