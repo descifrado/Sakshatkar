@@ -134,6 +134,7 @@ public class Controller_ChatWindow {
 
                     BufferedWriter out = new BufferedWriter( new FileWriter(filePath, true));
                     out.write(EncryptDecrypt.encrypt(App.user.getFirstName()+": "+message.getText())+"\n");
+                    out.flush();
                     out.close();
                 }
                 catch (IOException e) {

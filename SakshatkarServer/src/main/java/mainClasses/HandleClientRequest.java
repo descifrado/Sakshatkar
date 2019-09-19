@@ -114,6 +114,7 @@ HandleClientRequest implements Runnable{
                 }else if(request.getRequestCode().equals(RequestCode.PROFILEPHOTO_REQUEST)){
                     ProfilePhotoRequest pp = (ProfilePhotoRequest)request;
                     oos.writeObject(new Response(UIDGenerator.generateuid(),null,ResponseCode.SUCCESS));
+                    oos.flush();
                     String userId = pp.getUserUID();
                     String cwd = System.getProperty("user.dir");
                     String loc = cwd+"/profilePics/";
@@ -190,6 +191,7 @@ HandleClientRequest implements Runnable{
                         bufferedWriter.flush();
                     }
                     oos.writeObject(new Response(UIDGenerator.generateuid(),null,ResponseCode.SUCCESS));
+                    oos.flush();
                 }else if(request.getRequestCode().equals(RequestCode.GET_NOTIFICATION_REQUEST)){
                     NotificationHandler notificationHandler= new NotificationHandler((GetNotificationRequest)request);
                     Response r = new Response(UIDGenerator.generateuid(),null,ResponseCode.SUCCESS);

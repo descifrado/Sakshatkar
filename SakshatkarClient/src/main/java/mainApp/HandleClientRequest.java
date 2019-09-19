@@ -157,6 +157,7 @@ public class HandleClientRequest implements Runnable {
 
                     }else{
                         oos.writeObject(new Response(UIDGenerator.generateuid(),null, ResponseCode.FAILED));
+                        oos.flush();
                     }
                 }
 
