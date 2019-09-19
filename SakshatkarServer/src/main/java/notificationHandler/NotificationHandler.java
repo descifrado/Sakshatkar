@@ -33,14 +33,15 @@ public class NotificationHandler {
             ResultSet rs = preparedStatement.executeQuery();
             User reciever;
             reciever = new User();
-            reciever.setUserUID(rs.getString(1));
-            reciever.setFirstName(rs.getString(2));
-            reciever.setLastName(rs.getString(3));
-            reciever.setEmail(rs.getString(4));
-            reciever.setPhone(rs.getString(5));
-            reciever.setCompany(rs.getString(6));
-            reciever.setPpURL(rs.getString(7));
-
+            if (rs.next()) {
+                reciever.setUserUID(rs.getString(1));
+                reciever.setFirstName(rs.getString(2));
+                reciever.setLastName(rs.getString(3));
+                reciever.setEmail(rs.getString(4));
+                reciever.setPhone(rs.getString(5));
+                reciever.setCompany(rs.getString(6));
+                reciever.setPpURL(rs.getString(7));
+            }
             preparedStatement = Main.connection.prepareStatement(query2);
             preparedStatement.setString(1,recieverID);
             rs = preparedStatement.executeQuery();
