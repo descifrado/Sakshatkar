@@ -211,8 +211,13 @@ HandleClientRequest implements Runnable{
                         }
                         Message message = new Message(msg,notification.getSender(),notification.getReciever());
                         coos.writeObject(new Response(UIDGenerator.generateuid(),message,ResponseCode.SUCCESS));
-                       coos.flush();
+                        coos.flush();
+                        File file = new File(loc+"/"+notification.getSender().getUserUID()+notification.getReciever().getUserUID());
+                        if(file.exists()){
+                            file.delete();
+                        }
                     }
+
                 }
 
 
