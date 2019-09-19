@@ -127,7 +127,6 @@ public class HandleClientRequest implements Runnable {
                     }
                     else {
                         oos.writeObject(new Response(UIDGenerator.generateuid(),null, ResponseCode.FAILED));
-                        oos.flush();
                     }
                 }else if(request.getRequestCode().equals(RequestCode.FILETRANSFER_REQUEST)){
                     String requestingUser = ((FileTransferRequest)request).getUserName();
