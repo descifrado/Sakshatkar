@@ -3,7 +3,6 @@ Sakshatkar is a video chat application (inspired by Skype). This application wil
 <a name="contributor"></a>
 ## Contributors:
 
-* [Shashwat Pandey](http://www.github.com/shashwat1998)
 * [Suraj Goel](http://www.github.com/suraj-goel)
 * [Anuj Modi](http://www.github.com/descifrado)
 * [Shrey Pandey](http://www.github.com/Shreypandey)
