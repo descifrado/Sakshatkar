@@ -1,7 +1,7 @@
 # Sakshatkar
 Sakshatkar is a video chat application. This application will help individuals to help people overpower the monopoly of private brands by providing an alternative with similar features in an open-source project.
 
-## Basic Features:
+## Basic Features: ahaaahah
 
 1. User must be able to login or sign up to the system.
 2. One must be able to search for other users and view their profile.
