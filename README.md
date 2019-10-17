@@ -1,7 +1,7 @@
-# Sakshatkar
+## Sakshatkar
 Sakshatkar is a video chat application. This application will help individuals to help people overpower the monopoly of private brands by providing an alternative with similar features in an open-source project.
 
-## Basic Features:
+### Basic Features:
 
 1. User must be able to login or sign up to the system.
 2. One must be able to search for other users and view their profile.
@@ -12,7 +12,7 @@ Sakshatkar is a video chat application. This application will help individuals t
 7. One can send files to other users.
 8. After the call ends feedback should be collected on call quality.
 
-## Advanced Features:
+### Advanced Features:
 
 1. User must be able to conduct voice calls with another user.
 2. Show notifications for calls and unread messages.
@@ -25,7 +25,7 @@ Sakshatkar is a video chat application. This application will help individuals t
 9. Friend suggestion to a user based upon “friend of a friend” ontology.
 
 <a name="contributor"></a>
-## Contributors:
+### Contributors:
 
 * [Suraj Goel](http://www.github.com/suraj-goel)
 * [Anuj Modi](http://www.github.com/descifrado)
