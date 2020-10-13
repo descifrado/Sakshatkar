@@ -24,9 +24,12 @@ Sakshatkar is a video chat application. This application will help individuals t
 8. The chat history should be maintained (Messages should not be lost when the application is reopened i.e. local backup).
 9. Friend suggestion to a user based upon “friend of a friend” ontology.
 
+
 <a name="contributor"></a>
+
 ## Contributors:
 
 * [Suraj Goel](http://www.github.com/suraj-goel)
 * [Anuj Modi](http://www.github.com/descifrado)
 * [Shrey Pandey](http://www.github.com/Shreypandey)
+
