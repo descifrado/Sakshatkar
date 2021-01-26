@@ -1,5 +1,5 @@
 # Sakshatkar
-Sakshatkar is a video chat application. This application will help individuals to help people overpower the monopoly of private brands by providing an alternative with similar features in an open-source project.
+Sakshatkar is a video chat application. This application will help individuals to help people overpower the monopoly of private brands by providing an alternative with similar features in an open-source project. This is cool.
 
 ## Basic Features:
 
